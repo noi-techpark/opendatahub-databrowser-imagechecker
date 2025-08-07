@@ -1,10 +1,14 @@
 <template>
-    <div>
-        <header></header>
+    <div class = "w-full">
+    
+            <DatasetTable></DatasetTable>
+
     </div>
 </template>
 
 
 <script setup lang="ts">
-import Header from './header.vue';
+
+import DatasetTable from './Dataset/DatasetTable.vue';
+
 </script>

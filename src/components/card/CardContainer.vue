@@ -1,7 +1,7 @@
 <template>
     <component
      :is = "tagName"
-     class = "flex flex-col rounded border border-gray-300"
+     class = "flex flex-col rounded border border-gray-300 w-full h-10"
      :class = "paddingClasses"
     >
 
