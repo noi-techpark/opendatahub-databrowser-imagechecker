@@ -5,7 +5,7 @@
 
     <div class="flex flex-col h-full">
     
-        <DatasetHeader class = "sticky top-[64] z-10 bg-gray-200"/>
+        <DatasetHeader class = "sticky top-0 z-10 bg-gray-200"/>
 
 
         <!-- Contains scrollable Table -->
@@ -21,5 +21,5 @@
 import AppLayout from '@/components/layout/AppLayout.vue'
 import ContentDivider from '@/components/contentAlignment/ContentDivider.vue'
 import DatasetHeader from '@/components/layout/DatasetHeader.vue'
-import AlignX from '@/components/contentAlignment/AlignX.vue'
+
 </script>

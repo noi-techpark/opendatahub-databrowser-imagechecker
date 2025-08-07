@@ -1,60 +1,46 @@
 <template>
-  <div>
-    <table border="1" cellspacing="0" cellpadding="5">
-      <thead>
-        <tr>
-    
-          <th>Title</th>
-          <th>Image Winter</th>
-          <th>Image Summer</th>
-          <th>Image Whole Year</th>
-          <th>Accomodation Type</th>
-          <th>Category</th>
-          <th>Region</th>
-          <th>Municipality</th>
-          <th>Badges</th>
-          <th>Themes</th>
-          <th>Tags</th>
-          <th>Languages</th>
-          <th>Edited</th>
-          <th>Source</th>
-          <th>Source state</th>
-          <th>Published on</th>
-          <th>Push data</th>
+<div class="h-full w-full overflow-x-auto">
+  <div class="min-w-full">
+    <table class="min-w-[2000px] w-max border border-gray-300" cellspacing="0" cellpadding="5">
+
+
+
+      <thead class = "sticky top-0 z-10 border-spacing-3 bg-gray-300">
+        <tr >
+          
+          <th>ID</th><th>Title</th><th>Main Image</th><th>Image Winter</th><th>Image Summer</th><th>Image Whole Year</th><th>Accomodation Type</th>
+          <th>Category</th><th>Region</th><th>Municipality</th><th>Badges</th><th>Themes</th><th>Tags</th><th>Languages</th><th>Edited</th>
+          <th>Source</th><th>Source state</th><th>Published on</th><th>Push data</th>
+
         </tr>
       </thead>
+
       <tbody>
         <tr v-for=" item in quote.Items" :key="item.Id">
 
+          <TableCell> {{ item.Id }}</TableCell>
 
           <TableCell> 
              {{ item.ImageGallery?.[0]?.ImageDesc?.it || 'Nessun Titolo' }}
           </TableCell>
-          <TableCell> 
-          
-            <img
-              :src = "item.ImageGallery?.[0]?.ImageUrl || 'https://doc.lts.it/DocSite/ImageRender.aspx?ID=f476f4b4d6c72f9ff3f55f2968d75627'"
-               alt="Accommodation Image"
-               style="width: 100px; height: auto; object-fit: cover;"
-            />
-          </TableCell>
-          <TableCell> 
-            <img 
-              :src = "item.ImageGallery?.[0]?.ImageUrl || 'https://doc.lts.it/DocSite/ImageRender.aspx?ID=f476f4b4d6c72f9ff3f55f2968d75627'"
-               alt="Accommodation Image"
-               style="width: 100px; height: auto; object-fit: cover;"
-            />
-          </TableCell>
-          <TableCell> 
-            <img 
-              :src = "item.ImageGallery?.[0]?.ImageUrl || 'https://doc.lts.it/DocSite/ImageRender.aspx?ID=f476f4b4d6c72f9ff3f55f2968d75627'"
-               alt="Accommodation Image"
-               style="width: 100px; height: auto; object-fit: cover;"
-            />
+
+          <TableCell>
+            <showImages :imageGallery="item.ImageGallery" period = "mainImage"></showImages>
           </TableCell>
 
+          <TableCell> 
+            <showImages :imageGallery="item.ImageGallery" period = "winter"></showImages>
+          </TableCell>
+
+          <TableCell> 
+            <showImages :imageGallery="item.ImageGallery" period = "summer"></showImages>
+          </TableCell>
+
+          <TableCell> 
+            <showImages :imageGallery="item.ImageGallery" period = "year"></showImages>
+          </TableCell>
+            
           <TableCell >{{ item.AccoType.Id }}</TableCell>
-          <TableCell>{{ item.AccoType.Id }}</TableCell>
           <TableCell>{{ item.AccoCategory.Id }}</TableCell>
           <TableCell>{{ item.LocationInfo.RegionInfo.Name.it }}</TableCell>
           <TableCell>{{ item.LocationInfo.MunicipalityInfo.Name.it }}</TableCell>
@@ -70,6 +56,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
 </template>
 
@@ -80,65 +67,31 @@ import TableCell from '@/components/table/TableCell.vue';
 
 
 import axios from 'axios';
-  import { ref, onMounted } from 'vue';
-  
+import { ref, onMounted } from 'vue';
+import type { Accommodation } from './types';
+import showImages from './showImages.vue';
 
   export default{
       components: {
     TableCell,
+    showImages
   },
     setup () {
       
-      const quote = ref([])
+      const imageNotFound = "https://imgs.search.brave.com/LeS4HHKZ1oz1T15VY5MwiUjWDjLiYKj0vgRABB3D2BY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2Lzg2LzE5LzM0/LzM2MF9GXzY4NjE5/MzQwN19ESFp3amV5/ZEJPUjF0RURrTEF6/d00zdzVrWXN0Unp6/Qi5qcGc"
+      const winterDate = '2020-01-15T00:00:00'
+      const summerDate = '2020-07-15T00:00:00'
+      
+      const quote: any = ref([])
       axios
-        .get('https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation')
+        .get('https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation?pagenumber=1&pagesize=20&roominfo=1-18%2C18&bokfilter=hgv&msssource=sinfo&availabilitychecklanguage=en&detail=0&removenullvalues=false&getasidarray=false')
         .then(response => {
 
           quote.value = response.data
 
         })
-
-
-        function isMonthDayInRange(target: string, from: string, to: string): boolean {
-         
-          const toMonthDay = (dateStr: string): string => {
-            const date = new Date(dateStr);
-            const mm = String(date.getMonth() + 1).padStart(2, '0');
-            const dd = String(date.getDate()).padStart(2, '0');
-            return `${mm}-${dd}`;
-          };
-
-          const targetMD = toMonthDay(target);
-          const fromMD = toMonthDay(from);
-          const toMD = toMonthDay(to);
-
-         
-          if (fromMD <= toMD) {
-            return targetMD >= fromMD && targetMD <= toMD;
-          }
-
-     
-          return targetMD >= fromMD || targetMD <= toMD;
-        }
-
-        //winter:
-        //summer:
-        function findImageByTargetDate(target: string, images: any[]) {
-          
-          for (const image of images) {
-            if (image.ValidFrom && image.ValidTo && isMonthDayInRange(target, image.ValidFrom, image.ValidTo)) {
-              return image.ImageUrl;
-            }
-          }
-
-          return null; // Nessuna immagine trovata
-        }
-
-
-        //findImageByTargetDate()
-
-       
-      return { quote, isMonthDayInRange, findImageByTargetDate}
+      
+      return { quote, imageNotFound, winterDate, summerDate}
 
 
     },

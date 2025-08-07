@@ -1,44 +1,46 @@
 export interface Accommodation {
-  Id: string;
+  Id: string
   Name: {
-    en?: string;
-    it?: string;
-    [key: string]: string | undefined;
-  };
+    en?: string
+    it?: string
+    [key: string]: string | undefined
+  }
   ImageGallery?: {
-    ImageUrl: string;
-  }[];
+    ValidFrom: string
+    ValidTo: string
+    ImageUrl: string
+  }[]
   AccommodationType?: {
-    Id: string;
+    Id: string
     Name: {
-      [key: string]: string;
-    };
-  };
+      [key: string]: string
+    }
+  }
   Category?: {
-    Id: string;
+    Id: string
     Name: {
-      [key: string]: string;
-    };
-  };
+      [key: string]: string
+    }
+  }
   Region?: {
-    Id: string;
+    Id: string
     Name: {
-      [key: string]: string;
-    };
-  };
+      [key: string]: string
+    }
+  }
   Municipality?: {
-    Id: string;
+    Id: string
     Name: {
-      [key: string]: string;
-    };
-  };
-  Badge?: string[];
-  Theme?: string[];
-  Tag?: string[];
-  LanguageCodes?: string[];
-  LastChangeDate?: string;
-  Source?: string;
-  SourceSystem?: string;
-  PublishedOn?: string[];
-  PushedOn?: string;
+      [key: string]: string
+    }
+  }
+  Badge?: string[]
+  Theme?: string[]
+  Tag?: string[]
+  LanguageCodes?: string[]
+  LastChangeDate?: string
+  Source?: string
+  SourceSystem?: string
+  PublishedOn?: string[]
+  PushedOn?: string
 }

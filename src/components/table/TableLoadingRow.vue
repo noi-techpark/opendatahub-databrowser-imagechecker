@@ -13,16 +13,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import TableCell from './TableCell.vue';
+import TableCell from './TableCell.vue'
 
 withDefaults(
   defineProps<{
-    rows?: number;
-    cells?: number;
+    rows?: number
+    cells?: number
   }>(),
   {
     rows: 3,
     cells: 2,
-  }
-);
+  },
+)
 </script>

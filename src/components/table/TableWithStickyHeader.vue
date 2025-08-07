@@ -19,17 +19,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { useSlots } from 'vue';
-import TableBody from './TableBody.vue';
-import TableHeader from './TableHeader.vue';
-import TableCustom from './TableCustom.vue';
-import { randomId } from '../utils/random.ts';
+import { useSlots } from 'vue'
+import TableBody from './TableBody.vue'
+import TableHeader from './TableHeader.vue'
+import TableCustom from './TableCustom.vue'
+import { randomId } from '../utils/random.ts'
 
-withDefaults(defineProps<{ id?: string }>(), { id: randomId() });
+withDefaults(defineProps<{ id?: string }>(), { id: randomId() })
 
-const slots = useSlots();
+const slots = useSlots()
 
-const isColgroupColsSlotDefined = slots['colgroup-cols'] != null;
-const isHeaderColsSlotDefined = slots['header-cols'] != null;
-const isBodyRowsSlotDefined = slots['body-rows'] != null;
+const isColgroupColsSlotDefined = slots['colgroup-cols'] != null
+const isHeaderColsSlotDefined = slots['header-cols'] != null
+const isBodyRowsSlotDefined = slots['body-rows'] != null
 </script>

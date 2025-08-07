@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import { classes } from './styles';
+import { classes } from './styles'
 </script>
