@@ -8,6 +8,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 body {
   @apply text-gray-900;
   height: 100vh;
@@ -20,6 +22,7 @@ body {
 
 #app {
   height: 100vh;
+  
 }
 
 a {
@@ -61,4 +64,12 @@ textarea:focus,
 select:focus {
   box-shadow: none;
   border-color: transparent;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; 
 }

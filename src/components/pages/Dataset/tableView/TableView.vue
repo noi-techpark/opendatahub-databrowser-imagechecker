@@ -1,25 +1,47 @@
 <template>
-<div class="h-full w-full overflow-x-auto">
-  <div class="min-w-full">
-    <table class="min-w-[2000px] w-max border border-gray-300" cellspacing="0" cellpadding="5">
+<div class=" max-h-[80vh] w-full overflow-x-auto">
+  <div class="flex flex-row min-w-full">
+    <table class="min-w-full w-max border border-gray-300" cellspacing="0" cellpadding="5">
 
 
+      <TableHeader class = " sticky top-0 z-20 bg-gray-50 shadow-md">
+        
+        <TableHeaderCell>Id</TableHeaderCell>
+         <TableHeaderCell>Title</TableHeaderCell>
+         <TableHeaderCell>Main Image</TableHeaderCell>
+         <TableHeaderCell>Image Winter</TableHeaderCell>
+         <TableHeaderCell>Image Summer</TableHeaderCell>
+         <TableHeaderCell>Image Whole Year</TableHeaderCell>
+         <TableHeaderCell>Accomodation Type</TableHeaderCell>
+          <TableHeaderCell>Category</TableHeaderCell>
+          <TableHeaderCell>Region</TableHeaderCell>
+          <TableHeaderCell>Municipality</TableHeaderCell>
+          <TableHeaderCell>Badges</TableHeaderCell>
+          <TableHeaderCell>Themes</TableHeaderCell>
+          <TableHeaderCell>Tags</TableHeaderCell>
+          <TableHeaderCell>Languages</TableHeaderCell>
+          <TableHeaderCell>Edited</TableHeaderCell>
+          <TableHeaderCell>Source</TableHeaderCell>
+          <TableHeaderCell>Source state</TableHeaderCell>
+          <TableHeaderCell>Published on</TableHeaderCell>
+          <TableHeaderCell>Push data</TableHeaderCell>
+          <TableHeaderCell class = "sticky right-0 bg bg-gray-50 w-52 z-30 border bg-white shadow-[inset_8px_0_8px_-8px_rgba(0,0,0,0.2)]">Detail</TableHeaderCell>
+      </TableHeader>
+     
+      
 
-      <thead class = "sticky top-0 z-10 border-spacing-3 bg-gray-300">
-        <tr >
-          
-          <th>ID</th><th>Title</th><th>Main Image</th><th>Image Winter</th><th>Image Summer</th><th>Image Whole Year</th><th>Accomodation Type</th>
-          <th>Category</th><th>Region</th><th>Municipality</th><th>Badges</th><th>Themes</th><th>Tags</th><th>Languages</th><th>Edited</th>
-          <th>Source</th><th>Source state</th><th>Published on</th><th>Push data</th>
-
-        </tr>
-      </thead>
+       
 
       <tbody>
-        <tr v-for=" item in quote.Items" :key="item.Id">
-
-          <TableCell> {{ item.Id }}</TableCell>
-
+        <tr v-for=" item in quote.Items" :key="item.Id" 
+          @click="selectedRow = item.Id"
+            :class="[
+              'hover:bg-green-100 cursor-pointer',
+              selectedRow === item.Id ? 'bg-green-200' : ''
+            ]"
+          >
+          
+          <TableCell>{{ item.Id }}</TableCell>
           <TableCell> 
              {{ item.ImageGallery?.[0]?.ImageDesc?.it || 'Nessun Titolo' }}
           </TableCell>
@@ -41,21 +63,40 @@
           </TableCell>
             
           <TableCell >{{ item.AccoType.Id }}</TableCell>
+
           <TableCell>{{ item.AccoCategory.Id }}</TableCell>
+
           <TableCell>{{ item.LocationInfo.RegionInfo.Name.it }}</TableCell>
+
           <TableCell>{{ item.LocationInfo.MunicipalityInfo.Name.it }}</TableCell>
+
           <TableCell>{{ item.AccoBadges }}</TableCell>
+
           <TableCell>{{ item.AccoThemes }}</TableCell>
+
           <TableCell>{{ item.ODHTags }}</TableCell>
+
           <TableCell>{{ item.HasLanguage.toString() }}</TableCell>
+
           <TableCell>{{ item._Meta.LastUpdate }}</TableCell>
+
           <TableCell>{{ item._Meta.Source }}</TableCell>
+
           <TableCell>{{ item.Active ? "active" : "Not active" }}</TableCell>
+
           <TableCell>{{ item.PublishedOn }}</TableCell>
+
           <TableCell>{{ item.ODHTags }}</TableCell>
+
+          <TableCell class = "sticky right-0 z-10 bg-white border border  bg-white shadow-[inset_8px_0_8px_-8px_rgba(0,0,0,0.2)]"> details</TableCell>
+
         </tr>
       </tbody>
     </table>
+
+   
+
+
     </div>
   </div>
 </template>
@@ -70,11 +111,15 @@ import axios from 'axios';
 import { ref, onMounted } from 'vue';
 import type { Accommodation } from './types';
 import showImages from './showImages.vue';
+import TableHeader from '@/components/table/TableHeader.vue';
+import TableHeaderCell from '@/components/table/TableHeaderCell.vue';
 
   export default{
       components: {
     TableCell,
-    showImages
+    showImages,
+    TableHeader,
+    TableHeaderCell
   },
     setup () {
       
@@ -90,8 +135,11 @@ import showImages from './showImages.vue';
           quote.value = response.data
 
         })
+
+
+      const selectedRow = ref<number | null>(null)
       
-      return { quote, imageNotFound, winterDate, summerDate}
+      return { quote, imageNotFound, winterDate, summerDate, selectedRow}
 
 
     },

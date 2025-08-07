@@ -5,7 +5,7 @@
       alt="Accommodation Image"
       style="width: 100px; height: auto; object-fit: cover"
     />
-    <div class="flex flex-1 space-x-3">
+    <div class="flex flex-col">
       <p v-if="selectedImage">Valid from: {{ selectedImage.ValidFrom }}</p>
       <p v-if="selectedImage">Valid to: {{ selectedImage.ValidTo }}</p>
     </div>
