@@ -23,10 +23,10 @@
         </DatasetHeaderButton>
 
    
-
+        <!--contains the dropdown menu's Options-->
         <div 
           v-if="isOpen" 
-          class="flex flex-col absolute top-full bg-white w-full border rounded border-gray-50"
+          class="flex flex-col absolute top-full bg-white w-full border rounded border-gray-50 overflow-y-auto max-h-52"
         >
             <slot></slot>
         </div>

@@ -1,1188 +1,243 @@
 {
-  "TotalResults": 17157,
-  "TotalPages": 17157,
-  "CurrentPage": 1,
-  "PreviousPage": null,
-  "NextPage": "https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation?pagenumber=2&pagesize=1&roominfo=1-18,18&bokfilter=hgv&msssource=sinfo&availabilitychecklanguage=en&detail=0&removenullvalues=false&getasidarray=false",
-  "Seed": null,
-  "Items": [
+  "Id": "5CEA544EE34639034F07B79D4AEEB603_REDUCED",
+  "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation/5CEA544EE34639034F07B79D4AEEB603_REDUCED",
+  "Tags": null,
+  "HgvId": null,
+  "_Meta": {
+    "Id": "5CEA544EE34639034F07B79D4AEEB603_REDUCED",
+    "Type": "accommodation",
+    "Source": "lts",
+    "Reduced": true,
+    "LastUpdate": "2024-03-06T16:45:06.2251485+00:00",
+    "UpdateInfo": {
+      "UpdatedBy": "lts.push.import",
+      "UpdateSource": "odh.importer"
+    }
+  },
+  "Active": true,
+  "Review": {},
+  "Source": "lts",
+  "TagIds": null,
+  "GpsInfo": [
     {
-      "Id": "2657B7CBCB85380B253D2FBE28AF100E",
-      "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation/2657B7CBCB85380B253D2FBE28AF100E",
-      "Tags": [
-        {
-          "Id": "F8EC813597C04C4195FB886E26D339C9",
-          "Name": "Lana und Umgebung (mobilcard)",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/Tag/F8EC813597C04C4195FB886E26D339C9",
-          "Type": "cardtype",
-          "Source": "lts"
-        },
-        {
-          "Id": "guestcard",
-          "Name": "Guestcard",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/Tag/guestcard",
-          "Type": "cardtype",
-          "Source": "idm"
-        }
-      ],
-      "HgvId": "12700",
-      "_Meta": {
-        "Id": "2657B7CBCB85380B253D2FBE28AF100E",
-        "Type": "accommodation",
-        "Source": "lts",
-        "Reduced": false,
-        "LastUpdate": "2025-06-13T08:29:28.8574406+00:00",
-        "UpdateInfo": {
-          "UpdatedBy": "4110ce62-3372-422d-bc9a-687a183fa72b",
-          "UpdateSource": "https://databrowser.opendatahub.testingmachine.eu/",
-          "UpdateHistory": [
-            {
-              "UpdatedBy": "85c62cd4-53ad-4625-82a9-802d43240324",
-              "LastUpdate": "2025-03-14T10:39:24.3669652+00:00",
-              "UpdateSource": "https://databrowser.opendatahub.testingmachine.eu/"
-            },
-            {
-              "UpdatedBy": "4110ce62-3372-422d-bc9a-687a183fa72b",
-              "LastUpdate": "2025-06-13T08:29:28.8574406+00:00",
-              "UpdateSource": "https://databrowser.opendatahub.testingmachine.eu/"
-            }
-          ]
-        }
-      },
-      "Active": true,
-      "Review": {},
-      "Source": "lts",
-      "TagIds": [
-        "guestcard",
-        "F8EC813597C04C4195FB886E26D339C9"
-      ],
-      "GpsInfo": [
-        {
-          "Gpstype": "position",
-          "Altitude": 322,
-          "Latitude": 46.615101,
-          "Longitude": 11.143296,
-          "AltitudeUnitofMeasure": "m"
-        }
-      ],
       "Gpstype": "position",
-      "HasRoom": true,
-      "Mapping": {
-        "hgv": {
-          "id": "12700",
-          "cincode": "IT021041B49MWORMGH"
-        },
-        "lts": {
-          "rid": "2657B7CBCB85380B253D2FBE28AF100E",
-          "a0r_id": "56873",
-          "cincode": "IT021041B49MWORMGH"
-        }
-      },
-      "ODHTags": [
-        {
-          "Id": "highlight architektur restaurant",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/ODHTag/highlight%20architektur%20restaurant"
-        },
-        {
-          "Id": "architektur historisch",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/ODHTag/architektur%20historisch"
-        },
-        {
-          "Id": "accomodation architektur",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/ODHTag/accomodation%20architektur"
-        },
-        {
-          "Id": "suedtirolguestpass",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/ODHTag/suedtirolguestpass"
-        },
-        {
-          "Id": "guestcard",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/ODHTag/guestcard"
-        }
-      ],
-      "SmgTags": [
-        "highlight architektur restaurant",
-        "architektur historisch",
-        "accomodation architektur",
-        "suedtirolguestpass",
-        "guestcard"
-      ],
-      "AccoType": {
-        "Id": "BedBreakfast",
-        "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationTypes/BedBreakfast"
-      },
-      "Altitude": 322,
-      "BadgeIds": [],
-      "BoardIds": [
-        "breakfast"
-      ],
-      "Features": [
-        {
-          "Id": "C1A8A40E353346E98CF6FA81F769F690",
-          "Name": "Continental breakfast/Brunch",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/C1A8A40E353346E98CF6FA81F769F690",
-          "HgvId": "26",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "BBD9085F89BC417B97D986A26CE86F40",
-          "Name": "Credit card",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/BBD9085F89BC417B97D986A26CE86F40",
-          "HgvId": "",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "9F05BA64D6614894A89FFE23A4A0F20B",
-          "Name": "Bank card/Maestro",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/9F05BA64D6614894A89FFE23A4A0F20B",
-          "HgvId": "",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "60F2408993E249F9A847F1B28C5B11E8",
-          "Name": "Pick-up service",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/60F2408993E249F9A847F1B28C5B11E8",
-          "HgvId": "30",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "93BDE34283FF41899CCF530BE80201E2",
-          "Name": "Garden",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/93BDE34283FF41899CCF530BE80201E2",
-          "HgvId": "8",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "F2B7D1125148460E85BFEC946517DF5B",
-          "Name": "Library",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/F2B7D1125148460E85BFEC946517DF5B",
-          "HgvId": "",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "4EE5A0766C2C4B4D8AA07A834E476E99",
-          "Name": "Elevator",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/4EE5A0766C2C4B4D8AA07A834E476E99",
-          "HgvId": "3",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "979FE8FAD1C74FB3BFD7E39161429EB9",
-          "Name": "Public bar",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/979FE8FAD1C74FB3BFD7E39161429EB9",
-          "HgvId": "39",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "9781B052B91E4F1785056FC9F26E79B8",
-          "Name": "Restaurant",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/9781B052B91E4F1785056FC9F26E79B8",
-          "HgvId": "",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "0CB41C05A6E04A019D08CE607985B382",
-          "Name": "Open car park",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/0CB41C05A6E04A019D08CE607985B382",
-          "HgvId": "2",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "700A920BE6D6426CBF3EC623C2E922C2",
-          "Name": "WLAN",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/700A920BE6D6426CBF3EC623C2E922C2",
-          "HgvId": "22",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "098EB30324EA492DBD99F323AE20A621",
-          "Name": "Free Wi-Fi",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/098EB30324EA492DBD99F323AE20A621",
-          "HgvId": "",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "D9DCDD52FE444818AAFAB0E02FD92D91",
-          "Name": "Dogs allowed",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/D9DCDD52FE444818AAFAB0E02FD92D91",
-          "HgvId": "47",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "BF108AD2B62042DF9FEAD4E865E11E75",
-          "Name": "Bicycle rental",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/BF108AD2B62042DF9FEAD4E865E11E75",
-          "HgvId": "54",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "8192350ABF6B41DA89B255B340003991",
-          "Name": "Südtirol Alto Adige Guest Pass",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/8192350ABF6B41DA89B255B340003991",
-          "HgvId": "",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "5228203A51CA11D18F1400A02427D15E",
-          "Name": "Rooms to rent",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/5228203A51CA11D18F1400A02427D15E",
-          "HgvId": "",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "52281FA951CA11D18F1400A02427D15E",
-          "Name": "3 suns",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/52281FA951CA11D18F1400A02427D15E",
-          "HgvId": "",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        },
-        {
-          "Id": "5228204E51CA11D18F1400A02427D15E",
-          "Name": "breakfast",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationFeatures/5228204E51CA11D18F1400A02427D15E",
-          "HgvId": "",
-          "OtaCodes": null,
-          "RoomAmenityCodes": null
-        }
-      ],
-      "Latitude": 46.615101,
-      "RatePlan": null,
-      "TVMember": true,
-      "ThemeIds": [
-        "Wein",
-        "Mediterran"
-      ],
-      "GpsPoints": {
-        "position": {
-          "Gpstype": "position",
-          "Altitude": 322,
-          "Latitude": 46.615101,
-          "Longitude": 11.143296,
-          "AltitudeUnitofMeasure": "m"
-        }
-      },
-      "IsCamping": false,
-      "Longitude": 11.143296,
-      "OdhActive": true,
-      "Shortname": "1477 Reichhalter",
-      "SmgActive": true,
-      "AccoBadges": [],
-      "AccoBoards": [
-        {
-          "Id": "breakfast",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationTypes/breakfast"
-        }
-      ],
-      "AccoDetail": {
-        "de": {
-          "Fax": "",
-          "Vat": "02200170211",
-          "Zip": "39011",
-          "City": "Lana",
-          "Name": "1477 Reichhalter",
-          "Email": "info@1477reichhalter.com",
-          "Phone": "+39 0473 051050",
-          "Mobile": "+39 335 7571631",
-          "Street": "Metzgergasse 2",
-          "Website": "http://www.1477reichhalter.com",
-          "Language": "de",
-          "Lastname": "Dissertori",
-          "Longdesc": "Seit über einem halben Jahrtausend: Dieses Haus hat laue und raue Winde geatmet, Sonnenstrahlen aufgesogen, vor nassem Nass und Schneegeflöck abgeschirmt, im Schatten von Wölkchen Menschengeschichten gespeichert. Beständig und zeitlos im Zentrum von Lana. Seit Sommer 2018 sind Klaus Dissertori und Familie sowie Martina und Andreas Heinisch mit Team für Sie da: Aufatmen und genießen im Café und Restaurant zu ebener Erde, rasten und abdrehen in einem der acht Zimmer in den oberen Stockwerken. Klar und verlässlich. Eben da.&#xD;&#xA;Inklusivleistungen: &#xD;&#xA;Frühstücken Sie mit uns von frühmorgens bis fast mittags. Wir achten auf Ihre speziellen Ernährungswünsche. Schwingen Sie sich kostenlos auf unsere Leih-Fahrräder. Für Sie WLAN im ganzen Haus. Lust auf ein gutes Buch in unserer Bibliothek? Im Golfclub Lana gibt’s für Sie Ermäßigung.&#xD;&#xA;Nutzen Sie die Angebote unseres Partnerhotels Schwarzschmied ganz in der Nähe: Wellness- und Spa-Bereich, Restaurant La Fucina, Yoga, Geführte Wanderungen, Fahrradverleih, Long Stay Parking&#xD;&#xA;",
-          "Firstname": "Klaus",
-          "Shortdesc": "So simpel erklärt ist Reichhalter in Lana.\nSie trudeln ein, wir erzählen.\nSie hören den Bach rauschen,\nschwenken die Gabel,\ntanzen durchs Zimmer.\nWir rücken das Holztischchen zurecht, ziehen den Teig",
-          "CountryCode": "IT",
-          "NameAddition": "Klaus Dissertori"
-        },
-        "en": {
-          "Fax": "",
-          "Vat": "02200170211",
-          "Zip": "39011",
-          "City": "Lana",
-          "Name": "1477 Reichhalter",
-          "Email": "info@1477reichhalter.com",
-          "Phone": "+39 0473 051050",
-          "Mobile": "+39 335 7571631",
-          "Street": "Metzgergasse 2",
-          "Website": "http://www.1477reichhalter.com",
-          "Language": "en",
-          "Lastname": "Dissertori",
-          "Longdesc": "The house has been breathing.&#xD;&#xA;For over half a century.&#xD;&#xA;Back then it was&#xD;&#xA;a butcher's, a mill, a bakery,&#xD;&#xA;a sawmill, a barn, a stable,&#xD;&#xA;a tavern, a coffee house.&#xD;&#xA;&#xD;&#xA;With eight rooms 1477 Reichhalter continues the history of the house up to the present and into the future. &#xD;&#xA;&#xD;&#xA;Martina and Andreas Heinisch open the doors to their café and restaurant. Travellers stop for a break, people step in and take a step back from their busy lives, souls get restored. Enjoy food and drink in good company, accurately chosen and carefully prepared.",
-          "Firstname": "Klaus",
-          "Shortdesc": "So simple to explain is Reichhalter 1477 in Lana.\nYou turn up, we tell you stories.\nHear the brook flow, clink your fork, dance in your room.\nWe set the small wooden table, we pull the dough.",
-          "CountryCode": "IT",
-          "NameAddition": "Klaus Dissertori"
-        },
-        "it": {
-          "Fax": "",
-          "Vat": "02200170211",
-          "Zip": "39011",
-          "City": "Lana",
-          "Name": "1477 Reichhalter",
-          "Email": "info@1477reichhalter.com",
-          "Phone": "+39 0473 051050",
-          "Mobile": "+39 335 7571631",
-          "Street": "Via Macello 2",
-          "Website": "http://www.1477reichhalter.com",
-          "Language": "it",
-          "Lastname": "Dissertori",
-          "Longdesc": "Da oltre mezzo millennio, questa casa &#xD;&#xA;respira venti balsamici, assorbe i raggi del sole, si lascia bagnare dall'acqua e dai fiocchi di neve. Custodendo all'ombra delle nuvole, le storie delle persone che la attraversano. Solida testimone del tempo, nel centro di Lana. Ad accogliervi, dalla primavera , Klaus Dissertori e la sua famiglia, insieme a Martina e Andreas Heinisch e al loro team: respirate profondamente e attardatevi nella caffetteria o nel ristorante al piano terra, rilassatevi in una delle otto camere ai piani superiori. Accoglienza e calore. Proprio qui.&#xD;&#xA;Servizi inclusi:&#xD;&#xA;La colazione con noi, si fa dal primo mattino fin quasi a mezzogiorno. Prestiamo attenzione alle vostre esigenze nutrizionali. Scoprite i dintorni, con le nostre bici a noleggio gratuito. Naturalmente, il Wi-Fi è in tutta la casa.&#xD;&#xA;Nella nostra biblioteca, troverete di più di un buon libro. Il Golf Club Lana vi offre uno sconto.&#xD;&#xA;Approfittate delle offerte del nostro hotel partner Schwarzschmied, distante solo pochi passi: Area benessere e Spa, Ristorante La Fucina, Yoga, Passeggiate guidate, Noleggio bici, Long Stay Parking&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;",
-          "Firstname": "Klaus",
-          "Shortdesc": "Così, semplicemente, Reichhalter  a Lana.\nVoi entrate, noi raccontiamo.\nSentite? Il torrente corre, la forchetta tintinna, nelle stanze, quasi una danza.",
-          "CountryCode": "IT",
-          "NameAddition": "Klaus Dissertori"
-        },
-        "ld": {
-          "Fax": null,
-          "Vat": null,
-          "Zip": null,
-          "City": null,
-          "Name": null,
-          "Email": null,
-          "Phone": null,
-          "Mobile": null,
-          "Street": null,
-          "Website": null,
-          "Language": null,
-          "Lastname": null,
-          "Longdesc": "Ladin test 123123123",
-          "Firstname": null,
-          "Shortdesc": "Ladin test short 123123",
-          "CountryCode": null,
-          "NameAddition": null
-        }
-      },
-      "AccoThemes": [
-        {
-          "Id": "Wein",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationTypes/Wein"
-        },
-        {
-          "Id": "Mediterran",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationTypes/Mediterran"
-        }
-      ],
-      "AccoTypeId": "BedBreakfast",
-      "DistrictId": "79CBD79551C911D18F1400A02427D15E",
-      "IsBookable": true,
-      "LastChange": "2025-06-13T08:29:28.9149977+00:00",
-      "TrustYouID": "",
-      "AccoHGVInfo": {
-        "Bookable": true,
-        "PriceFrom": 123,
-        "AvailableFrom": "2025-02-02"
-      },
-      "AccoLTSInfo": {
-        "PriceFrom": 123,
-        "PriceFromPerUnit": 246
-      },
-      "FirstImport": "2018-03-24T01:35:05.7368394",
-      "HasLanguage": [
-        "de",
-        "it",
-        "en"
-      ],
-      "LicenseInfo": {
-        "Author": "",
-        "License": "CC0",
-        "ClosedData": false,
-        "LicenseHolder": "https://www.lts.it"
-      },
-      "PublishedOn": [
-        "centro-trevi.drin",
-        "idm-marketplace"
-      ],
-      "AccoCategory": {
-        "Id": "3suns",
-        "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationTypes/3suns"
-      },
-      "AccoOverview": {
-        "CheckInTo": "19:00:00",
-        "Apartments": 0,
-        "CheckOutTo": "00:00:00",
-        "MaxPersons": 0,
-        "TotalRooms": 8,
-        "CheckInFrom": "15:00:00",
-        "DoubleRooms": 6,
-        "SingleRooms": 0,
-        "TripleRooms": 2,
-        "CampingUnits": 0,
-        "CheckOutFrom": "00:00:00",
-        "ApartmentBeds": 0,
-        "RoomServiceTo": "11:00:00",
-        "CampingDouches": 0,
-        "GarageParkings": 0,
-        "QuadrupleRooms": 0,
-        "OutdoorParkings": 0,
-        "ReceptionOpenTo": "11:00:00",
-        "RoomServiceFrom": "09:00:00",
-        "BaggageServiceTo": "19:00:00",
-        "CampingToilettes": 0,
-        "CampingWashrooms": 0,
-        "ApartmentRoomSize": 0,
-        "ReceptionOpenFrom": "09:00:00",
-        "BaggageServiceFrom": "15:00:00",
-        "CampingWashingstands": 0
-      },
-      "AccoRoomInfo": [
-        {
-          "Id": "37050hgv30BA97D92CEDF6E641C0FF28D863E626",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/37050hgv30BA97D92CEDF6E641C0FF28D863E626",
-          "Source": "hgv"
-        },
-        {
-          "Id": "37051hgv60499E68A87A58354A4824A9B84699D7",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/37051hgv60499E68A87A58354A4824A9B84699D7",
-          "Source": "hgv"
-        },
-        {
-          "Id": "37052hgv7C2B1E3D0ADB4C0A525B1D1EFE7F1C61",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/37052hgv7C2B1E3D0ADB4C0A525B1D1EFE7F1C61",
-          "Source": "hgv"
-        },
-        {
-          "Id": "37053hgv9CCDC76F0A1F0D31B299C646C5368E71",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/37053hgv9CCDC76F0A1F0D31B299C646C5368E71",
-          "Source": "hgv"
-        },
-        {
-          "Id": "37054hgvB438D3796647362FBFF88DBC10C0D3EA",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/37054hgvB438D3796647362FBFF88DBC10C0D3EA",
-          "Source": "hgv"
-        },
-        {
-          "Id": "37055hgvD6461E9306DD9ED9EA2A683BF57C9F5D",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/37055hgvD6461E9306DD9ED9EA2A683BF57C9F5D",
-          "Source": "hgv"
-        },
-        {
-          "Id": "37056hgvD777ECA497553B74F94A288795811258",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/37056hgvD777ECA497553B74F94A288795811258",
-          "Source": "hgv"
-        },
-        {
-          "Id": "37057hgvDD8402D301C7F8D6579A724F8C2EEEC2",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/37057hgvDD8402D301C7F8D6579A724F8C2EEEC2",
-          "Source": "hgv"
-        },
-        {
-          "Id": "30BA97D92CEDF6E641C0FF28D863E626",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/30BA97D92CEDF6E641C0FF28D863E626",
-          "Source": "lts"
-        },
-        {
-          "Id": "60499E68A87A58354A4824A9B84699D7",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/60499E68A87A58354A4824A9B84699D7",
-          "Source": "lts"
-        },
-        {
-          "Id": "7C2B1E3D0ADB4C0A525B1D1EFE7F1C61",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/7C2B1E3D0ADB4C0A525B1D1EFE7F1C61",
-          "Source": "lts"
-        },
-        {
-          "Id": "9CCDC76F0A1F0D31B299C646C5368E71",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/9CCDC76F0A1F0D31B299C646C5368E71",
-          "Source": "lts"
-        },
-        {
-          "Id": "B438D3796647362FBFF88DBC10C0D3EA",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/B438D3796647362FBFF88DBC10C0D3EA",
-          "Source": "lts"
-        },
-        {
-          "Id": "D6461E9306DD9ED9EA2A683BF57C9F5D",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/D6461E9306DD9ED9EA2A683BF57C9F5D",
-          "Source": "lts"
-        },
-        {
-          "Id": "D777ECA497553B74F94A288795811258",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/D777ECA497553B74F94A288795811258",
-          "Source": "lts"
-        },
-        {
-          "Id": "DD8402D301C7F8D6579A724F8C2EEEC2",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationRoom/DD8402D301C7F8D6579A724F8C2EEEC2",
-          "Source": "lts"
-        }
-      ],
-      "DistanceInfo": {
-        "DistanceToDistrict": 1081,
-        "DistanceToMunicipality": 148
-      },
-      "GastronomyId": "GASTRO2657B7CBCB85380B253D2FBE28AF100E",
-      "HasApartment": false,
-      "ImageGallery": [
-        {
-          "Width": 4079,
-          "Height": 3057,
-          "License": "LTS",
-          "ValidTo": "2020-10-31T00:00:00",
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=f476f4b4d6c72f9ff3f55f2968d75627",
-          "CopyRight": "Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": [
-            "Summer"
-          ],
-          "ValidFrom": "2020-06-01T00:00:00",
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 0,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4361,
-          "Height": 3269,
-          "License": "LTS",
-          "ValidTo": "2020-12-31T00:00:00",
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=ebb907291963948251138347c9c05423",
-          "CopyRight": "Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": [],
-          "ValidFrom": "2020-11-01T00:00:00",
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 0,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4376,
-          "Height": 3280,
-          "License": "LTS",
-          "ValidTo": "2020-05-31T00:00:00",
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=28db97249ea85802021e34260116b42e",
-          "CopyRight": "Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": [
-            "Winter"
-          ],
-          "ValidFrom": "2020-01-01T00:00:00",
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 0,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4691,
-          "Height": 3122,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=5a2cfe728ff7b2cb7fac010aa87bc526",
-          "CopyRight": "Susanne Spiel",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 1,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4747,
-          "Height": 3160,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=884fc3f4c58d52c95f122cf7a34ad353",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 2,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4928,
-          "Height": 3280,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=ea54c3729faa7974a5142dadeec0a88b",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 3,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4928,
-          "Height": 3280,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=f78228707bef109beb09de8872060c85",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 4,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4928,
-          "Height": 3280,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=3929a5d82e348e72070ac61827049abe",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 5,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 3218,
-          "Height": 4835,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=4956df7c2e1741258dff44519bda5407",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 6,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4928,
-          "Height": 3280,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=fa7b4b4da424df6eee25c81ff825f38a",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 7,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 3280,
-          "Height": 4928,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=665a1f55e0705b28d82398836423d072",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 8,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 3269,
-          "Height": 4911,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=ae9fe913b987b4caf6f0b2171669bf7c",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 9,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4863,
-          "Height": 3237,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=245176c71c925571bd358f2b33942028",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 10,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4567,
-          "Height": 3040,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=d84b0b29a4ab51785e43fc1fe2b6ff4b",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 11,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4776,
-          "Height": 3179,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=c05109ceed645b68ca924bfc97f1a868",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 12,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4928,
-          "Height": 3280,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=1e4ce58d4372b39d6659cfc8d0c7403b",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 13,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4928,
-          "Height": 3280,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=54597376ea7df293aaf38439be64d0c7",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 14,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4928,
-          "Height": 3280,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=f56bd18395cf53ca871a1f9af2a60370",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 15,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 3280,
-          "Height": 4928,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=8753718c8b2fc4b1753cf609328822f9",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 16,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 3245,
-          "Height": 4875,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=bc7b521b2d0790855ac79caf3a613b23",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 17,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4928,
-          "Height": 3280,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=0ac44344296b7c551008870ca3bed76e",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 18,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 3180,
-          "Height": 4778,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=f63a2289adbb7ccc074e01c4ae534657",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 19,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4331,
-          "Height": 2883,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=5324008c1dd4014228b5d1dcd534ede5",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 20,
-          "LicenseHolder": null
-        },
-        {
-          "Width": 4525,
-          "Height": 3012,
-          "License": "LTS",
-          "ValidTo": null,
-          "ImageUrl": "https://doc.lts.it/DocSite/ImageRender.aspx?ID=7170c76306773264a438feeff0ab7750",
-          "CopyRight": "Susanne Spiel/Patrick Schwienbacher",
-          "ImageDesc": {
-            "de": "1477 Reichhalter",
-            "en": "1477 Reichhalter",
-            "it": "1477 Reichhalter"
-          },
-          "ImageName": null,
-          "ImageTags": null,
-          "ValidFrom": null,
-          "ImageTitle": {},
-          "ImageSource": null,
-          "IsInGallery": true,
-          "ImageAltText": {},
-          "ListPosition": 21,
-          "LicenseHolder": null
-        }
-      ],
-      "IsGastronomy": false,
-      "LocationInfo": {
-        "TvInfo": {
-          "Id": "522822B451CA11D18F1400A02427D15E",
-          "Name": {
-            "cs": "Lana a okolí",
-            "de": "Lana und Umgebung",
-            "en": "Lana and environs",
-            "fr": "Lana et environs",
-            "it": "Lana e dintorni",
-            "nl": "Lana en omgeving",
-            "pl": "Lana i okolice",
-            "ru": "Лана и окрестности"
-          },
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/TourismAssociation/522822B451CA11D18F1400A02427D15E"
-        },
-        "AreaInfo": null,
-        "RegionInfo": {
-          "Id": "D2633A20C24E11D18F1B006097B8970B",
-          "Name": {
-            "cs": "Meran/Merano a okolí",
-            "de": "Meran und Umgebung",
-            "en": "Meran/Merano and environs",
-            "fr": "Meran/Merano et environs",
-            "it": "Merano e dintorni",
-            "nl": "Meran/Merano en omgeving",
-            "pl": "Meran/Merano i okolice",
-            "ru": "Меран/Merano и окрестности"
-          },
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/Region/D2633A20C24E11D18F1B006097B8970B"
-        },
-        "DistrictInfo": {
-          "Id": "79CBD79551C911D18F1400A02427D15E",
-          "Name": {
-            "cs": "Lana/Lana",
-            "de": "Lana",
-            "en": "Lana/Lana",
-            "fr": "Lana/Lana",
-            "it": "Lana",
-            "nl": "Lana/Lana",
-            "pl": "Lana/Lana",
-            "ru": "Лана"
-          },
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/District/79CBD79551C911D18F1400A02427D15E"
-        },
-        "MunicipalityInfo": {
-          "Id": "0EECEC93283E42488CBE0EB3B94CD339",
-          "Name": {
-            "cs": "Lana",
-            "de": "Lana",
-            "en": "Lana",
-            "fr": "Lana",
-            "it": "Lana",
-            "nl": "Lana",
-            "pl": "Lana",
-            "ru": "Лана"
-          },
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/Municipality/0EECEC93283E42488CBE0EB3B94CD339"
-        }
-      },
-      "MainLanguage": "DE",
-      "TrustYouScore": null,
-      "TrustYouState": null,
-      "AccoCategoryId": "3suns",
-      "AccoProperties": {
-        "HasDorm": null,
-        "HasRoom": true,
-        "TVMember": true,
-        "IsCamping": false,
-        "HasPitches": null,
-        "IsBookable": true,
-        "HasApartment": false,
-        "IsGastronomy": false,
-        "IsAccommodation": true
-      },
-      "Representation": 2,
-      "TrustYouActive": null,
-      "IndependentData": null,
-      "IsAccommodation": true,
-      "TourismVereinId": "522822B451CA11D18F1400A02427D15E",
-      "TrustYouResults": null,
-      "MssResponseShort": [],
-      "MarketingGroupIds": [
-        "1341ACB6EBD1C1E211FC68FA68D93281",
-        "285D559B2C8948738C58CB7C742559B3",
-        "9E72B78AC5B14A9DB6BED6C2592483BF"
-      ],
-      "OperationSchedule": null,
-      "AccoBookingChannel": [
-        {
-          "Id": "hgv",
-          "Pos1ID": "2",
-          "BookingId": "12700",
-          "Portalname": "HGV Booking"
-        }
-      ],
-      "SpecialFeaturesIds": [
-        "Abholservice",
-        "Wlan",
-        "Kleine Haustiere",
-        "Guestcard"
-      ],
-      "AccoSpecialFeatures": [
-        {
-          "Id": "Abholservice",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationTypes/Abholservice"
-        },
-        {
-          "Id": "Wlan",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationTypes/Wlan"
-        },
-        {
-          "Id": "Kleine Haustiere",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationTypes/Kleine%20Haustiere"
-        },
-        {
-          "Id": "Guestcard",
-          "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationTypes/Guestcard"
-        }
-      ],
+      "Altitude": 1108,
+      "Latitude": 46.477851,
+      "Longitude": 11.369939,
       "AltitudeUnitofMeasure": "m"
     }
-  ]
+  ],
+  "Gpstype": "position",
+  "HasRoom": false,
+  "Mapping": {},
+  "ODHTags": [],
+  "SmgTags": null,
+  "AccoType": {
+    "Id": "BedBreakfast",
+    "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationTypes/BedBreakfast"
+  },
+  "Altitude": 1108,
+  "BadgeIds": null,
+  "BoardIds": null,
+  "Features": null,
+  "Latitude": 46.477851,
+  "RatePlan": null,
+  "TVMember": null,
+  "ThemeIds": null,
+  "GpsPoints": {
+    "position": {
+      "Gpstype": "position",
+      "Altitude": 1108,
+      "Latitude": 46.477851,
+      "Longitude": 11.369939,
+      "AltitudeUnitofMeasure": "m"
+    }
+  },
+  "IsCamping": null,
+  "Longitude": 11.369939,
+  "OdhActive": true,
+  "Shortname": "1100 APARTMENT",
+  "SmgActive": true,
+  "AccoBadges": [],
+  "AccoBoards": [],
+  "AccoDetail": {
+    "de": {
+      "Fax": null,
+      "Vat": null,
+      "Zip": "39100",
+      "City": "Bozen",
+      "Name": "1100 APARTMENT",
+      "Email": null,
+      "Phone": "+39 333 9014050",
+      "Mobile": null,
+      "Street": "Kohlern 1/C",
+      "Website": null,
+      "Language": "de",
+      "Lastname": null,
+      "Longdesc": null,
+      "Firstname": null,
+      "Shortdesc": null,
+      "CountryCode": "IT",
+      "NameAddition": null
+    },
+    "en": {
+      "Fax": null,
+      "Vat": null,
+      "Zip": "39100",
+      "City": "Bolzano Bozen",
+      "Name": "1100 APARTMENT",
+      "Email": null,
+      "Phone": "+39 333 9014050",
+      "Mobile": null,
+      "Street": "Kohlern Colle 1/C",
+      "Website": null,
+      "Language": "en",
+      "Lastname": null,
+      "Longdesc": null,
+      "Firstname": null,
+      "Shortdesc": null,
+      "CountryCode": "IT",
+      "NameAddition": null
+    },
+    "it": {
+      "Fax": null,
+      "Vat": null,
+      "Zip": "39100",
+      "City": "Bolzano",
+      "Name": "1100 APARTMENT",
+      "Email": null,
+      "Phone": "+39 333 9014050",
+      "Mobile": null,
+      "Street": "Colle 1/C",
+      "Website": null,
+      "Language": "it",
+      "Lastname": null,
+      "Longdesc": null,
+      "Firstname": null,
+      "Shortdesc": null,
+      "CountryCode": "IT",
+      "NameAddition": null
+    }
+  },
+  "AccoThemes": [],
+  "AccoTypeId": "BedBreakfast",
+  "DistrictId": null,
+  "IsBookable": false,
+  "LastChange": "2024-03-06T16:45:06.2251485+00:00",
+  "TrustYouID": "",
+  "AccoHGVInfo": null,
+  "FirstImport": "2022-01-11T11:39:40.0250274",
+  "HasLanguage": [
+    "de",
+    "it",
+    "en"
+  ],
+  "LicenseInfo": {
+    "Author": "",
+    "License": "CC0",
+    "ClosedData": false,
+    "LicenseHolder": "https://www.lts.it"
+  },
+  "PublishedOn": [
+    "suedtirol.info",
+    "idm-marketplace"
+  ],
+  "AccoCategory": {
+    "Id": "2suns",
+    "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/AccommodationTypes/2suns"
+  },
+  "AccoOverview": null,
+  "AccoRoomInfo": null,
+  "DistanceInfo": null,
+  "GastronomyId": null,
+  "HasApartment": true,
+  "ImageGallery": null,
+  "IsGastronomy": null,
+  "LocationInfo": {
+    "TvInfo": {
+      "Id": "5228229451CA11D18F1400A02427D15E",
+      "Name": {
+        "cs": "Bolzano/Bozen",
+        "de": "Bozen",
+        "en": "Bolzano/Bozen",
+        "fr": "Bolzano/Bozen",
+        "it": "Bolzano",
+        "nl": "Bolzano/Bozen",
+        "pl": "Bolzano/Bozen",
+        "ru": "Больцано/Bozen"
+      },
+      "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/TourismAssociation/5228229451CA11D18F1400A02427D15E"
+    },
+    "AreaInfo": null,
+    "RegionInfo": {
+      "Id": "D2633A1CC24E11D18F1B006097B8970B",
+      "Name": {
+        "cs": "Bolzano/Bozen a okolí",
+        "de": "Bozen und Umgebung",
+        "en": "Bolzano/Bozen and environs",
+        "fr": "Bolzano/Bozen et environs",
+        "it": "Bolzano e dintorni",
+        "nl": "Bolzano/Bozen en omgeving",
+        "pl": "Bolzano/Bozen i okolice",
+        "ru": "Больцано/Bozen и окрестности"
+      },
+      "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/Region/D2633A1CC24E11D18F1B006097B8970B"
+    },
+    "DistrictInfo": {
+      "Id": "79CBD66351C911D18F1400A02427D15E",
+      "Name": {
+        "cs": "Kohlern/Colle",
+        "de": "Kohlern",
+        "en": "Colle/Kohlern",
+        "fr": "Colle/Kohlern",
+        "it": "Colle",
+        "nl": "Colle/Kohlern",
+        "pl": "Colle/Kohlern",
+        "ru": "Колле"
+      },
+      "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/District/79CBD66351C911D18F1400A02427D15E"
+    },
+    "MunicipalityInfo": {
+      "Id": "50FCFD4334A04DB087C1FD10ED864018",
+      "Name": {
+        "cs": "Bolzano/Bozen",
+        "de": "Bozen",
+        "en": "Bolzano/Bozen",
+        "fr": "Bolzano/Bozen",
+        "it": "Bolzano",
+        "nl": "Bolzano/Bozen",
+        "pl": "Bolzano/Bozen",
+        "ru": "Боцен/Bolzano"
+      },
+      "Self": "https://tourism.api.opendatahub.testingmachine.eu/v1/Municipality/50FCFD4334A04DB087C1FD10ED864018"
+    }
+  },
+  "MainLanguage": null,
+  "TrustYouScore": null,
+  "TrustYouState": null,
+  "AccoCategoryId": "2suns",
+  "AccoProperties": {
+    "HasDorm": null,
+    "HasRoom": false,
+    "TVMember": null,
+    "IsCamping": null,
+    "HasPitches": null,
+    "IsBookable": false,
+    "HasApartment": true,
+    "IsGastronomy": null,
+    "IsAccommodation": null
+  },
+  "Representation": null,
+  "TrustYouActive": null,
+  "IndependentData": null,
+  "IsAccommodation": null,
+  "TourismVereinId": null,
+  "TrustYouResults": null,
+  "MssResponseShort": [],
+  "MarketingGroupIds": null,
+  "OperationSchedule": null,
+  "AccoBookingChannel": null,
+  "SpecialFeaturesIds": null,
+  "AccoSpecialFeatures": [],
+  "AltitudeUnitofMeasure": "m"
 }
