@@ -1,7 +1,7 @@
 <template>
 <div class=" max-h-[80vh] w-full overflow-x-auto">
-  <div class="flex flex-row min-w-full">
-    <table class="min-w-full w-max border border-gray-300" cellspacing="0" cellpadding="5">
+  <div class="flex flex-row w-full">
+    <table class="min-w-full w-full border border-gray-300 table-fixed" cellspacing="0" cellpadding="5">
 
 
       <TableHeader class = " sticky top-0 z-20 bg-gray-50 shadow-md">
@@ -25,7 +25,7 @@
           <TableHeaderCell>Source state</TableHeaderCell>
           <TableHeaderCell>Published on</TableHeaderCell>
           <TableHeaderCell>Push data</TableHeaderCell>
-          <TableHeaderCell class = "sticky right-0 bg bg-gray-50 w-52 z-30 border bg-white shadow-[inset_8px_0_8px_-8px_rgba(0,0,0,0.2)]">Detail</TableHeaderCell>
+          <TableHeaderCell class = "sticky right-0 bg-gray-50 w-52 z-30 border shadow-[inset_8px_0_8px_-8px_rgba(0,0,0,0.1)]">Detail</TableHeaderCell>
       </TableHeader>
      
       
@@ -41,7 +41,7 @@
             ]"
           >
           
-          <TableCell>{{ item.Id }}</TableCell>
+          <TableCell class = "whitespace-normal break-all">{{ item.Id }}</TableCell>
           <TableCell> 
              {{ item.ImageGallery?.[0]?.ImageDesc?.it || 'Nessun Titolo' }}
           </TableCell>
@@ -78,7 +78,7 @@
 
           <TableCell>{{ item.HasLanguage.toString() }}</TableCell>
 
-          <TableCell>{{ item._Meta.LastUpdate }}</TableCell>
+          <TableCell class = "">{{ formatEditDate(item._Meta.LastUpdate) }}</TableCell>
 
           <TableCell>{{ item._Meta.Source }}</TableCell>
 
@@ -88,7 +88,7 @@
 
           <TableCell>{{ item.ODHTags }}</TableCell>
 
-          <TableCell class = "sticky right-0 z-10 bg-white border border  bg-white shadow-[inset_8px_0_8px_-8px_rgba(0,0,0,0.2)]"> details</TableCell>
+          <TableCell class = "sticky right-0 z-10 bg-white border bg-white shadow-[inset_8px_0_8px_-8px_rgba(0,0,0,0.1)] w-52 whitespace-nowrap">  details details</TableCell>
 
         </tr>
       </tbody>
@@ -103,46 +103,38 @@
 
 
 
-<script lang="ts">
-import TableCell from '@/components/table/TableCell.vue';
+<script setup lang="ts">
 
+import { ref } from 'vue'
+import axios from 'axios'
 
-import axios from 'axios';
-import { ref, onMounted } from 'vue';
-import type { Accommodation } from './types';
-import showImages from './showImages.vue';
-import TableHeader from '@/components/table/TableHeader.vue';
-import TableHeaderCell from '@/components/table/TableHeaderCell.vue';
+import TableCell from '@/components/table/TableCell.vue'
+import TableHeader from '@/components/table/TableHeader.vue'
+import TableHeaderCell from '@/components/table/TableHeaderCell.vue'
+import showImages from './showImages.vue'
 
-  export default{
-      components: {
-    TableCell,
-    showImages,
-    TableHeader,
-    TableHeaderCell
-  },
-    setup () {
-      
-      const imageNotFound = "https://imgs.search.brave.com/LeS4HHKZ1oz1T15VY5MwiUjWDjLiYKj0vgRABB3D2BY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2Lzg2LzE5LzM0/LzM2MF9GXzY4NjE5/MzQwN19ESFp3amV5/ZEJPUjF0RURrTEF6/d00zdzVrWXN0Unp6/Qi5qcGc"
-      const winterDate = '2020-01-15T00:00:00'
-      const summerDate = '2020-07-15T00:00:00'
-      
-      const quote: any = ref([])
-      axios
-        .get('https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation?pagenumber=1&pagesize=20&roominfo=1-18%2C18&bokfilter=hgv&msssource=sinfo&availabilitychecklanguage=en&detail=0&removenullvalues=false&getasidarray=false')
-        .then(response => {
+//VARS
+const imageNotFound ='https://imgs.search.brave.com/LeS4HHKZ1oz1T15VY5MwiUjWDjLiYKj0vgRABB3D2BY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2Lzg2LzE5LzM0/LzM2MF9GXzY4NjE5/MzQwN19ESFp3amV5/ZEJPUjF0RURrTEF6/d00zdzVrWXN0Unp6/Qi5qcGc'
+const winterDate = '2020-01-15T00:00:00'
+const summerDate = '2020-07-15T00:00:00'
 
-          quote.value = response.data
+//STATE
+const quote: any = ref([])
+const selectedRow = ref<number | null>(null)
 
-        })
+//FETCH
+axios
+  .get(
+    'https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation?pagenumber=1&pagesize=20&roominfo=1-18%2C18&bokfilter=hgv&msssource=sinfo&availabilitychecklanguage=en&detail=0&removenullvalues=false&getasidarray=false'
+  )
+  .then(response => {
+    quote.value = response.data
+  })
 
+//FUNCTIONS
+function formatEditDate(EditDate: string): string {
+  return EditDate.split('.')[0]
+}
 
-      const selectedRow = ref<number | null>(null)
-      
-      return { quote, imageNotFound, winterDate, summerDate, selectedRow}
-
-
-    },
-
-  }
 </script>
+

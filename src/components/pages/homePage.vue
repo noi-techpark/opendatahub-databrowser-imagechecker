@@ -3,6 +3,7 @@
      <BaseLayout>
         <TableView></TableView>
     </BaseLayout>
+
   </div>
 </template>
 
@@ -11,6 +12,6 @@
 import BaseLayout from '../layout/BaseLayout.vue';
 
 
-import TableView from './Dataset/tableView/TableView.vue';
+import TableView from './TableView/TableView.vue';
 
 </script>

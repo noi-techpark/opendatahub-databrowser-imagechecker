@@ -66,31 +66,7 @@ function findImageByTargetDate(target: string, images: Accommodation['ImageGalle
   return null
 }
 
-function getImageByPeriod(
-  period: 'winter' | 'summer' | 'year' | 'mainImage',
-  images: Accommodation['ImageGallery'] | undefined,
-): string {
-  const winterImage = findImageByTargetDate(periodDates.winter, images || [])
-  const summerImage = findImageByTargetDate(periodDates.summer, images || [])
 
-  if (period === 'winter' && winterImage && !summerImage) {
-    return winterImage.ImageUrl
-  }
-
-  if (period === 'summer' && summerImage && !winterImage) {
-    return summerImage.ImageUrl
-  }
-
-  if (period === 'year' && winterImage && summerImage) {
-    return summerImage.ImageUrl
-  }
-
-  if (period === 'mainImage' && images) {
-    return images[0]?.ImageUrl
-  }
-
-  return imageNotFound
-}
 
 const selectedImage = computed(() => {
   const images = props.imageGallery || []
