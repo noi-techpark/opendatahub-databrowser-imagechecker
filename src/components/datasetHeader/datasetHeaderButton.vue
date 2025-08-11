@@ -4,7 +4,7 @@
     border rounded border-gray-300 hover:border-green-400
      hover:bg-green-100
     ">
-        <button class ="flex flex-row space-x-2">
+        <button class ="flex flex-row space-x-2 w-full">
             <slot></slot>
         </button>
     </div>

@@ -10,7 +10,7 @@
       
     <table class="min-w-full w-full border border-gray-300 table-fixed" cellspacing="0" cellpadding="5" v-if = "!searchStore.loading">
 
-
+  
       <TableHeader class = " sticky top-0 z-20 bg-gray-50 shadow-md">
         
         <TableHeaderCell>Id</TableHeaderCell> 
@@ -33,8 +33,11 @@
         <TableHeaderCell>Published on</TableHeaderCell>
         <TableHeaderCell>Push data</TableHeaderCell>
         <TableHeaderCell class = "sticky right-0 bg-gray-50 w-52 z-30 border shadow-[inset_8px_0_8px_-8px_rgba(0,0,0,0.1)]">Detail</TableHeaderCell>
+        
       </TableHeader>
-     
+
+      
+
       
 
        
@@ -51,7 +54,7 @@
           <TableCell class = "whitespace-normal break-all">{{ item.Id }}</TableCell>
 
           <TableCell> 
-             {{ item.AccoDetail[selectedLanguage.language.toLowerCase()].Name || 'nessun titolo' }}   <!--shortName o ImageDesc???-->
+             {{ item.AccoDetail?.[selectedLanguage.language.toLowerCase()]?.Name || 'nessun titolo' }}   <!--shortName o ImageDesc???-->
           </TableCell>
 
           <TableCell>
@@ -70,15 +73,15 @@
             <showImages :imageGallery="item.ImageGallery" period = "year"></showImages>
           </TableCell>
             
-          <TableCell >{{ item.AccoType.Id }}</TableCell>
+          <TableCell >{{ item.AccoType?.Id || "not found" }}</TableCell>
 
-          <TableCell>{{ item.AccoCategory.Id }}</TableCell>
+          <TableCell>{{ item.AccoCategory?.Id || "not found"}}</TableCell>
 
-          <TableCell>{{ item.LocationInfo.RegionInfo.Name[selectedLanguage.language.toLowerCase()] }}</TableCell>
+          <TableCell> {{ item.LocationInfo?.RegionInfo?.Name?.[selectedLanguage.language.toLowerCase()] || "not found" }} </TableCell>
 
-          <TableCell>{{ item.LocationInfo.MunicipalityInfo.Name[selectedLanguage.language.toLowerCase()] }}</TableCell>
+          <TableCell>{{ item.LocationInfo?.MunicipalityInfo?.Name?.[selectedLanguage.language.toLowerCase()] || "not found" }}</TableCell>
 
-          <TableCell>{{ item.AccoBadges }}</TableCell>
+          <TableCell>{{ item.AccoBadges}}</TableCell>
 
           <TableCell>{{ item.AccoThemes }}</TableCell>
 
@@ -86,9 +89,9 @@
 
           <TableCell>{{ item.HasLanguage.toString() }}</TableCell>
 
-          <TableCell class = "">{{ formatEditDate(item._Meta.LastUpdate) }}</TableCell>
+          <TableCell class = "">{{ formatEditDate(item._Meta?.LastUpdate || "not found") }}</TableCell>
 
-          <TableCell>{{ item._Meta.Source }}</TableCell>
+          <TableCell>{{ item._Meta?.Source || "not found" }}</TableCell>
 
           <TableCell>{{ item.Active ? "active" : "Not active" }}</TableCell>
 
@@ -101,6 +104,7 @@
         </tr>
       </tbody>
     </table>
+
 
    
 
@@ -124,6 +128,9 @@ import showImages from './showImages.vue'
 import { useLanguageStore } from '@/stores/HeaderTableStore'
 import { useSearchStore } from '@/stores/HeaderTableStore'
 
+import { useFilterStore } from '@/stores/HeaderTableStore';
+
+
 //VARS
 const imageNotFound ='https://imgs.search.brave.com/LeS4HHKZ1oz1T15VY5MwiUjWDjLiYKj0vgRABB3D2BY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2Lzg2LzE5LzM0/LzM2MF9GXzY4NjE5/MzQwN19ESFp3amV5/ZEJPUjF0RURrTEF6/d00zdzVrWXN0Unp6/Qi5qcGc'
 const winterDate = '2020-01-15T00:00:00'
@@ -133,6 +140,7 @@ const summerDate = '2020-07-15T00:00:00'
 const selectedRow = ref<number | null>(null)
 const selectedLanguage = useLanguageStore()
 const searchStore: any = useSearchStore() //pinia store, contains query results
+const filter = useFilterStore()
 
 //FETCH
 axios

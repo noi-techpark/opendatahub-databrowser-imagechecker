@@ -17,7 +17,7 @@ import type { Accommodation } from './types'
 import { computed } from 'vue'
 
 const props = defineProps<{
-  imageGallery: Accommodation['ImageGallery']
+  imageGallery: Accommodation['ImageGallery'] | null
   period: 'winter' | 'summer' | 'year' | 'mainImage'
 }>()
 
