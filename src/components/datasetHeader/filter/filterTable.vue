@@ -82,7 +82,7 @@
  import DatasetHeaderButton from '../datasetHeaderButton.vue';
  import DatasetHeaderDropDown from '../datasetHeaderDropDown.vue';
  import ContentDivider from '@/components/contentAlignment/ContentDivider.vue';
- import { ref, computed } from 'vue';
+ import { ref, computed, watch } from 'vue';
 import { useFilterStore } from '@/stores/HeaderTableStore';
 import { useSearchStore } from '@/stores/HeaderTableStore';
 import { useLanguageStore } from '@/stores/HeaderTableStore';
@@ -98,7 +98,7 @@ const languageStore = useLanguageStore()
     "includes", "not includes", "likein"
  ]
 
-const filterTypesMap: Record<string, string> = {
+const filterTypesMap = computed<Record<string, string>>(() => ({
   [`AccoDetail.${languageStore.language.toLowerCase()}.Name`]: "Title",
   AccoTypeId: "Accommodation Type",
   AccoCategoryId: "Category",
@@ -106,15 +106,14 @@ const filterTypesMap: Record<string, string> = {
   HasLanguage: "Languages",
   [`ImageGallery.0.ImageUrl`]: "Image",
   [`LocationInfo.MunicipalityInfo.Name.${languageStore.language.toLowerCase()}`]: "Municipality",
+}));
 
-};
 
 
 
 
 
   // Function to select a type from the dropdown
-
 function selectType(typeKey: string, index: number) {
   filterStore.filters[index].type = typeKey;
   dropdownRef1.value[index]?.close?.();  
@@ -129,10 +128,41 @@ function selectComparison(comparison: string, index: number) {
 
 
 
-  async function applyFiltersAndUpdateTable() {
+async function applyFiltersAndUpdateTable() {
     const results = await filterStore.applyFilters();
     
     searchStore.results = results || [];
+}
+
+
+// Watch for changes in the language selected and update filter types accordingly (this way, filters look for the values in the language selected)
+const languageDependentKeys = [
+  "AccoDetail",
+  "LocationInfo.RegionInfo.Name",
+  "LocationInfo.MunicipalityInfo.Name"
+]
+
+watch(
+  () => languageStore.language,
+  (newLang) => {
+    filterStore.filters.forEach((filter) => {
+      // Controlla se il type del filtro inizia con una delle chiavi "dinamiche"
+      for (const baseKey of languageDependentKeys) {
+        if (filter.type.startsWith(baseKey)) {
+          if(baseKey === "AccoDetail") {
+            filter.type = `${baseKey}.${newLang.toLowerCase()}.Name`
+          } else {
+            filter.type = `${baseKey}.${newLang.toLowerCase()}`;
+          }
+          
+        }
+      }
+    })
   }
+)
+
+
+
+
 
 </script>
