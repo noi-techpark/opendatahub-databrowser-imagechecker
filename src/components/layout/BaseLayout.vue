@@ -5,7 +5,7 @@
 
     <div class="flex flex-col h-full">
     
-        <DatasetHeader class = "sticky top-0 z-10 bg-white"/>
+        <DatasetHeader class = "sticky top-0 bg-white"/>
 
         <div class="flex flex-row">
           <div class="flex-1 overflow-auto ">  <!-- TODO, SCROLLBAR HIDE IS A TEMPORARY FIX-->

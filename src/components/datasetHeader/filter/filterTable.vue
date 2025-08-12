@@ -5,23 +5,24 @@
 
     <button @click = "filterStore.removeFilter(index)">remove</button>
     <div class="flex space-x-2 w-full" > 
+
       <DatasetHeaderDropDown
         :ref ="el => dropdownRef1[index] = el"
-        :title="filterStore.filters[index].type"
+        :title="filterTypesMap[filter.type] || filter.type"
         width="min-w-24"
         class="w-1/2 "
       >
-        <DatasetHeaderButton
-          v-for="type in filterTypes"
-          :key="type"
-          @click="selectType(type, index)"
-          :class="[
-            'hover:bg-green-100 cursor-pointer border-none m-0 rounded-none z-50',
-            filterStore.filters[index].type === type ? 'bg-green-200' : ''
-          ]"
-        >
-          {{ type }}
-        </DatasetHeaderButton>
+          <DatasetHeaderButton
+            v-for="(label, key) in filterTypesMap"
+            :key="key"
+            @click="selectType(key, index)"
+            :class="[
+              'hover:bg-green-100 cursor-pointer border-none m-0 rounded-none z-50 whitespace-nowrap',
+              filter.type === key ? 'bg-green-200' : ''
+            ]"
+          >
+            {{ label }}
+          </DatasetHeaderButton>
 
       </DatasetHeaderDropDown>
 
@@ -81,32 +82,45 @@
  import DatasetHeaderButton from '../datasetHeaderButton.vue';
  import DatasetHeaderDropDown from '../datasetHeaderDropDown.vue';
  import ContentDivider from '@/components/contentAlignment/ContentDivider.vue';
- import { ref } from 'vue';
+ import { ref, computed } from 'vue';
 import { useFilterStore } from '@/stores/HeaderTableStore';
 import { useSearchStore } from '@/stores/HeaderTableStore';
+import { useLanguageStore } from '@/stores/HeaderTableStore';
 
 
 const dropdownRef1 = ref<any[]>([]);
 const dropdownRef2 = ref<any[]>([]);
-
+const languageStore = useLanguageStore()
+ const filterStore = useFilterStore();
+ const searchStore = useSearchStore();
 
  const filterComparison = ["equal to", "not equal to", "like", "greater than", "greater or equal", "less than", "less or equal", "is null", "is not null",
     "includes", "not includes", "likein"
  ]
 
+const filterTypesMap: Record<string, string> = {
+  [`AccoDetail.${languageStore.language.toLowerCase()}.Name`]: "Title",
+  AccoTypeId: "Accommodation Type",
+  AccoCategoryId: "Category",
+  [`LocationInfo.RegionInfo.Name.${languageStore.language.toLowerCase()}`]: "Region",
+  HasLanguage: "Languages",
+  [`ImageGallery.0.ImageUrl`]: "Image",
+  [`LocationInfo.MunicipalityInfo.Name.${languageStore.language.toLowerCase()}`]: "Municipality",
+
+};
 
 
-const filterTypes = ["Shortname", "AccoTypeId"]
 
- const filterStore = useFilterStore();
- const searchStore = useSearchStore();
+
 
   // Function to select a type from the dropdown
 
-function selectType(type: string, index: number) {
-  filterStore.filters[index].type = type;
+function selectType(typeKey: string, index: number) {
+  filterStore.filters[index].type = typeKey;
   dropdownRef1.value[index]?.close?.();  
   }
+
+
 function selectComparison(comparison: string, index: number) {
   filterStore.filters[index].comparison = comparison;
   dropdownRef2.value[index]?.close?.();
@@ -120,9 +134,5 @@ function selectComparison(comparison: string, index: number) {
     
     searchStore.results = results || [];
   }
-
-
-
-  
 
 </script>

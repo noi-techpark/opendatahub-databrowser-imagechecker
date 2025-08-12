@@ -71,14 +71,7 @@ interface Filter {
     value: string;
 }
 
-const filterTypes: Record<string, string> = {
-  "Shortname": "Title",
-  "AccoTypeId": "Accomodation",
-  "RegionId": "Region",
-  "availabilitychecklanguage": "Languages",
-  "x":"x",
-  "y":"y"
-}
+
 
 
 
@@ -86,10 +79,11 @@ export const useFilterStore = defineStore("filter", {
 
     
     state: () => {
+        const languageStore = useLanguageStore()
         return {
                 filters: [
                     {
-                        type: "Shortname",
+                        type: `AccoDetail.${languageStore.language.toLowerCase()}.Name`,
                         comparison: "like",
                         value: "",
                     } as Filter,
@@ -134,8 +128,9 @@ export const useFilterStore = defineStore("filter", {
         },
 
         addFilter() {
+        const languageStore = useLanguageStore()
         this.filters.push({
-            type: "Shortname",
+            type: `AccoDetail.${languageStore.language.toLowerCase()}.Name`,
             comparison: "like",
             value: "",
         });

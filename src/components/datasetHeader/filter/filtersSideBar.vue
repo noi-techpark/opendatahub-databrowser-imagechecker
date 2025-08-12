@@ -1,5 +1,5 @@
 <template>
-    <div class = " left-0 bg-gray-50 w-52 z-30 border shadow-[inset_8px_0_8px_-8px_rgba(0,0,0,0.1)]">
+    <div class = " left-0 bg-gray-50 w-52 border shadow-[inset_8px_0_8px_-8px_rgba(0,0,0,0.1)] z-5">
      
             <div class =" h-[70px] bg-gray-250 border rounded justify-center items-center flex"> <p>Filters</p></div>
           

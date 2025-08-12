@@ -22,7 +22,8 @@ body {
 
 #app {
   height: 100vh;
-  
+  margin: 0;    /* TODO margin temporary fix, removes lateral margins, there might be a better solution */
+  padding: 0;   /* TODO padding temporary fix, removes lateral margins, there might be a better solution */
 }
 
 a {

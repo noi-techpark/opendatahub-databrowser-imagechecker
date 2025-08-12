@@ -1,5 +1,5 @@
 <template>
-<div class=" max-h-[80vh] w-full overflow-x-auto">
+<div class=" max-h-[80vh] w-full overflow-auto ">
   <div class="flex flex-row w-full">
 
      <div v-if="searchStore.loading" class="p-4 text-center w-full">
@@ -8,7 +8,7 @@
       </svg>
       </div>
       
-    <table class="min-w-full w-full border border-gray-300 table-fixed" cellspacing="0" cellpadding="5" v-if = "!searchStore.loading">
+    <table class="min-w-full w-full border border-gray-300 table-fixed " cellspacing="0" cellpadding="5" v-if = "!searchStore.loading">
 
   
       <TableHeader class = " sticky top-0 z-20 bg-gray-50 shadow-md">
