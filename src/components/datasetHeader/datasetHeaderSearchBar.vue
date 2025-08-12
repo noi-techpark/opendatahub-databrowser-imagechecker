@@ -11,12 +11,14 @@
         
 
         <input class = "    h-9 min-w-10 p-2 m-1 border-none  hover:border-green-400  bg-transparent hover:bg-green-100" 
-        placeholder="insert search value" type="text" v-model="searchStore.searchValue" @keyup.enter="searchStore.search">
+        placeholder="insert search value" type="text" v-model="searchStore.searchValue" @keyup.enter="searchStore.search(router, route)">
 
         </input>
 
         <button class = "bg-green-500 border rounded border-gray-50 m-1 p-2 text-white text-xs hover:bg-green-700"
-        @click="searchStore.search">Search</button>
+        @click="searchStore.search(router, route)">Search</button>
+
+      
 
     </div>
 </template>
@@ -24,7 +26,20 @@
 <script setup lang="ts">
 
     import { useSearchStore } from '@/stores/HeaderTableStore'
-
+    import { onMounted } from 'vue';
+    import { useRoute, useRouter } from 'vue-router';
     const searchStore = useSearchStore();
+    const router = useRouter();
+    const route = useRoute();
+    
+    onMounted(() => {
+        searchStore.restoreFromUrl()
+        searchStore.search(router, route)
+    }
+
+   
+  
+)
+
 </script>
 

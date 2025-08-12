@@ -1,6 +1,9 @@
 import {defineStore} from "pinia"
 import axios from "axios"
+import { useRoute, useRouter } from "vue-router"
 
+
+//Store for the selected Language
 export const useLanguageStore = defineStore("language" , {
 
     state: () => {
@@ -18,6 +21,8 @@ export const useLanguageStore = defineStore("language" , {
 
 })
 
+
+//store to share the search value and results across components
 export const useSearchStore = defineStore("search" , {
 
     state: () => {
@@ -28,12 +33,21 @@ export const useSearchStore = defineStore("search" , {
         }
     },
     actions: {
-        print(){
-            console.log(this.searchValue)
-        },
-        async search(){
+      
+        async search( router: ReturnType<typeof useRouter>, route: ReturnType<typeof useRoute>){
+            
+
+                // Keep URL query updated
+            router.replace({
+                query: {
+                ...route.query,
+                searchfilter: this.searchValue // store searchValue in URL
+                }
+            })
+
+
             this.loading = true
-            try {           //TODO this call is temporary and needs to be adjusted
+            try {           //TODO Default call: this call is temporary and needs to be adjusted
                 const response = await axios.get("https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation", {
                 params: {
                     pagenumber: 1,
@@ -54,7 +68,14 @@ export const useSearchStore = defineStore("search" , {
             } finally {
                 this.loading = false;
             }
+        },
+        restoreFromUrl() {
+            const route = useRoute()
+            if (route.query.search) {
+                this.searchValue = String(route.query.search)
+            }
         }
+        
     },
     getters: {
         
@@ -65,15 +86,13 @@ export const useSearchStore = defineStore("search" , {
 
 
 
+
+//store for the filter functionality
 interface Filter {
     type: string;
     comparison: string;
     value: string;
 }
-
-
-
-
 
 export const useFilterStore = defineStore("filter", {
 
@@ -94,12 +113,14 @@ export const useFilterStore = defineStore("filter", {
     },
     actions: {
         async applyFilters() {
+
+            const searchStore = useSearchStore();
             this.loading = true;
             try {
                 
                 const conditions = this.filters.map(f => `like(${f.type},'${f.value}')`);
                 const rawfilter = `and(${conditions.join(',')})`;
-                
+                console.log(searchStore.searchValue)
                 console.log("Raw filter:", rawfilter);
                 const response = await axios.get("https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation", { 
                     params: {
@@ -110,7 +131,7 @@ export const useFilterStore = defineStore("filter", {
                         msssource: "sinfo",
                         availabilitychecklanguage: "en",
                         detail: 0,
-                        searchfilter: "",
+                        searchfilter: searchStore.searchValue,
                         rawfilter: rawfilter,
                         removenullvalues: false,
                         getasidarray: false,

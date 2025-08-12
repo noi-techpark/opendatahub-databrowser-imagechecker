@@ -117,7 +117,7 @@
 
 <script setup lang="ts">
 
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
 
 import TableCell from '@/components/table/TableCell.vue'
@@ -129,6 +129,7 @@ import { useLanguageStore } from '@/stores/HeaderTableStore'
 import { useSearchStore } from '@/stores/HeaderTableStore'
 
 import { useFilterStore } from '@/stores/HeaderTableStore';
+import { useRoute, useRouter } from 'vue-router'
 
 
 //VARS
@@ -141,15 +142,11 @@ const selectedRow = ref<number | null>(null)
 const selectedLanguage = useLanguageStore()
 const searchStore: any = useSearchStore() //pinia store, contains query results
 const filter = useFilterStore()
+const route = useRoute()
+const router = useRouter()
 
 //FETCH
-axios
-  .get(
-    'https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation?pagenumber=1&pagesize=25&roominfo=1-18%2C18&bokfilter=hgv&msssource=sinfo&availabilitychecklanguage=en&detail=0&removenullvalues=false&getasidarray=false'
-  )
-  .then(response => {
-    searchStore.results = response.data
-  })
+
 
 //FUNCTIONS
 function formatEditDate(EditDate: string): string {

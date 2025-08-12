@@ -7,12 +7,7 @@ export const router = createRouter({
       path: '/',
       component: () => import('./components/pages/homePage.vue'),
       name: 'app',
-    },
-    {
-      path: '/card',
-      component: () => import('./components/card/CardContainer.vue'),
-      name: 'card',
-    },
+    }, 
     {
       path: '/:pathMatch(.*)*',
       redirect: '/',
