@@ -6,7 +6,7 @@
 
 
             
-            <div class="flex flex-row w-full  items-center" :class="props.width">
+            <div class="flex flex-row w-full  items-center space-x-3" :class="props.width">
 
                 <slot name="icon" />
                 

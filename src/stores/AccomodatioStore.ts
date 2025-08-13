@@ -125,7 +125,7 @@ export const useAccommodationStore = defineStore("accommodation", {
             if (route.query.rawfilter) {
                 let raw = String(route.query.rawfilter);
                 
-                if (raw.startsWith("and(") && raw.endsWith(")")) { //removes extra And that appears when there is more than one filter
+                if (raw.startsWith("and(") && raw.endsWith(")")) { //removes extra "And(..)"" that appears when there is more than one filter
                     raw = raw.slice(4, -1); 
                 }
                 

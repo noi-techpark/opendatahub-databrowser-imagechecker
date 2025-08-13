@@ -1,18 +1,21 @@
 <template>
 
   <AppLayout>
-    <ContentDivider />
+    <ContentDivider class = "z-50" />
 
     <div class="flex flex-col h-full">
     
         <DatasetHeader class = "sticky top-0 bg-white"/>
 
+
+        
         <div class="flex flex-row">
-          <div class="flex-1 overflow-auto ">  <!-- TODO, SCROLLBAR HIDE IS A TEMPORARY FIX-->
+
+         
+          <div class="flex-1 overflow-auto">  <!-- TODO, SCROLLBAR HIDE IS A TEMPORARY FIX-->
+            
             <slot></slot>
           </div>
-          
-
 
           <FiltersSideBar v-if = "accommodationStore.showFilterSideBar" class =" min-w-96"></FiltersSideBar>
 
