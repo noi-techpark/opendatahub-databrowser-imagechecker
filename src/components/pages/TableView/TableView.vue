@@ -46,8 +46,8 @@
         <tr v-for=" item in accommodationStore.results.Items" :key="item.Id" 
           @click="selectedRow = item.Id"
             :class="[
-              'hover:bg-green-100 cursor-pointer',
-              selectedRow === item.Id ? 'bg-green-200' : ''
+              'hover:bg-green-400/10 cursor-pointer',
+              selectedRow === item.Id ? 'bg-green-400/10' : ''
             ]"
           >
           

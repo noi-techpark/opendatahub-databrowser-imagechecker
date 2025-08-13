@@ -17,8 +17,8 @@
             :key="key"
             @click="selectType(key, index)"
             :class="[
-              'hover:bg-green-100 cursor-pointer border-none m-0 rounded-none z-50 whitespace-nowrap',
-              filter.type === key ? 'bg-green-200' : ''
+              'hover:bg-green-400/10 cursor-pointer border-none m-0 rounded-none z-50 whitespace-nowrap',
+              filter.type === key ? 'bg-green-400/10' : ''
             ]"
           >
             {{ label }}
@@ -38,7 +38,7 @@
           @click="selectComparison(comparison, index)"
           :class="[
             'hover:bg-green-100 cursor-pointer border-none m-0 rounded-none',
-            accommodationStore.filters[index].comparison === comparison ? 'bg-green-200' : ''
+            accommodationStore.filters[index].comparison === comparison ? 'bg-green-400/10' : ''
           ]"
         >
           {{ comparison }}

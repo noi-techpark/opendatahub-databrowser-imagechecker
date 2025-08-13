@@ -37,14 +37,16 @@
       </template>
       
       <DatasetHeaderButton v-for = "language in Languages" :key="language"
-                          @click = "selectedLanguage.language = language"
+                          @click = "changeLanguage(language)"
                           :class="[
-                            'hover:bg-green-100 cursor-pointer border-none m-0 rounded-none',
-                            selectedLanguage.language === language ? 'bg-green-200' : ''
+                            'hover:bg-green-400/10 cursor-pointer border-none m-0 rounded-none',
+                            selectedLanguage.language === language ? 'bg-green-400/10' : ''
                           ]"
       >
       {{ language }}
-      </DatasetHeaderButton>            
+      </DatasetHeaderButton> 
+      
+      
       
     </DatasetHeaderDropDown>
 
@@ -81,12 +83,21 @@
   import CardContainer from '../card/CardContainer.vue';
 
   import { useAccommodationStore } from '@/stores/AccomodatioStore';
+import { useRoute, useRouter } from 'vue-router';
   const Languages = ["DE", "IT", "EN", "NL", "CS", "PL", "FR", "RU", "LD"];
   const selectedLanguage = useLanguageStore();
   const AccomodatioStore = useAccommodationStore()
+  const route = useRoute()
+  const router = useRouter()
 
   const showInfo = ref(false);
 
+
+  function changeLanguage(language: string){
+    selectedLanguage.language = language
+    console.log(selectedLanguage.language)
+    AccomodatioStore.updateAndFetch(router, route)
+  }
 
 
 </script>

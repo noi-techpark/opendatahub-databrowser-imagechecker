@@ -28,8 +28,9 @@ export const useAccommodationStore = defineStore("accommodation", {
     },
 
     actions: {
-        /** Aggiorna la query URL e ricarica i dati */
+        //Updates URL, and fetches Data accordingly
         async updateAndFetch(router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
+            console.log("UPDATE AND FETCH: ")
             if (router && route) {
                 const newQuery = { ...route.query };
 
@@ -51,6 +52,10 @@ export const useAccommodationStore = defineStore("accommodation", {
                     delete newQuery.rawfilter;
                 }
 
+                const languageStore = useLanguageStore()
+                console.log(languageStore.language + " --> lingua slezionata")
+                newQuery.language = languageStore.language.toLowerCase()
+
 
 
                 router.replace({ query: newQuery });
@@ -58,9 +63,14 @@ export const useAccommodationStore = defineStore("accommodation", {
             await this.fetchData();
         },
 
-        /** Costruisce e fa la chiamata API */
+ 
         async fetchData() {
             this.loading = true;
+
+            //at the start, we display the selected language in the URL
+            const languageStore = useLanguageStore()
+            
+         
             try {
                 const conditions = this.filters
                     .filter(f => f.value.trim() !== "")
@@ -70,10 +80,15 @@ export const useAccommodationStore = defineStore("accommodation", {
                     ? `and(${conditions.join(",")})`
                     : undefined;
 
+                const language = languageStore.language.toLowerCase()
+
+                    
+
                 const response = await axios.get("https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation", {
                     params: {
                         pagenumber: 1,
                         pagesize: 25,
+                        language,
                         roominfo: "1-18,18",
                         bokfilter: "hgv",
                         msssource: "sinfo",
@@ -97,6 +112,7 @@ export const useAccommodationStore = defineStore("accommodation", {
         // restore query state from URL
         restoreFromUrl(route: ReturnType<typeof useRoute>) {
            
+            //restores searchFilter
             if (route.query.searchfilter) {
                 this.searchValue = String(route.query.searchfilter);
             } else {
@@ -107,14 +123,18 @@ export const useAccommodationStore = defineStore("accommodation", {
 
             //Restores all filters (comparison, type, value) from rawfilter, this way filters on the sidebar dont disappear when page is refreshed
             if (route.query.rawfilter) {
-                const raw = String(route.query.rawfilter);
+                let raw = String(route.query.rawfilter);
                 
-                console.log("raw filter in URL = ", raw) //DEBUG
+                if (raw.startsWith("and(") && raw.endsWith(")")) { //removes extra And that appears when there is more than one filter
+                    raw = raw.slice(4, -1); 
+                }
                 
-                const regex = /(\w+)\(([^,]+),'([^']+)'\)/g;    //divides rawfilter string in the 3 values
+                
+                const regex = /(\w+)\(([^,]+),'([^']+)'\)/g;    //divides each argument in rawfilter string in the 3 values below
                 this.filters = [];
                 let match;
                 while ((match = regex.exec(raw)) !== null) {
+                    console.log(match[1])
                     const comparison = match[1]; // eq, like, etc.
                     const type = match[2];
                     const value = match[3];
@@ -123,9 +143,15 @@ export const useAccommodationStore = defineStore("accommodation", {
             } else {
                 this.filters = [];
             }
+
+            if(route.query.language){
+                const languageStore = useLanguageStore()
+                languageStore.language = String(route.query.language).toUpperCase()
+            }
+
         },
 
-        /** Filtri */
+       
         addFilter() {
             const languageStore = useLanguageStore();
             this.filters.push({
@@ -134,7 +160,7 @@ export const useAccommodationStore = defineStore("accommodation", {
                 value: "",
             });
         },
-        
+
         removeFilter(index: number) {
             this.filters.splice(index, 1);
         },
