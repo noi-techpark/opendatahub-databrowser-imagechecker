@@ -1,17 +1,21 @@
 <template>
-<div class=" max-h-[80vh] w-full overflow-auto ">
-  <div class="flex flex-row w-full">
 
-     <div v-if="accommodationStore.loading" class="p-4 text-center w-full">
+  
+<div class=" max-h-[80vh] w-full overflow-auto ">
+
+    
+    <!--TODOO add Loading animation or icon-->
+    <div v-if="accommodationStore.loading" class="p-4 text-center w-full">
          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
       </svg>
-      </div>
-      
-    <table class="min-w-full w-full border border-gray-300 table-fixed " cellspacing="0" cellpadding="5" v-if = "!accommodationStore.loading">
+    </div>
 
+    
+    <table class="min-w-full w-full table-fixed  " cellspacing="0" cellpadding="5" v-if = "!accommodationStore.loading">
+      
   
-      <TableHeader class = " sticky top-0 z-20 bg-gray-50 shadow-md">
+      <TableHeader class = " sticky top-0 z-20 bg-gray-50">
         
         <TableHeaderCell>Id</TableHeaderCell> 
         <TableHeaderCell>Title</TableHeaderCell>
@@ -46,18 +50,18 @@
         <tr v-for=" item in accommodationStore.results.Items" :key="item.Id" 
           @click="selectedRow = item.Id"
             :class="[
-              'hover:bg-green-400/10 cursor-pointer',
-              selectedRow === item.Id ? 'bg-green-400/10' : ''
+              rowBase,
+              selectedRow === item.Id ? rowSelectedClass : ''
             ]"
           >
           
           <TableCell class = "whitespace-normal break-all">{{ item.Id }}</TableCell>
 
-          <TableCell> 
+          <TableCell >
              {{ item.AccoDetail?.[selectedLanguage.language.toLowerCase()]?.Name || 'nessun titolo' }}   <!--shortName o ImageDesc???-->
           </TableCell>
 
-          <TableCell>
+          <TableCell >
             <showImages :imageGallery="item.ImageGallery" period = "mainImage"></showImages>
           </TableCell>
 
@@ -109,7 +113,7 @@
    
 
 
-    </div>
+   
   </div>
 </template>
 
@@ -119,8 +123,6 @@
 
 import styles from "./styles.css"
 import { ref, watch, onMounted } from 'vue'
-import axios from 'axios'
-
 import TableCell from '@/components/table/TableCell.vue'
 import TableHeader from '@/components/table/TableHeader.vue'
 import TableHeaderCell from '@/components/table/TableHeaderCell.vue'
@@ -131,7 +133,10 @@ import { useLanguageStore } from '@/stores/HeaderTableStore'
 import { useRoute, useRouter } from 'vue-router'
 
 import { useAccommodationStore } from '@/stores/AccomodatioStore'
-
+//STYLES
+const rowBase = 'hover:bg-green-400/10 hover:border-t-gray-400 hover:border-b-gray-400 cursor-pointer border-t-2 border-t-gray-200 border-b-2 border-b-gray-200 group';
+const rowSelectedClass = 'bg-green-400/10 border-t-gray-400 border-b-gray-400'
+const tableCellSelected = ' border-l-gray-400 border-r-gray-400' 
 //VARS
 const imageNotFound ='https://imgs.search.brave.com/LeS4HHKZ1oz1T15VY5MwiUjWDjLiYKj0vgRABB3D2BY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2Lzg2LzE5LzM0/LzM2MF9GXzY4NjE5/MzQwN19ESFp3amV5/ZEJPUjF0RURrTEF6/d00zdzVrWXN0Unp6/Qi5qcGc'
 const winterDate = '2020-01-15T00:00:00'
