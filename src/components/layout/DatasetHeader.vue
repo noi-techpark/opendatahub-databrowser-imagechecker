@@ -39,8 +39,8 @@
       <DatasetHeaderButton v-for = "language in Languages" :key="language"
                           @click = "selectedLanguage.language = language"
                           :class="[
-                            'hover:bg-green-100 cursor-pointer border-none m-0 rounded-none',
-                            selectedLanguage.language === language ? 'bg-green-200' : ''
+                            'hover:bg-green-400/10 cursor-pointer border-none m-0 rounded-none',
+                            selectedLanguage.language === language ? 'bg-green-400/10' : ''
                           ]"
       >
       {{ language }}

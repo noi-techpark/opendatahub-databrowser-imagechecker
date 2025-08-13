@@ -46,8 +46,8 @@
         <tr v-for=" item in searchStore.results.Items" :key="item.Id" 
           @click="selectedRow = item.Id"
             :class="[
-              'hover:bg-green-100 cursor-pointer',
-              selectedRow === item.Id ? 'bg-green-200' : ''
+              'hover:bg-green-400/10 cursor-pointer',
+              selectedRow === item.Id ? 'bg-green-400/10' : ''
             ]"
           >
           
@@ -117,6 +117,7 @@
 
 <script setup lang="ts">
 
+import styles from "./styles.css"
 import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
 
@@ -141,12 +142,15 @@ const summerDate = '2020-07-15T00:00:00'
 const selectedRow = ref<number | null>(null)
 const selectedLanguage = useLanguageStore()
 const searchStore: any = useSearchStore() //pinia store, contains query results
-const filter = useFilterStore()
+
 const route = useRoute()
 const router = useRouter()
 
 //FETCH
-
+onMounted(() => {
+        searchStore.restoreFromUrl()
+        searchStore.search(router, route)
+    })
 
 //FUNCTIONS
 function formatEditDate(EditDate: string): string {

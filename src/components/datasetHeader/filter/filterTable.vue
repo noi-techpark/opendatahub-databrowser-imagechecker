@@ -86,6 +86,7 @@
 import { useFilterStore } from '@/stores/HeaderTableStore';
 import { useSearchStore } from '@/stores/HeaderTableStore';
 import { useLanguageStore } from '@/stores/HeaderTableStore';
+import { useRoute, useRouter } from 'vue-router';
 
 
 const dropdownRef1 = ref<any[]>([]);
@@ -93,6 +94,9 @@ const dropdownRef2 = ref<any[]>([]);
 const languageStore = useLanguageStore()
  const filterStore = useFilterStore();
  const searchStore = useSearchStore();
+
+  const router = useRouter();
+  const route = useRoute();
 
  const filterComparison = ["equal to", "not equal to", "like", "greater than", "greater or equal", "less than", "less or equal", "is null", "is not null",
     "includes", "not includes", "likein"
