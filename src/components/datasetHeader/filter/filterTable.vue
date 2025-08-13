@@ -84,7 +84,7 @@
  import ContentDivider from '@/components/contentAlignment/ContentDivider.vue';
  import { ref, computed, watch } from 'vue';
 import { useLanguageStore } from '@/stores/HeaderTableStore';
-import { useRoute, useRouter } from 'vue-router';
+
 
 import { useAccommodationStore } from '@/stores/AccomodatioStore';
 import { useRoute, useRouter } from 'vue-router';
@@ -97,8 +97,7 @@ const dropdownRef2 = ref<any[]>([]);
 const languageStore = useLanguageStore()
 
 
-  const router = useRouter();
-  const route = useRoute();
+
 
  const filterComparison = ["equal to", "not equal to", "like", "greater than", "greater or equal", "less than", "less or equal", "is null", "is not null",
     "includes", "not includes", "likein"
