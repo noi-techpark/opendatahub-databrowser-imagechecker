@@ -10,13 +10,13 @@
 
         
 
-        <input class = "    h-9 min-w-10 p-2 m-1 border-none  bg-transparent" 
-        placeholder="insert search value" type="text" v-model="searchStore.searchValue" @keyup.enter="searchStore.search(router, route)">
+        <input class = "    h-9 min-w-10 p-2 m-1 border-none   bg-transparent" 
+        placeholder="insert search value" type="text" v-model="accommodationStore.searchValue" @keyup.enter="accommodationStore.updateAndFetch(router, route)">
 
         </input>
 
         <button class = "bg-green-500 border rounded border-gray-50 m-1 p-2 text-white text-xs hover:bg-green-700"
-        @click="searchStore.search(router, route)">Search</button>
+        @click="accommodationStore.updateAndFetch(router, route)">Search</button>
 
       
 
@@ -25,14 +25,21 @@
 
 <script setup lang="ts">
 
-    import { useSearchStore } from '@/stores/HeaderTableStore'
-    import { onMounted } from 'vue';
+    
+
     import { useRoute, useRouter } from 'vue-router';
-    const searchStore = useSearchStore();
+
+    import { useAccommodationStore } from '@/stores/AccomodatioStore';
+    
+
     const router = useRouter();
     const route = useRoute();
-    
-    
+    const accommodationStore = useAccommodationStore()
+
+
+   
+  
+
 
 </script>
 

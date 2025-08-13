@@ -6,13 +6,15 @@
       style="width: 100px; height: auto; object-fit: cover"
     />
     <div class="flex flex-col">
-      <p v-if="selectedImage">Valid from: {{ selectedImage.ValidFrom }}</p>
-      <p v-if="selectedImage">Valid to: {{ selectedImage.ValidTo }}</p>
+      <p> validity:</p>
+      <p v-if="selectedImage">from: {{ DateFormatter(selectedImage.ValidFrom) }}</p>
+      <p v-if="selectedImage">to: {{ DateFormatter(selectedImage.ValidTo) }}</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useLanguageStore } from '@/stores/HeaderTableStore';
 import type { Accommodation } from './types'
 import { computed } from 'vue'
 
@@ -81,4 +83,13 @@ const selectedImage = computed(() => {
 
   return null
 })
+
+
+const languageStore = useLanguageStore()
+
+function DateFormatter(date: string){
+  const d = new Date(date)
+  return d.toLocaleDateString(languageStore.language.toLowerCase());
+}
+
 </script>

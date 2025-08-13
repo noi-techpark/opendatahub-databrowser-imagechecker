@@ -2,13 +2,13 @@
 <div class=" max-h-[80vh] w-full overflow-auto ">
   <div class="flex flex-row w-full">
 
-     <div v-if="searchStore.loading" class="p-4 text-center w-full">
+     <div v-if="accommodationStore.loading" class="p-4 text-center w-full">
          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
       </svg>
       </div>
       
-    <table class="min-w-full w-full border border-gray-300 table-fixed " cellspacing="0" cellpadding="5" v-if = "!searchStore.loading">
+    <table class="min-w-full w-full border border-gray-300 table-fixed " cellspacing="0" cellpadding="5" v-if = "!accommodationStore.loading">
 
   
       <TableHeader class = " sticky top-0 z-20 bg-gray-50 shadow-md">
@@ -43,7 +43,7 @@
        
 
       <tbody>
-        <tr v-for=" item in searchStore.results.Items" :key="item.Id" 
+        <tr v-for=" item in accommodationStore.results.Items" :key="item.Id" 
           @click="selectedRow = item.Id"
             :class="[
               'hover:bg-green-400/10 cursor-pointer',
@@ -127,11 +127,10 @@ import TableHeaderCell from '@/components/table/TableHeaderCell.vue'
 import showImages from './showImages.vue'
 
 import { useLanguageStore } from '@/stores/HeaderTableStore'
-import { useSearchStore } from '@/stores/HeaderTableStore'
 
-import { useFilterStore } from '@/stores/HeaderTableStore';
 import { useRoute, useRouter } from 'vue-router'
 
+import { useAccommodationStore } from '@/stores/AccomodatioStore'
 
 //VARS
 const imageNotFound ='https://imgs.search.brave.com/LeS4HHKZ1oz1T15VY5MwiUjWDjLiYKj0vgRABB3D2BY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2Lzg2LzE5LzM0/LzM2MF9GXzY4NjE5/MzQwN19ESFp3amV5/ZEJPUjF0RURrTEF6/d00zdzVrWXN0Unp6/Qi5qcGc'
@@ -141,16 +140,18 @@ const summerDate = '2020-07-15T00:00:00'
 //STATE
 const selectedRow = ref<number | null>(null)
 const selectedLanguage = useLanguageStore()
-const searchStore: any = useSearchStore() //pinia store, contains query results
 
 const route = useRoute()
 const router = useRouter()
 
+const accommodationStore: any = useAccommodationStore()
+
 //FETCH
 onMounted(() => {
-        searchStore.restoreFromUrl()
-        searchStore.search(router, route)
-    })
+    accommodationStore.restoreFromUrl(route);
+    accommodationStore.fetchData();
+});
+
 
 //FUNCTIONS
 function formatEditDate(EditDate: string): string {

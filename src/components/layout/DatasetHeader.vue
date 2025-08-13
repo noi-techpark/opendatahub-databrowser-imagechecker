@@ -22,7 +22,7 @@
     <!--SearchBar-->
     <DatasetHeaderSearchBar></DatasetHeaderSearchBar>
     
-    <DatasetHeaderButton @click = "filter.showFilterSideBar = !filter.showFilterSideBar, console.log(filter.showFilterSideBar)"> 
+    <DatasetHeaderButton @click = "AccomodatioStore.showFilterSideBar = !AccomodatioStore.showFilterSideBar, console.log(AccomodatioStore.showFilterSideBar)"> 
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
         </svg>
@@ -37,14 +37,16 @@
       </template>
       
       <DatasetHeaderButton v-for = "language in Languages" :key="language"
-                          @click = "selectedLanguage.language = language"
+                          @click = "changeLanguage(language)"
                           :class="[
                             'hover:bg-green-400/10 cursor-pointer border-none m-0 rounded-none',
                             selectedLanguage.language === language ? 'bg-green-400/10' : ''
                           ]"
       >
       {{ language }}
-      </DatasetHeaderButton>            
+      </DatasetHeaderButton> 
+      
+      
       
     </DatasetHeaderDropDown>
 
@@ -77,16 +79,25 @@
   import DatasetHeaderSearchBar from '../datasetHeader/datasetHeaderSearchBar.vue';
 
   import { useLanguageStore } from '@/stores/HeaderTableStore';
-  import { useFilterStore } from '@/stores/HeaderTableStore';
+
   import CardContainer from '../card/CardContainer.vue';
 
-
+  import { useAccommodationStore } from '@/stores/AccomodatioStore';
+import { useRoute, useRouter } from 'vue-router';
   const Languages = ["DE", "IT", "EN", "NL", "CS", "PL", "FR", "RU", "LD"];
   const selectedLanguage = useLanguageStore();
-  const filter = useFilterStore();
+  const AccomodatioStore = useAccommodationStore()
+  const route = useRoute()
+  const router = useRouter()
 
   const showInfo = ref(false);
 
+
+  function changeLanguage(language: string){
+    selectedLanguage.language = language
+    console.log(selectedLanguage.language)
+    AccomodatioStore.updateAndFetch(router, route)
+  }
 
 
 </script>
