@@ -14,7 +14,7 @@
           
 
 
-          <FiltersSideBar v-if = "filter.showFilterSideBar" class =" min-w-96"></FiltersSideBar>
+          <FiltersSideBar v-if = "accommodationStore.showFilterSideBar" class =" min-w-96"></FiltersSideBar>
 
         </div>
       
@@ -29,8 +29,8 @@ import ContentDivider from '@/components/contentAlignment/ContentDivider.vue'
 import DatasetHeader from '@/components/layout/DatasetHeader.vue'
 import FiltersSideBar from '../datasetHeader/filter/filtersSideBar.vue'
 
+import { useAccommodationStore } from '@/stores/AccomodatioStore'
 
+const accommodationStore = useAccommodationStore()
 
-import { useFilterStore } from '@/stores/HeaderTableStore'
-const filter = useFilterStore()
 </script>
