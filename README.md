@@ -1,61 +1,50 @@
-# Accomodations
+# Accommodation Filter App
 
-This template should help get you started developing with Vue 3 in Vite.
+A Vue.js project that allows users to search and filter accommodations using a dynamic sidebar, URL query parameters, and API integration.
 
-## Recommended IDE Setup
+## Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Search accommodations by text input (`searchfilter`)  
+- Filter accommodations by multiple criteria (`rawfilter`)  
+- filters and search persist across page refreshes  
+- Supports multiple languages (`language`)  
+- Constructs API requests dynamically with proper URL query handling
+  
 
-## Type Support for `.vue` Imports in TS
+## Technologies Used
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- Vue 3
+- TypeScript  
+- Vue Router  
+- Pinia (for state management)  
+- Fetch API / Axios for backend requests  
 
-## Customize configuration
+## Getting Started
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### Prerequisites
 
-## Project Setup
+- Node.js 18+  
+- npm or yarn  
 
-```sh
+### Installation
+
+```bash
+git clone github.com/EmGira/Accomodations
+cd Accomodations
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
+
 ```
 
-### Type-Check, Compile and Minify for Production
+Now visit http://localhost:5173 in your browser
 
-```sh
-npm run build
-```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
 
-```sh
-npm run test:unit
-```
+This project uses Open Data Hub API, a well documented API that gives developers access to simple and high quality data:
+> The Open Data Hub project began in South Tyrol in 2010 with the aim of grouping data collected from a series of European projects in the field of mobility research and
+> development. This data comes from different sources, often with complex APIs. The Open Data Hub translates these APIs into well- documented Open Specification APIs, in
+> order to simplify and improve the work of developers interested in creating apps, websites and other systems.
+> Learn more at: https://opendatahub.com/
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+Swagger: https://tourism.api.opendatahub.testingmachine.eu/swagger/index.html
 
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
