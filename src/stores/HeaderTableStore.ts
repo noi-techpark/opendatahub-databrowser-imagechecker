@@ -36,14 +36,16 @@ export const useSearchStore = defineStore("search" , {
       
         async search( router: ReturnType<typeof useRouter>, route: ReturnType<typeof useRoute>){
             
-
+            
                 // Keep URL query updated
-            router.replace({
-                query: {
-                ...route.query,
-                searchfilter: this.searchValue // store searchValue in URL
-                }
-            })
+            const newQuery = { ...route.query }
+            if (this.searchValue) {
+                newQuery.searchfilter = this.searchValue
+            } else {
+                delete newQuery.search
+            }
+
+            router.replace({ query: newQuery })
 
 
             this.loading = true
@@ -112,7 +114,7 @@ export const useFilterStore = defineStore("filter", {
         }
     },
     actions: {
-        async applyFilters() {
+        async applyFilters( ) {
 
             const searchStore = useSearchStore();
             this.loading = true;
@@ -120,8 +122,10 @@ export const useFilterStore = defineStore("filter", {
                 
                 const conditions = this.filters.map(f => `like(${f.type},'${f.value}')`);
                 const rawfilter = `and(${conditions.join(',')})`;
-                console.log(searchStore.searchValue)
+                console.log(searchStore.searchValue)    //DEBUG
                 console.log("Raw filter:", rawfilter);
+
+
                 const response = await axios.get("https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation", { 
                     params: {
                         pagenumber: 1,
