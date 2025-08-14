@@ -17,7 +17,7 @@ A Vue.js project that allows users to search and filter accommodations using a d
 - TypeScript  
 - Vue Router  
 - Pinia (for state management)  
-- Fetch API / Axios for backend requests  
+- Axios for backend requests  
 
 ## Getting Started
 
