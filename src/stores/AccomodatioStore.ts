@@ -161,8 +161,9 @@ export const useAccommodationStore = defineStore("accommodation", {
             });
         },
 
-        removeFilter(index: number) {
+        removeFilter(index: number, router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
             this.filters.splice(index, 1);
+            this.updateAndFetch(router, route)
         },
 
         updateFilter(index: number, field: keyof Filter, value: string) {
