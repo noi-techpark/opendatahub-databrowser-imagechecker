@@ -1,9 +1,12 @@
 <template>
 
-  <div class="flex flex-col items-center p-3 space-y-3 " v-for = "(filter, index) in accommodationStore.filters" :key="index">
+  <div class="flex flex-col items-center p-2 space-y-3 " v-for = "(filter, index) in accommodationStore.filters" :key="index">
 
 
-    <button @click = "accommodationStore.removeFilter(index)">remove</button>
+    <button @click = "accommodationStore.removeFilter(index, router, route)" class= " w-full flex justify-end">
+      <XCircleIcon class = "size-5 text-red-500 mr-1"></XCircleIcon>
+    </button>
+
     <div class="flex space-x-2 w-full" > 
 
       <DatasetHeaderDropDown
@@ -59,26 +62,35 @@
     </div>
 
     
-
+    
   </div>
+    <ContentDivider class = "mt-3"></ContentDivider> <!--TODOO make the divider appear betweeen each Filter-->
 
-  <ContentDivider></ContentDivider>
 
     
 
     <div class = "flex flex-row">
-        <DatasetHeaderButton class ="w-40  m-4" @click = "accommodationStore.updateAndFetch(router, route)">
-            <p>filter</p>
+        <DatasetHeaderButton class ="w-28 h-8  m-4 bg-green-400 flex items-center hover:bg-green-700" @click = "accommodationStore.updateAndFetch(router, route)">
+          <FunnelIcon class="text-white size-6"></FunnelIcon>
+            <p class = "text-white">filter</p>
         </DatasetHeaderButton>
 
-        <DatasetHeaderButton class ="w-60 m-4" @click = "accommodationStore.addFilter()">
-            <p>+ Add a new filter</p>
+        <DatasetHeaderButton class ="w-60 h-8 m-4 flex items-center border-green-400 border-2" @click = "accommodationStore.addFilter()">
+            <PlusIcon class = "text-green-400 size-6"></PlusIcon>
+            <p class = " text-green-400"> Add a new filter</p>
         </DatasetHeaderButton>
     </div>
 
 </template>
 
 <script setup lang = "ts">
+
+//ICONS
+import { FunnelIcon, XCircleIcon } from '@heroicons/vue/24/outline'; 
+import { PlusIcon } from '@heroicons/vue/16/solid';
+
+
+
  import DatasetHeaderButton from '../datasetHeaderButton.vue';
  import DatasetHeaderDropDown from '../datasetHeaderDropDown.vue';
  import ContentDivider from '@/components/contentAlignment/ContentDivider.vue';
@@ -158,6 +170,7 @@ watch(
     })
   }
 )
+
 
 
 

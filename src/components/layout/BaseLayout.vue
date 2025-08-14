@@ -1,7 +1,7 @@
 <template>
 
   <AppLayout>
-    <ContentDivider class = "z-50" />
+ 
 
     <div class="flex flex-col h-full">
     
@@ -9,12 +9,13 @@
 
 
         
-        <div class="flex flex-row">
+        <div class="flex flex-row overflow-auto">   <!-- This overflow-auto wasted 10 hours of my time-->
 
          
           <div class="flex-1 overflow-auto">  <!-- TODO, SCROLLBAR HIDE IS A TEMPORARY FIX-->
             
             <slot></slot>
+
           </div>
 
           <FiltersSideBar v-if = "accommodationStore.showFilterSideBar" class =" min-w-96"></FiltersSideBar>

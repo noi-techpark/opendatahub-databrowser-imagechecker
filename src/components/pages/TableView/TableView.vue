@@ -1,7 +1,7 @@
 <template>
 
   
-<div class=" max-h-[80vh] w-full overflow-auto ">
+<div class=" max-h-screen h-full  w-full overflow-auto">
 
     
     <!--TODOO add Loading animation or icon-->
@@ -12,12 +12,11 @@
     </div>
 
     
-    <table class="min-w-full w-full table-fixed  " cellspacing="0" cellpadding="5" v-if = "!accommodationStore.loading">
-      
+    <table class="min-w-full w-full table-fixed  border-separate  " cellspacing="0" cellpadding="5" v-if = "!accommodationStore.loading">
+
   
-      <TableHeader class = " sticky top-0 z-20 bg-gray-50">
-        
-        <TableHeaderCell>Id</TableHeaderCell> 
+      <TableHeader class = " sticky top-0 z-20">
+          
         <TableHeaderCell>Title</TableHeaderCell>
         <TableHeaderCell>Main Image</TableHeaderCell>
         <TableHeaderCell>Image Winter</TableHeaderCell>
@@ -36,7 +35,7 @@
         <TableHeaderCell>Source state</TableHeaderCell>
         <TableHeaderCell>Published on</TableHeaderCell>
         <TableHeaderCell>Push data</TableHeaderCell>
-        <TableHeaderCell class = "sticky right-0 bg-gray-50 w-52 z-30 border shadow-[inset_8px_0_8px_-8px_rgba(0,0,0,0.1)]">Detail</TableHeaderCell>
+        <TableHeaderCell class = "sticky right-0 bg-gray-50 w-52 z-30 border shadow-[inset_4px_0_4px_-4px_rgba(0,0,0,0.1)]">Detail</TableHeaderCell>
         
       </TableHeader>
 
@@ -44,66 +43,90 @@
 
       
 
-       
+       <!--TODOO Reformat, This is Bad-->
 
-      <tbody>
+      <tbody class = "">
         <tr v-for=" item in accommodationStore.results.Items" :key="item.Id" 
           @click="selectedRow = item.Id"
             :class="[
-              rowBase,
-              selectedRow === item.Id ? rowSelectedClass : ''
+              'hover:bg-green-400/10 hover:border-gray-400 border-2 border-gray-200 group',
+              selectedRow === item.Id ? 'bg-green-400/10' : ''
             ]"
-          >
+        >
           
-          <TableCell class = "whitespace-normal break-all">{{ item.Id }}</TableCell>
 
-          <TableCell >
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''" >
              {{ item.AccoDetail?.[selectedLanguage.language.toLowerCase()]?.Name || 'nessun titolo' }}   <!--shortName o ImageDesc???-->
           </TableCell>
 
-          <TableCell >
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">
             <showImages :imageGallery="item.ImageGallery" period = "mainImage"></showImages>
           </TableCell>
 
-          <TableCell> 
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''"> 
             <showImages :imageGallery="item.ImageGallery" period = "winter"></showImages>
           </TableCell>
 
-          <TableCell> 
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''"> 
             <showImages :imageGallery="item.ImageGallery" period = "summer"></showImages>
           </TableCell>
 
-          <TableCell> 
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''"> 
             <showImages :imageGallery="item.ImageGallery" period = "year"></showImages>
           </TableCell>
             
-          <TableCell >{{ item.AccoType?.Id || "not found" }}</TableCell>
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">{{ item.AccoType?.Id || "not found" }}</TableCell>
 
-          <TableCell>{{ item.AccoCategory?.Id || "not found"}}</TableCell>
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">{{ item.AccoCategory?.Id || "not found"}}</TableCell>
 
-          <TableCell> {{ item.LocationInfo?.RegionInfo?.Name?.[selectedLanguage.language.toLowerCase()] || "not found" }} </TableCell>
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">
+             {{ item.LocationInfo?.RegionInfo?.Name?.[selectedLanguage.language.toLowerCase()] || "not found" }} 
+          </TableCell>
 
-          <TableCell>{{ item.LocationInfo?.MunicipalityInfo?.Name?.[selectedLanguage.language.toLowerCase()] || "not found" }}</TableCell>
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">
+            {{ item.LocationInfo?.MunicipalityInfo?.Name?.[selectedLanguage.language.toLowerCase()] || "not found" }}
+          </TableCell>
 
-          <TableCell>{{ item.AccoBadges}}</TableCell>
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">
+            {{ item.AccoBadges}}
+          </TableCell>
 
-          <TableCell>{{ item.AccoThemes }}</TableCell>
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">{{ item.AccoThemes }}</TableCell>
 
-          <TableCell>{{ item.ODHTags }}</TableCell>
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">{{ item.ODHTags }}</TableCell>
 
-          <TableCell>{{ item.HasLanguage.toString() }}</TableCell>
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">{{ item.HasLanguage.toString() }}</TableCell>
 
-          <TableCell class = "">{{ formatEditDate(item._Meta?.LastUpdate || "not found") }}</TableCell>
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">
+            {{ formatEditDate(item._Meta?.LastUpdate || "not found") }}
+          </TableCell>
 
-          <TableCell>{{ item._Meta?.Source || "not found" }}</TableCell>
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">
+            {{ item._Meta?.Source || "not found" }}
+          </TableCell>
 
-          <TableCell>{{ item.Active ? "active" : "Not active" }}</TableCell>
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">
+            {{ item.Active ? "active" : "Not active" }}
+          </TableCell>
 
-          <TableCell>{{ item.PublishedOn }}</TableCell>
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">{{ item.PublishedOn }}</TableCell>
 
-          <TableCell>{{ item.ODHTags }}</TableCell>
+          <TableCell >{{ item.ODHTags }}</TableCell>
 
-          <TableCell class = "sticky right-0 z-10 bg-white border shadow-[inset_8px_0_8px_-8px_rgba(0,0,0,0.1)] w-52 whitespace-nowrap">  details details</TableCell>
+          <TableCell class = "sticky right-0 z-10 bg-white border w-52 whitespace-nowrap shadow-[inset_4px_0_4px_-4px_rgba(0,0,0,0.1)]"> 
+            <div class="flex flex-row space-x-2 justify-center ">
+
+              <DetailButton class = " w-20 h-16"> 
+                <CursorArrowRaysIcon class = "size-6 text-green-400"></CursorArrowRaysIcon>
+                <p class = "text-sm text-green-400">EDIT</p>
+              </DetailButton>
+
+              <DetailButton class = " w-20 h-16"> 
+                <PencilSquareIcon class = "size-6 text-green-400"></PencilSquareIcon>
+                <p class = "text-sm text-green-400">ACTIONS</p>
+              </DetailButton>
+            </div>
+          </TableCell>
 
         </tr>
       </tbody>
@@ -120,6 +143,8 @@
 
 
 <script setup lang="ts">
+//ICONS
+import { CursorArrowRaysIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
 import { ref, watch, onMounted } from 'vue'
 import TableCell from '@/components/table/TableCell.vue'
@@ -132,10 +157,10 @@ import { useLanguageStore } from '@/stores/HeaderTableStore'
 import { useRoute, useRouter } from 'vue-router'
 
 import { useAccommodationStore } from '@/stores/AccomodatioStore'
+import DatasetHeaderButton from '@/components/datasetHeader/datasetHeaderButton.vue'
+import DetailButton from '@/components/buttons/DetailButton.vue'
 //STYLES
-const rowBase = 'hover:bg-green-400/10 hover:border-t-gray-400 hover:border-b-gray-400 cursor-pointer border-t-2 border-t-gray-200 border-b-2 border-b-gray-200 group';
-const rowSelectedClass = 'bg-green-400/10 border-t-gray-400 border-b-gray-400'
-const tableCellSelected = ' border-l-gray-400 border-r-gray-400' 
+
 //VARS
 const imageNotFound ='https://imgs.search.brave.com/LeS4HHKZ1oz1T15VY5MwiUjWDjLiYKj0vgRABB3D2BY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2Lzg2LzE5LzM0/LzM2MF9GXzY4NjE5/MzQwN19ESFp3amV5/ZEJPUjF0RURrTEF6/d00zdzVrWXN0Unp6/Qi5qcGc'
 const winterDate = '2020-01-15T00:00:00'
@@ -163,4 +188,15 @@ function formatEditDate(EditDate: string): string {
 }
 
 </script>
+
+<style scoped>
+table, th, td {
+ 
+  @apply border
+  
+  
+
+}
+</style>
+
 
