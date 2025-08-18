@@ -31,27 +31,27 @@
 
       <DatasetHeaderDropDown
         :ref ="el => dropdownRef2[index] = el"
-        :title="accommodationStore.filters[index].comparison"
+        :title="filterComparison[filter.comparison] || filter.comparison"
         width="min-w-24"
-        class="w-1/2"
+        class="w-1/2 "
       >
         <DatasetHeaderButton
-          v-for="comparison in filterComparison"
-          :key="comparison"
-          @click="selectComparison(comparison, index)"
+          v-for="(label, key) in filterComparison"
+          :key="key"
+          @click="selectComparison(key, index)"
           :class="[
             'hover:bg-green-100 cursor-pointer border-none m-0 rounded-none',
-            accommodationStore.filters[index].comparison === comparison ? 'bg-green-400/10' : ''
+            accommodationStore.filters[index].comparison === label ? 'bg-green-400/10' : ''
           ]"
         >
-          {{ comparison }}
+          {{ label }}
         </DatasetHeaderButton>
       </DatasetHeaderDropDown>
     </div>
 
    
     
-    <div class="w-full ">
+    <div class="w-full" v-if = "!(filter.comparison === 'isnull' || filter.comparison === 'isnotnull')">
       <DatasetHeaderButton class="w-full p-0">
         <input
           class="w-full border-none bg-transparent px-2 py-1 focus:outline-none"
@@ -97,7 +97,7 @@ import { PlusIcon } from '@heroicons/vue/16/solid';
  import { ref, computed, watch } from 'vue';
 import { useLanguageStore } from '@/stores/HeaderTableStore';
 
-import { useAccommodationStore } from '@/stores/AccomodatioStore';
+import { useAccommodationStore } from '@/stores/AccomodationStore';
 import { useRoute, useRouter } from 'vue-router';
 const accommodationStore = useAccommodationStore()
 const router = useRouter()
@@ -108,9 +108,21 @@ const dropdownRef2 = ref<any[]>([]);
 const languageStore = useLanguageStore()
 
 
- const filterComparison = ["equal to", "not equal to", "like", "greater than", "greater or equal", "less than", "less or equal", "is null", "is not null",
-    "includes", "not includes", "likein"
- ]
+const filterComparison =  <Record<string, string>>{
+  "eq": "equal to",
+  "ne": "not equal to",
+  "gt": "greater than",
+  "ge": "greater or equal",
+  "lt": "less than",
+  "le": "less or equal",
+  "like": "like",
+  "isnull": "is null",
+  "isnotnull": "is not null",
+  "in": "includes",
+  "nin": "not includes",
+  "likein": "likein"
+};
+
 
 const filterTypesMap = computed<Record<string, string>>(() => ({
   [`AccoDetail.${languageStore.language.toLowerCase()}.Name`]: "Title",
@@ -141,22 +153,17 @@ function selectComparison(comparison: string, index: number) {
 
 
 
-
-
-
-
 // Watch for changes in the language selected and update filter types accordingly (this way, filters look for the values in the language selected)
 const languageDependentKeys = [
   "AccoDetail",
   "LocationInfo.RegionInfo.Name",
   "LocationInfo.MunicipalityInfo.Name"
 ]
-
 watch(
   () => languageStore.language,
   (newLang) => {
     accommodationStore.filters.forEach((filter) => {
-      // Controlla se il type del filtro inizia con una delle chiavi "dinamiche"
+      
       for (const baseKey of languageDependentKeys) {
         if (filter.type.startsWith(baseKey)) {
           if(baseKey === "AccoDetail") {

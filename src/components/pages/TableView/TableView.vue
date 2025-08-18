@@ -117,12 +117,13 @@
             <div class="flex flex-row space-x-2 justify-center ">
 
               <DetailButton class = " w-20 h-16"> 
-                <CursorArrowRaysIcon class = "size-6 text-green-400"></CursorArrowRaysIcon>
+                <PencilSquareIcon class = "size-6 text-green-400"></PencilSquareIcon>
                 <p class = "text-sm text-green-400">EDIT</p>
               </DetailButton>
 
               <DetailButton class = " w-20 h-16"> 
-                <PencilSquareIcon class = "size-6 text-green-400"></PencilSquareIcon>
+       
+                <CursorArrowRaysIcon class = "size-6 text-green-400"></CursorArrowRaysIcon>
                 <p class = "text-sm text-green-400">ACTIONS</p>
               </DetailButton>
             </div>
@@ -146,7 +147,7 @@
 //ICONS
 import { CursorArrowRaysIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
-import { ref, watch, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import TableCell from '@/components/table/TableCell.vue'
 import TableHeader from '@/components/table/TableHeader.vue'
 import TableHeaderCell from '@/components/table/TableHeaderCell.vue'
@@ -156,19 +157,18 @@ import { useLanguageStore } from '@/stores/HeaderTableStore'
 
 import { useRoute, useRouter } from 'vue-router'
 
-import { useAccommodationStore } from '@/stores/AccomodatioStore'
-import DatasetHeaderButton from '@/components/datasetHeader/datasetHeaderButton.vue'
+import { useAccommodationStore } from '@/stores/AccomodationStore'
+
 import DetailButton from '@/components/buttons/DetailButton.vue'
+
 //STYLES
 
-//VARS
-const imageNotFound ='https://imgs.search.brave.com/LeS4HHKZ1oz1T15VY5MwiUjWDjLiYKj0vgRABB3D2BY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2Lzg2LzE5LzM0/LzM2MF9GXzY4NjE5/MzQwN19ESFp3amV5/ZEJPUjF0RURrTEF6/d00zdzVrWXN0Unp6/Qi5qcGc'
-const winterDate = '2020-01-15T00:00:00'
-const summerDate = '2020-07-15T00:00:00'
+
 
 //STATE
 const selectedRow = ref<number | null>(null)
 const selectedLanguage = useLanguageStore()
+
 
 const route = useRoute()
 const router = useRouter()
@@ -178,7 +178,7 @@ const accommodationStore: any = useAccommodationStore()
 //FETCH
 onMounted(() => {
     accommodationStore.restoreFromUrl(route);
-    accommodationStore.fetchData();
+    accommodationStore.fetchData(router, route);
 });
 
 

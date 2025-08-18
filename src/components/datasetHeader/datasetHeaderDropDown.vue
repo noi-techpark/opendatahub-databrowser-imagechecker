@@ -14,7 +14,8 @@
                 <b v-if =  "bold">{{ props.title }}</b>
                 <div class="flex-1  w-full flex justify-end">
 
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" :class="{ 'rotate-180': isOpen }" >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                :class="[{ 'rotate-180': isOpen }, arrowSize ? arrowSize : 'size-6']"  >
                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5"/>
                 </svg>
 
@@ -26,12 +27,13 @@
         <!--contains the dropdown menu's Options-->
         <div 
           v-if="isOpen" 
-          class="flex flex-col absolute top-full bg-white w-full border rounded border-gray-50 overflow-y-auto max-h-52 z-10"
+          class="flex flex-col absolute bg-white w-full border rounded border-gray-400 overflow-y-auto max-h-52 z-10"
+          :class= "showDown? showDown : 'top-full'"
         >
             <slot></slot>
         </div>
     </div>
-</template>
+</template> 
 
 <script setup lang="ts">
     import DatasetHeaderButton from './datasetHeaderButton.vue';
@@ -45,6 +47,8 @@
         title: string
         bold?: boolean
         width: string
+        arrowSize?: string
+        showDown?: string
     }>(),
     {
         title: "",

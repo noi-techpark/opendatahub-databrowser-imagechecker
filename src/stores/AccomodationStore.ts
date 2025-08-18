@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import { useLanguageStore } from "./HeaderTableStore";
+import { useFooterStore } from "./FooterStore";
 
 interface Filter {
     type: string;
@@ -30,7 +31,9 @@ export const useAccommodationStore = defineStore("accommodation", {
     actions: {
         //Updates URL, and fetches Data accordingly
         async updateAndFetch(router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
-            console.log("UPDATE AND FETCH: ")
+
+            
+
             if (router && route) {
                 const newQuery = { ...route.query };
 
@@ -40,9 +43,11 @@ export const useAccommodationStore = defineStore("accommodation", {
                     delete newQuery.searchfilter;
                 }
 
+             
                 const conditions = this.filters
                     .filter(f => f.value.trim() !== "")
-                    .map(f => `like(${f.type},'${f.value}')`);  //TODOO inserire filter.comparison invece di like
+                    //.map(f => `like(${f.type},'${f.value}')`);  //TODOO inserire filter.comparison invece di like
+                    .map(f => `${f.comparison}(${f.type},'${f.value}')`);
 
                 if (conditions.length === 1) {
                     newQuery.rawfilter = conditions[0]; 
@@ -53,8 +58,13 @@ export const useAccommodationStore = defineStore("accommodation", {
                 }
 
                 const languageStore = useLanguageStore()
-                console.log(languageStore.language + " --> lingua slezionata")
                 newQuery.language = languageStore.language.toLowerCase()
+
+                const footerStore = useFooterStore()
+                console.log(footerStore.pagesize) //DEBUG
+                newQuery.pagesize = footerStore.pagesize.toLocaleString()
+                console.log(footerStore.pagenumber)
+                newQuery.pagenumber = footerStore.pagenumber.toLocaleString()
 
 
 
@@ -64,12 +74,11 @@ export const useAccommodationStore = defineStore("accommodation", {
         },
 
  
-        async fetchData() {
+        async fetchData(router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
             this.loading = true;
 
-            //at the start, we display the selected language in the URL
             const languageStore = useLanguageStore()
-            
+            const footerStore = useFooterStore()
          
             try {
                 const conditions = this.filters
@@ -81,13 +90,15 @@ export const useAccommodationStore = defineStore("accommodation", {
                     : undefined;
 
                 const language = languageStore.language.toLowerCase()
-
-                    
+                const pagesize = footerStore.pagesize
+                const pagenumber = footerStore.pagenumber
+                
+                               
 
                 const response = await axios.get("https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation", {
                     params: {
-                        pagenumber: 1,
-                        pagesize: 25,
+                        pagenumber,
+                        pagesize,
                         language,
                         roominfo: "1-18,18",
                         bokfilter: "hgv",
@@ -102,9 +113,13 @@ export const useAccommodationStore = defineStore("accommodation", {
                 });
 
                 this.results = response.data;
+    
             } catch (error) {
                 console.error("Error fetching accommodations:", error);
             } finally {
+                
+                footerStore.TotalResults = (this.results as any)?.TotalResults ?? 0;
+                console.log(footerStore.TotalResults)
                 this.loading = false;
             }
         },
@@ -119,7 +134,7 @@ export const useAccommodationStore = defineStore("accommodation", {
                 this.searchValue = "";
             }
 
-            console.log("searchfilter in URL = ", this.searchValue)
+            
 
             //Restores all filters (comparison, type, value) from rawfilter, this way filters on the sidebar dont disappear when page is refreshed
             if (route.query.rawfilter) {
@@ -147,6 +162,16 @@ export const useAccommodationStore = defineStore("accommodation", {
             if(route.query.language){
                 const languageStore = useLanguageStore()
                 languageStore.language = String(route.query.language).toUpperCase()
+            }
+
+            if(route.query.pagesize){
+                const footerStore = useFooterStore()
+                footerStore.pagesize = Number(route.query.pagesize)
+            }
+
+            if(route.query.pagenumber){
+                const footerStore = useFooterStore()
+                footerStore.pagenumber = Number(route.query.pagenumber)
             }
 
         },

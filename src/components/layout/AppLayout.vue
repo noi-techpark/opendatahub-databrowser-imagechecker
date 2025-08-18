@@ -10,12 +10,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
      <ContentDivider class = "z-50" />
 
-    <main class="flex-1 overflow-hidden"> 
+    <main class="flex-1 overflow-hidden  "> 
       <slot />
     </main>
 
-   
-    <Footer class=" sticky bottom-0" />
+
+    <Footer class=" sticky bottom-0  z-30" />
   </div>
   
 </template>
@@ -24,7 +24,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import Header from './header.vue'
 import Footer from './footer.vue'
 import ContentDivider from '../contentAlignment/ContentDivider.vue';
-import { ref } from 'vue'
+
 
 withDefaults(defineProps<{ showAppFooter?: boolean }>(), { showAppFooter: true })
 

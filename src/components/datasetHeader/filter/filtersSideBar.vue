@@ -7,7 +7,7 @@
 
                 <b class = "text-xl">Filters</b>
 
-                <DatasetHeaderButton>
+                <DatasetHeaderButton @click = "accomodationStore.showFilterSideBar = false">
                     <XMarkIcon class = "ml-auto size-6 text-green-400"></XMarkIcon>
                 </DatasetHeaderButton>
             </div>
@@ -33,7 +33,7 @@
 
 
 
-            <div class ="bg-white m-4 border rounded max-h-[450px] overflow-y-auto"> 
+            <div class ="bg-white m-4 border rounded max-h-screen overflow-y-auto"> 
                 <FilterTable></FilterTable>
             </div>
     </div>
@@ -47,7 +47,7 @@ import { XCircleIcon, Bars3BottomRightIcon, XMarkIcon } from '@heroicons/vue/16/
 
 import DatasetHeaderButton from '../datasetHeaderButton.vue';
 import FilterTable from './filterTable.vue';
-import { useAccommodationStore } from '@/stores/AccomodatioStore';
+import { useAccommodationStore } from '@/stores/AccomodationStore';
 import { useRoute, useRouter } from 'vue-router';
 const route = useRoute()
 const router = useRouter()
