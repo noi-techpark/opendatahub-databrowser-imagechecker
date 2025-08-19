@@ -1,5 +1,67 @@
+
+
 <template>
-  <div class="w-full bg-white">footer</div>
+  <div class="flex flex-row justify-end items-center space-x-3 p-7 w-full h-4
+             bg-gray-50  border-2 border-gray-400">
+
+    <p class ="text-base font-bold mr-5"> {{ footerStore.pagenumber == TotalPages ? footerStore.TotalResults % footerStore.pagesize : footerStore.pagesize}} 
+        records out of {{ footerStore.TotalResults}} are shown</p>
+
+
+    <DatasetHeaderDropDown :title = "footerStore.pagesize.toLocaleString()" width="min-w-12" arrow-size="size-3" show-down="bottom-full"  class = "" >
+      <DatasetHeaderButton v-for = "option in dropdownOptions" class = "border-none rounded-none " 
+                          :class = "[option === footerStore.pagesize ? 'bg-green-400/10' : '']"
+                          @click = "updatePageSize(option)">
+        {{option}}
+      </DatasetHeaderButton>
+    </DatasetHeaderDropDown>
+
+
+    <p class = "text-base"> lines per page </p>
+
+    <div class = "flex flex-row items-center">
+      <PageSelectButton class = " ml-5"/>
+      <p class = "ml-3 text-sm"> of {{ TotalPages }}</p>
+    </div>
+
+   
+    
+
+  </div>
 </template>
 
-<scrpit setup lang="ts"></scrpit>
+<script setup lang="ts">
+
+//ICONS
+import { computed } from 'vue';
+import DatasetHeaderButton from '../datasetHeader/datasetHeaderButton.vue';
+import DatasetHeaderDropDown from '../datasetHeader/datasetHeaderDropDown.vue';
+
+import { useFooterStore } from '@/stores/FooterStore';
+import { useAccommodationStore } from '@/stores/AccomodationStore';
+import PageSelectButton from '../footer/pageSelectButton.vue';
+
+import { useRoute, useRouter } from 'vue-router';
+const route = useRoute()
+const router = useRouter()
+
+const accommodationStore = useAccommodationStore()
+const footerStore = useFooterStore()
+
+const dropdownOptions = [25, 50, 75, 100]
+
+const TotalPages = computed(() => {
+  if (!footerStore.pagesize) return 0
+  return Math.ceil(footerStore.TotalResults / footerStore.pagesize)
+})
+
+
+
+function updatePageSize(option: number){
+  footerStore.pagesize = option
+  accommodationStore.updateAndFetch(router, route)
+  
+}
+
+
+</script>

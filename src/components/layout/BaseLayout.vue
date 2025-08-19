@@ -33,7 +33,7 @@ import ContentDivider from '@/components/contentAlignment/ContentDivider.vue'
 import DatasetHeader from '@/components/layout/DatasetHeader.vue'
 import FiltersSideBar from '../datasetHeader/filter/filtersSideBar.vue'
 
-import { useAccommodationStore } from '@/stores/AccomodatioStore'
+import { useAccommodationStore } from '@/stores/AccomodationStore'
 
 const accommodationStore = useAccommodationStore()
 

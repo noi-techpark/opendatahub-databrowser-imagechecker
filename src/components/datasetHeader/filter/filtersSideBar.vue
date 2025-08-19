@@ -7,7 +7,7 @@
 
                 <b class = "text-xl">Filters</b>
 
-                <DatasetHeaderButton>
+                <DatasetHeaderButton @click = "accomodationStore.showFilterSideBar = false">
                     <XMarkIcon class = "ml-auto size-6 text-green-400"></XMarkIcon>
                 </DatasetHeaderButton>
             </div>
@@ -17,9 +17,9 @@
             <div class = "flex flex-row items-center p-1 mt-5">
 
                 <p class ="ml-5 text-sm"> 
-                    <b>x</b>
+                    <b>{{ footerStore.TotalResults }}</b>
                      <span class="text-gray-500"> records out of </span> 
-                    <b>y</b>
+                    <b> {{ footerStore.FirstTotalResults }}</b>
                 
                 </p>
 
@@ -33,7 +33,7 @@
 
 
 
-            <div class ="bg-white m-4 border rounded max-h-[450px] overflow-y-auto"> 
+            <div class ="bg-white m-4 border rounded max-h-screen overflow-y-auto"> 
                 <FilterTable></FilterTable>
             </div>
     </div>
@@ -47,11 +47,13 @@ import { XCircleIcon, Bars3BottomRightIcon, XMarkIcon } from '@heroicons/vue/16/
 
 import DatasetHeaderButton from '../datasetHeaderButton.vue';
 import FilterTable from './filterTable.vue';
-import { useAccommodationStore } from '@/stores/AccomodatioStore';
+import { useAccommodationStore } from '@/stores/AccomodationStore';
 import { useRoute, useRouter } from 'vue-router';
+import { useFooterStore } from '@/stores/FooterStore';
 const route = useRoute()
 const router = useRouter()
 const accomodationStore = useAccommodationStore()
+const footerStore = useFooterStore()
 
 function removeFltersAndUpdate() {
     accomodationStore.filters = []

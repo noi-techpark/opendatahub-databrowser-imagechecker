@@ -99,7 +99,7 @@
   import DatasetHeaderSearchBar from '../datasetHeader/datasetHeaderSearchBar.vue';
   import { useLanguageStore } from '@/stores/HeaderTableStore';
   import CardContainer from '../card/CardContainer.vue';
-  import { useAccommodationStore } from '@/stores/AccomodatioStore';
+  import { useAccommodationStore } from '@/stores/AccomodationStore';
   import { useRoute, useRouter } from 'vue-router';
   const Languages = ["DE", "IT", "EN", "NL", "CS", "PL", "FR", "RU", "LD"];
   const selectedLanguage = useLanguageStore();

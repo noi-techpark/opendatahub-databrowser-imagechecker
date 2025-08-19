@@ -30,7 +30,7 @@
 
     import { useRoute, useRouter } from 'vue-router';
 
-    import { useAccommodationStore } from '@/stores/AccomodatioStore';
+    import { useAccommodationStore } from '@/stores/AccomodationStore';
     
 
     const router = useRouter();
