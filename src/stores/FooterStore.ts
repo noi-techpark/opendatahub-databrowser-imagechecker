@@ -10,7 +10,8 @@ export const useFooterStore = defineStore("footer" , {
                 TotalPages: 0,
                 CurrentPage: 0,
                 PreviousPage: "",
-                NextPage: ""
+                NextPage: "",
+                FirstTotalResults: 0
 
         }
     },

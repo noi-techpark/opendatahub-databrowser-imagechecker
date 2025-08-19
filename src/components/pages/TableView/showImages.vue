@@ -3,20 +3,48 @@
     <img
       :src="selectedImage?.ImageUrl || imageNotFound"
       alt="Accommodation Image"
+      class="cursor-pointer"
       style="width: 100px; height: auto; object-fit: cover"
+      @click="isFullView = true"
     />
+
+
+    <div
+      v-if="isFullView"
+      class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
+      @click.self="isFullView = false"
+    >
+      <img
+        :src="selectedImage?.ImageUrl || imageNotFound"
+        alt="Full view"
+        class="max-w-full max-h-full"
+      />
+
+      <button
+        @click="isFullView = false"
+        class="absolute top-4 right-4 text-white text-2xl font-bold"
+      >
+        &times;
+      </button>
+    </div>
+
     <div class="flex flex-col">
       <p> validity:</p>
       <p v-if="selectedImage">from: {{ DateFormatter(selectedImage.ValidFrom) }}</p>
       <p v-if="selectedImage">to: {{ DateFormatter(selectedImage.ValidTo) }}</p>
     </div>
   </div>
+
+  
 </template>
 
 <script setup lang="ts">
 import { useLanguageStore } from '@/stores/HeaderTableStore';
 import type { Accommodation } from './types'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+
+
+const isFullView = ref(false)
 
 const props = defineProps<{
   imageGallery: Accommodation['ImageGallery'] | null

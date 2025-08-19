@@ -3,17 +3,19 @@
   <div class="flex flex-col items-center p-2 space-y-3 " v-for = "(filter, index) in accommodationStore.filters" :key="index">
 
 
-    <button @click = "accommodationStore.removeFilter(index, router, route)" class= " w-full flex justify-end">
-      <XCircleIcon class = "size-5 text-red-500 mr-1"></XCircleIcon>
+    <div class= " w-full flex justify-end">
+    <button @click = "accommodationStore.removeFilter(index, router, route)" class= " w-8 flex justify-end">
+      <XCircleIcon class = "size-6 text-red-500 mr-1"></XCircleIcon>
     </button>
+    </div>
 
-    <div class="flex space-x-2 w-full" > 
+    <div class="flex space-x-2 w-full h-auto" > 
 
       <DatasetHeaderDropDown
         :ref ="el => dropdownRef1[index] = el"
         :title="filterTypesMap[filter.type] || filter.type"
-        width="min-w-24"
-        class="w-1/2 "
+        width="min-w-36"
+        class="w-auto whitespace-break-spaces min-w- "
       >
           <DatasetHeaderButton
             v-for="(label, key) in filterTypesMap"
@@ -24,7 +26,9 @@
               filter.type === key ? 'bg-green-400/10' : ''
             ]"
           >
-            {{ label }}
+   
+              {{ label }}
+           
           </DatasetHeaderButton>
 
       </DatasetHeaderDropDown>
@@ -32,8 +36,8 @@
       <DatasetHeaderDropDown
         :ref ="el => dropdownRef2[index] = el"
         :title="filterComparison[filter.comparison] || filter.comparison"
-        width="min-w-24"
-        class="w-1/2 "
+        width="min-w-36"
+        class="w-auto "
       >
         <DatasetHeaderButton
           v-for="(label, key) in filterComparison"
@@ -57,6 +61,7 @@
           class="w-full border-none bg-transparent px-2 py-1 focus:outline-none"
           placeholder="insert search value"
           type="text" v-model = "accommodationStore.filters[index].value"
+          @keyup.enter = "accommodationStore.updateAndFetch(router, route)"
         />
       </DatasetHeaderButton>
     </div>

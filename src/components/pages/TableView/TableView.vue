@@ -159,6 +159,8 @@ import { useRoute, useRouter } from 'vue-router'
 
 import { useAccommodationStore } from '@/stores/AccomodationStore'
 
+import { useFooterStore } from '@/stores/FooterStore'
+
 import DetailButton from '@/components/buttons/DetailButton.vue'
 
 //STYLES
@@ -174,11 +176,14 @@ const route = useRoute()
 const router = useRouter()
 
 const accommodationStore: any = useAccommodationStore()
+const footerStore = useFooterStore()
 
 //FETCH
 onMounted(() => {
     accommodationStore.restoreFromUrl(route);
     accommodationStore.fetchData(router, route);
+
+   
 });
 
 

@@ -25,6 +25,7 @@ export const useAccommodationStore = defineStore("accommodation", {
             ],
             loading: false,
             showFilterSideBar: false,
+            APIurl: "" 
         };
     },
 
@@ -45,9 +46,23 @@ export const useAccommodationStore = defineStore("accommodation", {
 
              
                 const conditions = this.filters
-                    .filter(f => f.value.trim() !== "")
+                    .filter(f => {
+                        if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
+                            return true // li teniamo anche senza value
+                        }
+                            return f.value.trim() !== ""
+                    })
                     //.map(f => `like(${f.type},'${f.value}')`);  //TODOO inserire filter.comparison invece di like
-                    .map(f => `${f.comparison}(${f.type},'${f.value}')`);
+                    .map(f => {
+                        if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
+                           
+                            return `${f.comparison}(${f.type})`
+                        }
+                        
+                        return `${f.comparison}(${f.type},'${f.value}')`
+                    });
+                    
+                console.log("raw filter: " + conditions)
 
                 if (conditions.length === 1) {
                     newQuery.rawfilter = conditions[0]; 
@@ -57,14 +72,17 @@ export const useAccommodationStore = defineStore("accommodation", {
                     delete newQuery.rawfilter;
                 }
 
+                console.log("raw filter 2: " + newQuery.rawfilter)
                 const languageStore = useLanguageStore()
                 newQuery.language = languageStore.language.toLowerCase()
 
                 const footerStore = useFooterStore()
-                console.log(footerStore.pagesize) //DEBUG
+           
                 newQuery.pagesize = footerStore.pagesize.toLocaleString()
-                console.log(footerStore.pagenumber)
+               
                 newQuery.pagenumber = footerStore.pagenumber.toLocaleString()
+
+                
 
 
 
@@ -76,14 +94,27 @@ export const useAccommodationStore = defineStore("accommodation", {
  
         async fetchData(router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
             this.loading = true;
-
             const languageStore = useLanguageStore()
             const footerStore = useFooterStore()
-         
+            
+
+            //filters the "Filters" that dont have a value, with the exception of isnull and isnotnull filterTypes
             try {
                 const conditions = this.filters
-                    .filter(f => f.value.trim() !== "")
-                    .map(f => `${f.comparison}(${f.type},'${f.value}')`);
+                .filter(f => {
+                    if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
+                    return true
+                    }
+                    return f.value.trim() !== ""
+                })
+                .map(f => {
+                    if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
+                    return `${f.comparison}(${f.type})`
+                    }
+                    return `${f.comparison}(${f.type},'${f.value}')`
+                });
+
+            
 
                 const rawfilter = conditions.length > 0
                     ? `and(${conditions.join(",")})`
@@ -113,13 +144,23 @@ export const useAccommodationStore = defineStore("accommodation", {
                 });
 
                 this.results = response.data;
-    
+                this.APIurl = response.config.url ? response.config.url : ""
+                
+
+                //TODOO, there might be a better way, 2 api calls just for this variable is a waste
+                if (footerStore.FirstTotalResults === 0) {
+                    const responseNoFilter: any = await axios.get("https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation");
+                    footerStore.FirstTotalResults = responseNoFilter.data.TotalResults
+                    console.log("first: " + footerStore.FirstTotalResults)
+                }
+
             } catch (error) {
                 console.error("Error fetching accommodations:", error);
             } finally {
                 
                 footerStore.TotalResults = (this.results as any)?.TotalResults ?? 0;
                 console.log(footerStore.TotalResults)
+               
                 this.loading = false;
             }
         },
@@ -145,16 +186,18 @@ export const useAccommodationStore = defineStore("accommodation", {
                 }
                 
                 
-                const regex = /(\w+)\(([^,]+),'([^']+)'\)/g;    //divides each argument in rawfilter string in the 3 values below
+                const regex = /(\w+)\(([^,]+)(?:,'([^']+)')?\)/g;    //divides each argument in rawfilter string in the 3 values below, 
+                                                                    //third value is optional because isnull and isnotnull dont have the third value
                 this.filters = [];
                 let match;
                 while ((match = regex.exec(raw)) !== null) {
                     console.log(match[1])
-                    const comparison = match[1]; // eq, like, etc.
-                    const type = match[2];
-                    const value = match[3];
-                    this.filters.push({ comparison, type, value });
+                    const comparison = match[1]; // eq, like, etc...
+                    const type = match[2];  // title, image, etc...
+                    const value = match[3]; 
+                    this.filters.push({ comparison, type, value: value ?? ""  });
                 }
+            
             } else {
                 this.filters = [];
             }
