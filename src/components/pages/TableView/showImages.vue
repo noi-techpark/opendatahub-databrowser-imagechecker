@@ -63,41 +63,7 @@
     summer: '2020-07-15T00:00:00',
   }
 
-  /*
-  const selectedImage = computed(() => { //selects the image representative of the period selected through the prop "period"
-    const images = props.imageGallery || []
-  
-      const winterImg = findImageByTargetDate(periodDates.winter, images)
-      const summerImg = findImageByTargetDate(periodDates.summer, images)  
-     
-      if (props.period === 'winter' && winterImg) return winterImg
-      else if (props.period === 'summer' && summerImg) return summerImg
-      else if (props.period === 'year' && summerImg && winterImg) return summerImg || winterImg || images[0] 
-      else if (props.period === 'mainImage') return images[0]
 
-    
-    return null
-  })
-
-  */
-
-  // returns Image in ImageGallery that contains target Data string, if there are none returns null
-  function findImageByTargetDate(target: string, images: Accommodation['ImageGallery']) {
-    if (!images) return null
-
-    for (const image of images) {
-      if (
-        
-        image.ValidFrom &&
-        image.ValidTo &&
-        isMonthDayInRange(target, image.ValidFrom, image.ValidTo)
-      ) {
-        return image
-      }
-    }
-
-    return null
-  }
 
   // returns true if the target Date string is included in the from-to interval, ignores the year
   function isMonthDayInRange(target: string, from: string, to: string): boolean {
@@ -129,7 +95,7 @@
   }
 
 
-  //TODOO reformat, a switch casse might be faster and easier to read
+  //TODOO reformat, a switch case might be faster and easier to read
   function findRightImage(period: string, images: Accommodation['ImageGallery']){
     if (!images) return null
   
@@ -137,7 +103,6 @@
     
 
     for(const image of images){
-
 
       if(period == "winter"){
 

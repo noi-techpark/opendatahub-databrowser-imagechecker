@@ -46,11 +46,14 @@ import AlignX from '../contentAlignment/AlignX.vue'
 import { useRouter } from 'vue-router'
 import { useAuth } from '@/auth/authStores/auth'
 import { keycloak } from '@/auth/keycloak'
+import { useAccommodationStore } from '@/stores/AccomodationStore'
+import { useFooterStore } from '@/stores/FooterStore'
 
 
 const router = useRouter()
 const auth = useAuth()
-
+const accommodationStore = useAccommodationStore()
+const footerStore = useFooterStore()
 
 defineOptions({ inheritAttrs: false })
 
@@ -70,6 +73,7 @@ function refreshPage() {
 
 keycloak.onAuthSuccess = () => {
   auth.authenticate(keycloak.token);
+
 };
 
 keycloak.onAuthError = () => {

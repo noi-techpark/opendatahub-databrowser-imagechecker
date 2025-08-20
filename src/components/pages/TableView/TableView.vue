@@ -5,8 +5,8 @@
    
     
     <!--TODOO add Loading animation or icon-->
-    <div v-if="accommodationStore.loading" class="p-4 text-center w-full">
-         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+    <div v-if="accommodationStore.loading" class="p-4 text-center w-full h-full">
+         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-400">
         <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
       </svg>
     </div>
@@ -16,7 +16,7 @@
 
   
       <TableHeader class = " sticky top-0 z-20">
-        <TableHeaderCell>ID</TableHeaderCell>
+        <TableHeaderCell>ID</TableHeaderCell>   <!--TODOO just for debug, delete ID-->
         <TableHeaderCell>Title</TableHeaderCell>
         <TableHeaderCell>Main Image</TableHeaderCell>
         <TableHeaderCell>Image Winter</TableHeaderCell>
@@ -90,12 +90,12 @@
           </TableCell>
 
           <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">
-            {{ item.AccoBadges}}
+            {{ formatObject(item.AccoBadges)}}
           </TableCell>
 
-          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">{{ item.AccoThemes }}</TableCell>
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''"> {{ formatObject(item.AccoThemes) }}</TableCell> 
 
-          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">{{ item.ODHTags }}</TableCell>
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">{{ formatObject(item.ODHTags) }}</TableCell>
 
           <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">{{ item.HasLanguage.toString() }}</TableCell>
 
@@ -111,9 +111,11 @@
             {{ item.Active ? "active" : "Not active" }}
           </TableCell>
 
-          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">{{ item.PublishedOn }}</TableCell>
 
-          <TableCell >{{ item.ODHTags }}</TableCell>
+      
+          <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">{{ formatArray(item.PublishedOn)}}</TableCell>
+
+          <TableCell > push data</TableCell>    <!-- TODOO this is a placeholder value, push data goes here-->
 
           <TableCell class = "sticky right-0 z-10 bg-white border w-52 whitespace-nowrap shadow-[inset_4px_0_4px_-4px_rgba(0,0,0,0.1)]"> 
             <div class="flex flex-row space-x-2 justify-center ">
@@ -183,10 +185,23 @@
 
 
   function formatEditDate(EditDate: string): string {
-
     const result = EditDate.replace("T", " ").split('.')[0]
     return result
- 
+  }
+
+  //formats object Id: x, Self: y,  in string Id1, Id2, Id3 ...
+  function formatObject(object: { Id: string }[] | null | undefined): string {
+    if (!object || object.length === 0) 
+      return "-"; //fallaback if null or undefined
+
+    return object.map(obj => obj.Id).join(",\n");
+  }
+  
+  function formatArray(Array: string[] | null | undefined): string {
+    if(!Array || Array.length === 0)
+      return "-"
+
+    return Array.map(obj => obj).join(",\n");
   }
 
 </script>
@@ -195,9 +210,11 @@
 
 
 <style scoped>
+
   table, th, td, tr {
     @apply border
   }
+
 </style>
 
 

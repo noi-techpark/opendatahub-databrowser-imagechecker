@@ -54,7 +54,6 @@ export const useAccommodationStore = defineStore("accommodation", {
                         }
                             return f.value.trim() !== ""
                     })
-                    //.map(f => `like(${f.type},'${f.value}')`);  //TODOO inserire filter.comparison invece di like
                     .map(f => {
                         if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
                            
@@ -128,7 +127,7 @@ export const useAccommodationStore = defineStore("accommodation", {
                 const pagenumber = footerStore.pagenumber
                                
 
-                const response = await axios.get("https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation", {
+                const response = await api.get("Accommodation", {
                     params: {
                         pagenumber,
                         pagesize,
@@ -143,9 +142,7 @@ export const useAccommodationStore = defineStore("accommodation", {
                         removenullvalues: false,
                         getasidarray: false,
                     },
-                    headers: {
-                        Authorization: `Bearer ${auth.accessToken}`,
-                    },
+                
                 });
 
                 this.results = response.data;
@@ -154,7 +151,7 @@ export const useAccommodationStore = defineStore("accommodation", {
 
                 //TODOO, there might be a better way, 2 api calls just for this variable is a waste
                 if (footerStore.FirstTotalResults === 0) {
-                    const responseNoFilter: any = await axios.get("https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation");
+                    const responseNoFilter: any = await api.get("Accommodation");
                     footerStore.FirstTotalResults = responseNoFilter.data.TotalResults
                     console.log("first: " + footerStore.FirstTotalResults)
                 }

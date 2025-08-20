@@ -1,7 +1,7 @@
 <template>
 <div class = "flex flex-row space-x-2">
-     <button >
-            <ChevronLeftIcon class =" size-4 text-green-400" @click = "updatePageNumber(--footerStore.pagenumber )"/> 
+     <button @click = "updatePageNumber(--footerStore.pagenumber)">
+            <ChevronLeftIcon class =" size-4 text-green-400"/> 
         </button>
     
     <div class = "flex flex-row border rounded-lg border-gray-400">   
@@ -19,8 +19,8 @@
     
     </div>
     
-         <button>
-            <ChevronRightIcon class = "size-4 text-green-400" @click = "updatePageNumber(++footerStore.pagenumber)" />
+         <button @click = "updatePageNumber(++footerStore.pagenumber)">
+            <ChevronRightIcon class = "size-4 text-green-400"/>
         </button>
 
 </div>
