@@ -3,6 +3,8 @@ import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import { useLanguageStore } from "./HeaderTableStore";
 import { useFooterStore } from "./FooterStore";
+import { useAuth } from "@/auth/authStores/auth";
+import api from "@/components/utils/api";
 
 interface Filter {
     type: string;
@@ -52,7 +54,6 @@ export const useAccommodationStore = defineStore("accommodation", {
                         }
                             return f.value.trim() !== ""
                     })
-                    //.map(f => `like(${f.type},'${f.value}')`);  //TODOO inserire filter.comparison invece di like
                     .map(f => {
                         if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
                            
@@ -96,6 +97,7 @@ export const useAccommodationStore = defineStore("accommodation", {
             this.loading = true;
             const languageStore = useLanguageStore()
             const footerStore = useFooterStore()
+            const auth = useAuth()
             
 
             //filters the "Filters" that dont have a value, with the exception of isnull and isnotnull filterTypes
@@ -123,10 +125,9 @@ export const useAccommodationStore = defineStore("accommodation", {
                 const language = languageStore.language.toLowerCase()
                 const pagesize = footerStore.pagesize
                 const pagenumber = footerStore.pagenumber
-                
                                
 
-                const response = await axios.get("https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation", {
+                const response = await api.get("Accommodation", {
                     params: {
                         pagenumber,
                         pagesize,
@@ -141,6 +142,7 @@ export const useAccommodationStore = defineStore("accommodation", {
                         removenullvalues: false,
                         getasidarray: false,
                     },
+                
                 });
 
                 this.results = response.data;
@@ -149,7 +151,7 @@ export const useAccommodationStore = defineStore("accommodation", {
 
                 //TODOO, there might be a better way, 2 api calls just for this variable is a waste
                 if (footerStore.FirstTotalResults === 0) {
-                    const responseNoFilter: any = await axios.get("https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation");
+                    const responseNoFilter: any = await api.get("Accommodation");
                     footerStore.FirstTotalResults = responseNoFilter.data.TotalResults
                     console.log("first: " + footerStore.FirstTotalResults)
                 }

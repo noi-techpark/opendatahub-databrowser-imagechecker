@@ -7,15 +7,10 @@
     
         <DatasetHeader class = "sticky top-0 bg-white"/>
 
+        <div class="flex flex-row overflow-auto">   <!-- REMINDER This overflow-auto wasted 10 hours of my time-->
 
-        
-        <div class="flex flex-row overflow-auto">   <!-- This overflow-auto wasted 10 hours of my time-->
-
-         
-          <div class="flex-1 overflow-auto">  <!-- TODO, SCROLLBAR HIDE IS A TEMPORARY FIX-->
-            
+          <div class="flex-1 overflow-auto">    
             <slot></slot>
-
           </div>
 
           <FiltersSideBar v-if = "accommodationStore.showFilterSideBar" class =" min-w-96"></FiltersSideBar>
@@ -23,18 +18,17 @@
         </div>
       
     </div>
+
   </AppLayout>
   
 </template>
 
 <script setup lang="ts">
-import AppLayout from '@/components/layout/AppLayout.vue'
-import ContentDivider from '@/components/contentAlignment/ContentDivider.vue'
-import DatasetHeader from '@/components/layout/DatasetHeader.vue'
-import FiltersSideBar from '../datasetHeader/filter/filtersSideBar.vue'
+  import AppLayout from '@/components/layout/AppLayout.vue'
+  import DatasetHeader from '@/components/layout/DatasetHeader.vue'
+  import FiltersSideBar from '../datasetHeader/filter/filtersSideBar.vue'
+  import { useAccommodationStore } from '@/stores/AccomodationStore'
 
-import { useAccommodationStore } from '@/stores/AccomodationStore'
-
-const accommodationStore = useAccommodationStore()
+  const accommodationStore = useAccommodationStore()
 
 </script>

@@ -9,6 +9,8 @@ export interface Accommodation {
     ValidFrom: string
     ValidTo: string
     ImageUrl: string
+    Width: number
+    Height: number
   }[]
   AccommodationType?: {
     Id: string

@@ -32,36 +32,30 @@
 
 <script setup lang="ts">
 
-//ICONS
-import { computed } from 'vue';
-import DatasetHeaderButton from '../datasetHeader/datasetHeaderButton.vue';
-import DatasetHeaderDropDown from '../datasetHeader/datasetHeaderDropDown.vue';
+  //ICONS
 
-import { useFooterStore } from '@/stores/FooterStore';
-import { useAccommodationStore } from '@/stores/AccomodationStore';
-import PageSelectButton from '../footer/pageSelectButton.vue';
+  import DatasetHeaderButton from '../datasetHeader/datasetHeaderButton.vue';
+  import DatasetHeaderDropDown from '../datasetHeader/datasetHeaderDropDown.vue';
+  import PageSelectButton from '../footer/pageSelectButton.vue';
+  import { computed } from 'vue';
+  import { useFooterStore } from '@/stores/FooterStore';
+  import { useAccommodationStore } from '@/stores/AccomodationStore';
+  import { useRoute, useRouter } from 'vue-router';
 
-import { useRoute, useRouter } from 'vue-router';
-const route = useRoute()
-const router = useRouter()
+  const route = useRoute()
+  const router = useRouter()
+  const accommodationStore = useAccommodationStore()
+  const footerStore = useFooterStore()
+  const dropdownOptions = [25, 50, 75, 100]
 
-const accommodationStore = useAccommodationStore()
-const footerStore = useFooterStore()
+  const TotalPages = computed(() => {
+    if (!footerStore.pagesize) return 0
+    return Math.ceil(footerStore.TotalResults / footerStore.pagesize)
+  })
 
-const dropdownOptions = [25, 50, 75, 100]
-
-const TotalPages = computed(() => {
-  if (!footerStore.pagesize) return 0
-  return Math.ceil(footerStore.TotalResults / footerStore.pagesize)
-})
-
-
-
-function updatePageSize(option: number){
-  footerStore.pagesize = option
-  accommodationStore.updateAndFetch(router, route)
-  
-}
-
+  function updatePageSize(option: number){
+    footerStore.pagesize = option
+    accommodationStore.updateAndFetch(router, route)
+  }
 
 </script>

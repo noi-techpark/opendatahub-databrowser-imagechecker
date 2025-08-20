@@ -12,12 +12,14 @@
         
 
         <input class = "    h-9 min-w-10 p-2 m-1 border-none   bg-transparent" 
-        placeholder="insert search value" type="text" v-model="accommodationStore.searchValue" @keyup.enter="accommodationStore.updateAndFetch(router, route)">
+        placeholder="insert search value" type="text" v-model="accommodationStore.searchValue" @keyup.enter="handleSearch()">
         </input>
 
 
         <button class = "bg-green-500 border rounded p-2 jus text-white text-xs hover:bg-green-700  font-bold"
-        @click="accommodationStore.updateAndFetch(router, route)">Search</button>
+        @click=" handleSearch()">
+            Search
+        </button>
 
       
 
@@ -31,16 +33,19 @@
     import { useRoute, useRouter } from 'vue-router';
 
     import { useAccommodationStore } from '@/stores/AccomodationStore';
-    
+    import { useFooterStore } from '@/stores/FooterStore';
 
     const router = useRouter();
     const route = useRoute();
     const accommodationStore = useAccommodationStore()
+    const footerStore = useFooterStore()
 
 
-   
+    function handleSearch() {
+        footerStore.pagenumber = 1
+        accommodationStore.updateAndFetch(router, route)
+    }
+    
   
-
-
 </script>
 

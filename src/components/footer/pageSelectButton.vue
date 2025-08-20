@@ -1,7 +1,7 @@
 <template>
 <div class = "flex flex-row space-x-2">
-     <button >
-            <ChevronLeftIcon class =" size-4 text-green-400" @click = "updatePageNumber(--footerStore.pagenumber )"/> 
+     <button @click = "updatePageNumber(--footerStore.pagenumber)">
+            <ChevronLeftIcon class =" size-4 text-green-400"/> 
         </button>
     
     <div class = "flex flex-row border rounded-lg border-gray-400">   
@@ -19,8 +19,8 @@
     
     </div>
     
-         <button>
-            <ChevronRightIcon class = "size-4 text-green-400" @click = "updatePageNumber(++footerStore.pagenumber)" />
+         <button @click = "updatePageNumber(++footerStore.pagenumber)">
+            <ChevronRightIcon class = "size-4 text-green-400"/>
         </button>
 
 </div>
@@ -29,21 +29,21 @@
 
 <script setup lang="ts">
 
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
-import { useFooterStore } from '@/stores/FooterStore';
-import { useAccommodationStore } from '@/stores/AccomodationStore';
-import { useRoute, useRouter } from 'vue-router';
+    import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
+    import { useFooterStore } from '@/stores/FooterStore';
+    import { useAccommodationStore } from '@/stores/AccomodationStore';
+    import { useRoute, useRouter } from 'vue-router';
 
-const route = useRoute()
-const router = useRouter()
+    const route = useRoute()
+    const router = useRouter()
 
-const footerStore = useFooterStore()
-const accommodationStore = useAccommodationStore()
+    const footerStore = useFooterStore()
+    const accommodationStore = useAccommodationStore()
 
-function updatePageNumber(pagenumber: number){
-    footerStore.pagenumber = pagenumber
-    accommodationStore.updateAndFetch(router, route)
-}
+    function updatePageNumber(pagenumber: number){
+        footerStore.pagenumber = pagenumber
+        accommodationStore.updateAndFetch(router, route)
+    }
 
 
 </script>
