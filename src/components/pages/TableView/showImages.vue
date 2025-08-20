@@ -4,7 +4,11 @@
       :src="selectedImage?.ImageUrl || imageNotFound"
       alt="Accommodation Image"
       class="cursor-pointer"
-      style="width: 100px; height: auto; object-fit: cover"
+      :style="{
+        width: '300px',
+        height: 'auto',
+        objectFit: 'cover'
+      }"
       @click="isFullView = true"
     />
 
@@ -58,20 +62,24 @@
     winter: '2020-01-15T00:00:00',
     summer: '2020-07-15T00:00:00',
   }
+
+  /*
   const selectedImage = computed(() => { //selects the image representative of the period selected through the prop "period"
     const images = props.imageGallery || []
+  
+      const winterImg = findImageByTargetDate(periodDates.winter, images)
+      const summerImg = findImageByTargetDate(periodDates.summer, images)  
+     
+      if (props.period === 'winter' && winterImg) return winterImg
+      else if (props.period === 'summer' && summerImg) return summerImg
+      else if (props.period === 'year' && summerImg && winterImg) return summerImg || winterImg || images[0] 
+      else if (props.period === 'mainImage') return images[0]
 
-    const winterImg = findImageByTargetDate(periodDates.winter, images)
-    const summerImg = findImageByTargetDate(periodDates.summer, images)
     
-
-    if (props.period === 'winter' && winterImg && !summerImg) return winterImg
-    else if (props.period === 'summer' && summerImg && !winterImg) return summerImg
-    else if (props.period === 'year' && summerImg && winterImg) return summerImg
-    else if (props.period === 'mainImage') return images[0]
-
     return null
   })
+
+  */
 
   // returns Image in ImageGallery that contains target Data string, if there are none returns null
   function findImageByTargetDate(target: string, images: Accommodation['ImageGallery']) {
@@ -79,6 +87,7 @@
 
     for (const image of images) {
       if (
+        
         image.ValidFrom &&
         image.ValidTo &&
         isMonthDayInRange(target, image.ValidFrom, image.ValidTo)
@@ -111,8 +120,55 @@
   }
 
   function DateFormatter(date: string){
+    if(date == null)
+      return "null"
+
     const d = new Date(date)
+    
     return d.toLocaleDateString(languageStore.language.toLowerCase());
   }
+
+
+  //TODOO reformat, a switch casse might be faster and easier to read
+  function findRightImage(period: string, images: Accommodation['ImageGallery']){
+    if (!images) return null
+  
+    if(period == "mainImage") return images[0]
+    
+
+    for(const image of images){
+
+
+      if(period == "winter"){
+
+          if(isMonthDayInRange(periodDates.winter, image.ValidFrom, image.ValidTo) && !isMonthDayInRange(periodDates.summer, image.ValidFrom, image.ValidTo))
+            return image
+      }
+      if(period == "summer"){
+
+          if(isMonthDayInRange(periodDates.summer, image.ValidFrom, image.ValidTo) && !isMonthDayInRange(periodDates.winter, image.ValidFrom, image.ValidTo))
+            return image
+
+      }
+      if(period == "year"){
+
+        if(isMonthDayInRange(periodDates.summer, image.ValidFrom, image.ValidTo) && isMonthDayInRange(periodDates.winter, image.ValidFrom, image.ValidTo))
+            return image
+
+      }
+    }
+
+  
+    return null
+  }
+
+   const selectedImage = computed(() => { //selects the image representative of the period selected through the prop "period"
+    const images = props.imageGallery || []
+  
+    return findRightImage(props.period, images)
+  })
+
+ 
+  
 
 </script>

@@ -16,7 +16,7 @@
 
   
       <TableHeader class = " sticky top-0 z-20">
-          
+        <TableHeaderCell>ID</TableHeaderCell>
         <TableHeaderCell>Title</TableHeaderCell>
         <TableHeaderCell>Main Image</TableHeaderCell>
         <TableHeaderCell>Image Winter</TableHeaderCell>
@@ -53,7 +53,9 @@
               selectedRow === item.Id ? 'bg-green-400/10' : ''
             ]"
         >
-          
+          <TableCell class = "whitespace-normal break-words">
+            {{  item.Id }}
+          </TableCell>
 
           <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''" >
              {{ item.AccoDetail?.[languageStore.language.toLowerCase()]?.Name || 'nessun titolo' }}   <!--shortName o ImageDesc???-->
