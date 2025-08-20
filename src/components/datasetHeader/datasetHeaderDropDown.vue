@@ -69,13 +69,13 @@
 
     defineExpose({ close });
 
-    </script>
+</script>
 
 
 
-    <style scoped>
+<style scoped>
     .rotate-90 {
     transform: rotate(90deg);
     transition: transform 0.3s ease;
     }
-    </style>
+</style>

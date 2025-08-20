@@ -29,21 +29,21 @@
 
 <script setup lang="ts">
 
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
-import { useFooterStore } from '@/stores/FooterStore';
-import { useAccommodationStore } from '@/stores/AccomodationStore';
-import { useRoute, useRouter } from 'vue-router';
+    import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
+    import { useFooterStore } from '@/stores/FooterStore';
+    import { useAccommodationStore } from '@/stores/AccomodationStore';
+    import { useRoute, useRouter } from 'vue-router';
 
-const route = useRoute()
-const router = useRouter()
+    const route = useRoute()
+    const router = useRouter()
 
-const footerStore = useFooterStore()
-const accommodationStore = useAccommodationStore()
+    const footerStore = useFooterStore()
+    const accommodationStore = useAccommodationStore()
 
-function updatePageNumber(pagenumber: number){
-    footerStore.pagenumber = pagenumber
-    accommodationStore.updateAndFetch(router, route)
-}
+    function updatePageNumber(pagenumber: number){
+        footerStore.pagenumber = pagenumber
+        accommodationStore.updateAndFetch(router, route)
+    }
 
 
 </script>

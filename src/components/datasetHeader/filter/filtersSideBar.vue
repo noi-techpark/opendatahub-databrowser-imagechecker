@@ -23,7 +23,7 @@
                 
                 </p>
 
-                <DatasetHeaderButton  class = "ml-auto mr-4 text-sm flex items-center h-6 " @click = removeFltersAndUpdate()>
+                <DatasetHeaderButton  class = "ml-auto mr-4 text-sm flex items-center h-6 " @click = removeFiltersAndUpdate()>
                     <XCircleIcon class="text-red-500 size-5"></XCircleIcon>
                     <p class = " text-green-400"> Reset all Filters</p>
                 </DatasetHeaderButton>
@@ -42,21 +42,24 @@
 
 <script setup lang="ts">
 
-//ICONS
-import { XCircleIcon, Bars3BottomRightIcon, XMarkIcon } from '@heroicons/vue/16/solid';
+    //ICONS
+    import { XCircleIcon, Bars3BottomRightIcon, XMarkIcon } from '@heroicons/vue/16/solid';
 
-import DatasetHeaderButton from '../datasetHeaderButton.vue';
-import FilterTable from './filterTable.vue';
-import { useAccommodationStore } from '@/stores/AccomodationStore';
-import { useRoute, useRouter } from 'vue-router';
-import { useFooterStore } from '@/stores/FooterStore';
-const route = useRoute()
-const router = useRouter()
-const accomodationStore = useAccommodationStore()
-const footerStore = useFooterStore()
+    import DatasetHeaderButton from '../datasetHeaderButton.vue';
+    import FilterTable from './filterTable.vue';
+    import { useAccommodationStore } from '@/stores/AccomodationStore';
+    import { useRoute, useRouter } from 'vue-router';
+    import { useFooterStore } from '@/stores/FooterStore';
 
-function removeFltersAndUpdate() {
-    accomodationStore.filters = []
-    accomodationStore.updateAndFetch(router, route)
-}
+    const route = useRoute()
+    const router = useRouter()
+
+    const accomodationStore = useAccommodationStore()
+    const footerStore = useFooterStore()
+
+    function removeFiltersAndUpdate() {
+        accomodationStore.filters = []
+        accomodationStore.updateAndFetch(router, route)
+    }
+
 </script>

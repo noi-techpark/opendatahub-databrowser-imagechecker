@@ -61,7 +61,7 @@
           class="w-full border-none bg-transparent px-2 py-1 focus:outline-none"
           placeholder="insert search value"
           type="text" v-model = "accommodationStore.filters[index].value"
-          @keyup.enter = "accommodationStore.updateAndFetch(router, route)"
+          @keyup.enter = "handleSearch()"
         />
       </DatasetHeaderButton>
     </div>
@@ -75,7 +75,7 @@
     
 
     <div class = "flex flex-row">
-        <DatasetHeaderButton class ="w-28 h-8  m-4 bg-green-400 flex items-center hover:bg-green-700" @click = "accommodationStore.updateAndFetch(router, route)">
+        <DatasetHeaderButton class ="w-28 h-8  m-4 bg-green-400 flex items-center hover:bg-green-700" @click = "handleSearch()">
           <FunnelIcon class="text-white size-6"></FunnelIcon>
             <p class = "text-white">filter</p>
         </DatasetHeaderButton>
@@ -88,104 +88,120 @@
 
 </template>
 
+
+
 <script setup lang = "ts">
 
-//ICONS
-import { FunnelIcon, XCircleIcon } from '@heroicons/vue/24/outline'; 
-import { PlusIcon } from '@heroicons/vue/16/solid';
+  //ICONS
+  import { FunnelIcon, XCircleIcon } from '@heroicons/vue/24/outline'; 
+  import { PlusIcon } from '@heroicons/vue/16/solid';
+
+
+  import DatasetHeaderButton from '../datasetHeaderButton.vue';
+  import DatasetHeaderDropDown from '../datasetHeaderDropDown.vue';
+  import ContentDivider from '@/components/contentAlignment/ContentDivider.vue'; 
+  import { ref, computed, watch } from 'vue';
+  import { useLanguageStore } from '@/stores/HeaderTableStore';
+
+  import { useAccommodationStore } from '@/stores/AccomodationStore';
+  import { useFooterStore } from '@/stores/FooterStore';
+  import { useRoute, useRouter } from 'vue-router';
+
+
+  const accommodationStore = useAccommodationStore()
+  const footerStore = useFooterStore()
+  const languageStore = useLanguageStore()
+
+  const router = useRouter()
+  const route = useRoute()
+
+  const dropdownRef1 = ref<any[]>([]);
+  const dropdownRef2 = ref<any[]>([]);
+
+
+  const filterComparison =  <Record<string, string>>{
+    "eq": "equal to",
+    "ne": "not equal to",
+    "gt": "greater than",
+    "ge": "greater or equal",
+    "lt": "less than",
+    "le": "less or equal",
+    "like": "like",
+    "isnull": "is null",
+    "isnotnull": "is not null",
+    "in": "includes",
+    "nin": "not includes",
+    "likein": "likein"
+  };
+
+
+  const filterTypesMap = computed<Record<string, string>>(() => ({
+    [`AccoDetail.${languageStore.language.toLowerCase()}.Name`]: "Title",
+    AccoTypeId: "Accommodation Type",
+    AccoCategoryId: "Category",
+    [`LocationInfo.RegionInfo.Name.${languageStore.language.toLowerCase()}`]: "Region",
+    HasLanguage: "Languages",
+    [`ImageGallery.0.ImageUrl`]: "Image",
+    [`LocationInfo.MunicipalityInfo.Name.${languageStore.language.toLowerCase()}`]: "Municipality",
+    BadgeIds: "Badges",
+    ThemeIds: "Themes",
+    SmgTags: "Tags",
+    LastChange: "Edited on",
+    Source: "Source",
+    Active: "Source State",
+    PublishedOn: "Published On"
+    //TODOO, missing Push Data Filter
+  }));
 
 
 
- import DatasetHeaderButton from '../datasetHeaderButton.vue';
- import DatasetHeaderDropDown from '../datasetHeaderDropDown.vue';
- import ContentDivider from '@/components/contentAlignment/ContentDivider.vue';
- import { ref, computed, watch } from 'vue';
-import { useLanguageStore } from '@/stores/HeaderTableStore';
-
-import { useAccommodationStore } from '@/stores/AccomodationStore';
-import { useRoute, useRouter } from 'vue-router';
-const accommodationStore = useAccommodationStore()
-const router = useRouter()
-const route = useRoute()
-
-const dropdownRef1 = ref<any[]>([]);
-const dropdownRef2 = ref<any[]>([]);
-const languageStore = useLanguageStore()
-
-
-const filterComparison =  <Record<string, string>>{
-  "eq": "equal to",
-  "ne": "not equal to",
-  "gt": "greater than",
-  "ge": "greater or equal",
-  "lt": "less than",
-  "le": "less or equal",
-  "like": "like",
-  "isnull": "is null",
-  "isnotnull": "is not null",
-  "in": "includes",
-  "nin": "not includes",
-  "likein": "likein"
-};
-
-
-const filterTypesMap = computed<Record<string, string>>(() => ({
-  [`AccoDetail.${languageStore.language.toLowerCase()}.Name`]: "Title",
-  AccoTypeId: "Accommodation Type",
-  AccoCategoryId: "Category",
-  [`LocationInfo.RegionInfo.Name.${languageStore.language.toLowerCase()}`]: "Region",
-  HasLanguage: "Languages",
-  [`ImageGallery.0.ImageUrl`]: "Image",
-  [`LocationInfo.MunicipalityInfo.Name.${languageStore.language.toLowerCase()}`]: "Municipality",
-}));
 
 
 
 
+  function selectType(typeKey: string, index: number) {
+    accommodationStore.filters[index].type = typeKey;
+    dropdownRef1.value[index]?.close?.();   //close function comes from emit in DatasetHeaderDropDown
+    }
 
 
-  // Function to select a type from the dropdown
-function selectType(typeKey: string, index: number) {
-  accommodationStore.filters[index].type = typeKey;
-  dropdownRef1.value[index]?.close?.();  
-  }
+  function selectComparison(comparison: string, index: number) {
+    accommodationStore.filters[index].comparison = comparison;
+    dropdownRef2.value[index]?.close?.();
+    }
 
-
-function selectComparison(comparison: string, index: number) {
-  accommodationStore.filters[index].comparison = comparison;
-  dropdownRef2.value[index]?.close?.();
-  }
+  function handleSearch() {
+    footerStore.pagenumber = 1
+    accommodationStore.updateAndFetch(router, route)
+    }
 
 
 
-// Watch for changes in the language selected and update filter types accordingly (this way, filters look for the values in the language selected)
-const languageDependentKeys = [
-  "AccoDetail",
-  "LocationInfo.RegionInfo.Name",
-  "LocationInfo.MunicipalityInfo.Name"
-]
-watch(
-  () => languageStore.language,
-  (newLang) => {
-    accommodationStore.filters.forEach((filter) => {
-      
-      for (const baseKey of languageDependentKeys) {
-        if (filter.type.startsWith(baseKey)) {
-          if(baseKey === "AccoDetail") {
-            filter.type = `${baseKey}.${newLang.toLowerCase()}.Name`
-          } else {
-            filter.type = `${baseKey}.${newLang.toLowerCase()}`;
+  // Watch for changes in the language selected and update filter types accordingly (this way, filters look for the values in the language selected)
+  const languageDependentKeys = [
+    "AccoDetail",
+    "LocationInfo.RegionInfo.Name",
+    "LocationInfo.MunicipalityInfo.Name"
+  ]
+
+  watch(
+    () => languageStore.language,
+    (newLang) => {
+      accommodationStore.filters.forEach((filter) => {
+        
+        for (const baseKey of languageDependentKeys) {
+          if (filter.type.startsWith(baseKey)) {
+            if(baseKey === "AccoDetail") {
+              filter.type = `${baseKey}.${newLang.toLowerCase()}.Name`
+            } else {
+              filter.type = `${baseKey}.${newLang.toLowerCase()}`;
+            }
+            
           }
-          
         }
-      }
-    })
-  }
-)
-
-
-
-
+      })
+    }
+  )
 
 
 </script>

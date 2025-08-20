@@ -2,7 +2,7 @@
 
   
 <div class=" max-h-screen h-full  w-full overflow-auto">
-
+   
     
     <!--TODOO add Loading animation or icon-->
     <div v-if="accommodationStore.loading" class="p-4 text-center w-full">
@@ -56,7 +56,7 @@
           
 
           <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''" >
-             {{ item.AccoDetail?.[selectedLanguage.language.toLowerCase()]?.Name || 'nessun titolo' }}   <!--shortName o ImageDesc???-->
+             {{ item.AccoDetail?.[languageStore.language.toLowerCase()]?.Name || 'nessun titolo' }}   <!--shortName o ImageDesc???-->
           </TableCell>
 
           <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">
@@ -80,11 +80,11 @@
           <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">{{ item.AccoCategory?.Id || "not found"}}</TableCell>
 
           <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">
-             {{ item.LocationInfo?.RegionInfo?.Name?.[selectedLanguage.language.toLowerCase()] || "not found" }} 
+             {{ item.LocationInfo?.RegionInfo?.Name?.[languageStore.language.toLowerCase()] || "not found" }} 
           </TableCell>
 
           <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">
-            {{ item.LocationInfo?.MunicipalityInfo?.Name?.[selectedLanguage.language.toLowerCase()] || "not found" }}
+            {{ item.LocationInfo?.MunicipalityInfo?.Name?.[languageStore.language.toLowerCase()] || "not found" }}
           </TableCell>
 
           <TableCell :class="selectedRow === item.Id ? 'border-r-gray-400 border-r-2' : ''">
@@ -144,64 +144,58 @@
 
 
 <script setup lang="ts">
-//ICONS
-import { CursorArrowRaysIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
-import { ref, onMounted } from 'vue'
-import TableCell from '@/components/table/TableCell.vue'
-import TableHeader from '@/components/table/TableHeader.vue'
-import TableHeaderCell from '@/components/table/TableHeaderCell.vue'
-import showImages from './showImages.vue'
+  //ICONS
+  import { CursorArrowRaysIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
-import { useLanguageStore } from '@/stores/HeaderTableStore'
+  import TableCell from '@/components/table/TableCell.vue'
+  import TableHeader from '@/components/table/TableHeader.vue'
+  import TableHeaderCell from '@/components/table/TableHeaderCell.vue'
+  import showImages from './showImages.vue'
+  import DetailButton from '@/components/buttons/DetailButton.vue'
 
-import { useRoute, useRouter } from 'vue-router'
-
-import { useAccommodationStore } from '@/stores/AccomodationStore'
-
-import { useFooterStore } from '@/stores/FooterStore'
-
-import DetailButton from '@/components/buttons/DetailButton.vue'
-
-//STYLES
+  import { ref, onMounted } from 'vue'
+  import { useLanguageStore } from '@/stores/HeaderTableStore'
+  import { useAccommodationStore } from '@/stores/AccomodationStore'
+  import { useRoute, useRouter } from 'vue-router'
 
 
 
-//STATE
-const selectedRow = ref<number | null>(null)
-const selectedLanguage = useLanguageStore()
+  const selectedRow = ref<number | null>(null)
+  const languageStore = useLanguageStore()
 
 
-const route = useRoute()
-const router = useRouter()
+  const route = useRoute()
+  const router = useRouter()
 
-const accommodationStore: any = useAccommodationStore()
-const footerStore = useFooterStore()
-
-//FETCH
-onMounted(() => {
-    accommodationStore.restoreFromUrl(route);
-    accommodationStore.fetchData(router, route);
-
-   
-});
+  const accommodationStore: any = useAccommodationStore()
+  
 
 
-//FUNCTIONS
-function formatEditDate(EditDate: string): string {
-  return EditDate.split('.')[0]
-}
+  //INITIAL FETCH
+  onMounted(() => {
+      accommodationStore.restoreFromUrl(route);
+      accommodationStore.fetchData(router, route);
+  });
+
+
+
+  function formatEditDate(EditDate: string): string {
+
+    const result = EditDate.replace("T", " ").split('.')[0]
+    return result
+ 
+  }
 
 </script>
 
-<style scoped>
-table, th, td {
- 
-  @apply border
-  
-  
 
-}
+
+
+<style scoped>
+  table, th, td, tr {
+    @apply border
+  }
 </style>
 
 

@@ -1,11 +1,29 @@
-import axios from 'axios'
+// api.ts
+import axios from "axios";
+import { keycloak } from "@/auth/keycloak";
+import { AxiosHeaders } from "axios";
+
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_APP_ODH_LOOKUP_BASE_URL,
-  timeout: 5000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-})
+  baseURL: "https://tourism.api.opendatahub.testingmachine.eu/v1/",
+});
 
-export default api
+// Interceptor per aggiungere sempre il token
+api.interceptors.request.use(async (config) => {
+  await keycloak.updateToken(30);
+
+  if (keycloak.token) {
+    if (!config.headers) {
+      config.headers = new AxiosHeaders();
+    }
+    (config.headers as AxiosHeaders).set(
+      "Authorization",
+      `Bearer ${keycloak.token}`
+    );
+  }
+
+  return config;
+});
+
+
+export default api;

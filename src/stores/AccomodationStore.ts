@@ -3,6 +3,8 @@ import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import { useLanguageStore } from "./HeaderTableStore";
 import { useFooterStore } from "./FooterStore";
+import { useAuth } from "@/auth/authStores/auth";
+import api from "@/components/utils/api";
 
 interface Filter {
     type: string;
@@ -96,6 +98,7 @@ export const useAccommodationStore = defineStore("accommodation", {
             this.loading = true;
             const languageStore = useLanguageStore()
             const footerStore = useFooterStore()
+            const auth = useAuth()
             
 
             //filters the "Filters" that dont have a value, with the exception of isnull and isnotnull filterTypes
@@ -123,7 +126,6 @@ export const useAccommodationStore = defineStore("accommodation", {
                 const language = languageStore.language.toLowerCase()
                 const pagesize = footerStore.pagesize
                 const pagenumber = footerStore.pagenumber
-                
                                
 
                 const response = await axios.get("https://tourism.api.opendatahub.testingmachine.eu/v1/Accommodation", {
@@ -140,6 +142,9 @@ export const useAccommodationStore = defineStore("accommodation", {
                         rawfilter,
                         removenullvalues: false,
                         getasidarray: false,
+                    },
+                    headers: {
+                        Authorization: `Bearer ${auth.accessToken}`,
                     },
                 });
 

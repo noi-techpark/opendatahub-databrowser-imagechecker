@@ -5,6 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
+  
   <div class="flex h-screen flex-col overflow-hidden">
     <Header class="sticky top-0 z-10 w-screen h-[80px]" />
 
@@ -17,16 +18,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <Footer class=" sticky bottom-0  z-30" />
   </div>
-  
+
 </template>
 
 <script setup lang="ts">
-import Header from './header.vue'
-import Footer from './footer.vue'
-import ContentDivider from '../contentAlignment/ContentDivider.vue';
 
-
-withDefaults(defineProps<{ showAppFooter?: boolean }>(), { showAppFooter: true })
-
+  import Header from './header.vue'
+  import Footer from './footer.vue'
+  import ContentDivider from '../contentAlignment/ContentDivider.vue';
 
 </script>

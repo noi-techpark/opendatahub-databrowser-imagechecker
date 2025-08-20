@@ -5,7 +5,7 @@
 
     <DatasetHeaderDropDown title="Accomodation" :bold="true" width="min-w-52">
       
-       <DatasetHeaderButton>opzione 1</DatasetHeaderButton>            <!--TODO, add list of options  (where can i fetch them? ASK)-->
+       <DatasetHeaderButton @click = "handleFilter()" >Accomdations By LTS</DatasetHeaderButton>            <!--TODO, add list of options  (where can i fetch them? ASK)-->
        <DatasetHeaderButton>opzione 2</DatasetHeaderButton>
     </DatasetHeaderDropDown>
 
@@ -92,30 +92,36 @@
   import { InformationCircleIcon, Bars3BottomRightIcon, GlobeEuropeAfricaIcon, CircleStackIcon, 
     Bars3Icon, PlusCircleIcon, ArrowDownOnSquareIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/outline';  
 
-
-  import { ref } from 'vue';
   import DatasetHeaderButton from '../datasetHeader/datasetHeaderButton.vue';
   import DatasetHeaderDropDown from '../datasetHeader/datasetHeaderDropDown.vue';
   import DatasetHeaderSearchBar from '../datasetHeader/datasetHeaderSearchBar.vue';
-  import { useLanguageStore } from '@/stores/HeaderTableStore';
   import CardContainer from '../card/CardContainer.vue';
+
+  import { ref } from 'vue';
   import { useAccommodationStore } from '@/stores/AccomodationStore';
+  import { useLanguageStore } from '@/stores/HeaderTableStore';
   import { useRoute, useRouter } from 'vue-router';
+
+
   const Languages = ["DE", "IT", "EN", "NL", "CS", "PL", "FR", "RU", "LD"];
   const selectedLanguage = useLanguageStore();
   const AccomodatioStore = useAccommodationStore()
   const route = useRoute()
   const router = useRouter()
-
+  
   const showInfo = ref(false);
   
 
 
   function changeLanguage(language: string){
     selectedLanguage.language = language
-    console.log(selectedLanguage.language)
     AccomodatioStore.updateAndFetch(router, route)
   }
 
+  function handleFilter(){
+    AccomodatioStore.filters = []
+    AccomodatioStore.filters[0].type = "lts"
+    
+  }
 
 </script>
