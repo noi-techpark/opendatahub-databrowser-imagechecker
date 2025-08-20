@@ -161,7 +161,7 @@ export const useAccommodationStore = defineStore("accommodation", {
             } finally {
                 
                 footerStore.TotalResults = (this.results as any)?.TotalResults ?? 0;
-                console.log(footerStore.TotalResults)
+                console.log( "TOTAL RESULTS: " + footerStore.TotalResults)
                
                 this.loading = false;
             }
