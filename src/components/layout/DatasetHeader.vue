@@ -3,11 +3,17 @@
 
     <div class = "flex flex-row space-x-2 items-center flex-wrap">
 
-    <DatasetHeaderDropDown title="Accomodation" :bold="true" width="min-w-52">
+    <DatasetHeaderDropDown :title="selectedQuickFilter" :bold="true" width="min-w-52">
       
-       <DatasetHeaderButton @click = "handleFilter()" >Accomdations By LTS</DatasetHeaderButton>            <!--TODO, add list of options  (where can i fetch them? ASK)-->
-       <DatasetHeaderButton>opzione 2</DatasetHeaderButton>
+       <DatasetHeaderButton v-for = "(label, key) in quickFilters" @click = " handleFilter(label, key)" 
+       class ="border-none rounded-none"
+      :class = "selectedQuickFilter === key ? 'bg-green-400/10' : '' "
+       >
+       {{ key }}
+      </DatasetHeaderButton>            <!--TODO, add list of options  (where can i fetch them? ASK)-->
+       
     </DatasetHeaderDropDown>
+
 
     <DatasetHeaderButton @click = "showInfo = !showInfo" class ="relative"> 
       <InformationCircleIcon class= "size-6 text-green-400"></InformationCircleIcon>
@@ -20,7 +26,7 @@
     </DatasetHeaderButton>
 
     <!--SearchBar-->
-    <DatasetHeaderSearchBar></DatasetHeaderSearchBar>
+    <DatasetHeaderSearchBar />
     
     <DatasetHeaderButton @click = "AccomodatioStore.showFilterSideBar = !AccomodatioStore.showFilterSideBar"
                           :class = "AccomodatioStore.showFilterSideBar ?  ' bg-green-400/10 border-green-400': ''"> 
@@ -67,11 +73,9 @@
         <p> Add a record </p> 
       </DatasetHeaderButton>
 
-      <DatasetHeaderButton> 
-        <ArrowDownOnSquareIcon class="size-6 text-green-400"></ArrowDownOnSquareIcon>
+      <ExportCSV>
 
-        <p> Export </p> 
-      </DatasetHeaderButton>
+      </ExportCSV>
 
       <DatasetHeaderButton> 
         <CursorArrowRaysIcon class="size-6 text-green-400"></CursorArrowRaysIcon>
@@ -90,19 +94,21 @@
 
 //ICONS
   import { InformationCircleIcon, Bars3BottomRightIcon, GlobeEuropeAfricaIcon, CircleStackIcon, 
-    Bars3Icon, PlusCircleIcon, ArrowDownOnSquareIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/outline';  
+    Bars3Icon, PlusCircleIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/outline';  
 
   import DatasetHeaderButton from '../datasetHeader/datasetHeaderButton.vue';
   import DatasetHeaderDropDown from '../datasetHeader/datasetHeaderDropDown.vue';
   import DatasetHeaderSearchBar from '../datasetHeader/datasetHeaderSearchBar.vue';
   import CardContainer from '../card/CardContainer.vue';
+  import ExportCSV from '../datasetHeader/export/exportCSV.vue'
 
   import { ref } from 'vue';
   import { useAccommodationStore } from '@/stores/AccomodationStore';
   import { useLanguageStore } from '@/stores/HeaderTableStore';
   import { useRoute, useRouter } from 'vue-router';
+  import type { Filter } from '@/stores/AccomodationStore';
 
-
+  
   const Languages = ["DE", "IT", "EN", "NL", "CS", "PL", "FR", "RU", "LD"];
   const selectedLanguage = useLanguageStore();
   const AccomodatioStore = useAccommodationStore()
@@ -110,7 +116,7 @@
   const router = useRouter()
   
   const showInfo = ref(false);
-  
+  const selectedQuickFilter = ref("Accommodation")
 
 
   function changeLanguage(language: string){
@@ -118,10 +124,20 @@
     AccomodatioStore.updateAndFetch(router, route)
   }
 
-  function handleFilter(){
-    AccomodatioStore.filters = []
-    AccomodatioStore.filters[0].type = "lts"
-    
+
+  const quickFilters: Record<string, string> = {
+    "Accommodation": "",
+    "Accommodation HotelPension": "1",
+    "Accommodation Mountain": "32"
+  }
+  
+  
+
+  function handleFilter(quickFilterLabel : string, quickFilterKey : string){
+    AccomodatioStore.filters = [ ]
+    AccomodatioStore.typefilter = quickFilterLabel
+    selectedQuickFilter.value = quickFilterKey
+    AccomodatioStore.updateAndFetch(router, route)
   }
 
 </script>

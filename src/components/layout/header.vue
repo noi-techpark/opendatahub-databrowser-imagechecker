@@ -18,13 +18,13 @@
         </div>
       </HeaderButton>
 
-      <HeaderButton class="">About</HeaderButton>
+      <HeaderButton class="" @click="console.log(keycloak.token)">About</HeaderButton>
       <HeaderButton class=" whitespace-nowrap">How To</HeaderButton>
       <HeaderButton class="">Contact</HeaderButton>
 
       <div class=" w-screen flex justify-end mr-6 items-center">
-        <button @click = "handleLogin()" class = "mr-10 bg-black">login</button>
-        <button @click = "handleLogout()" class = "bg-green-400">logout</button>
+        <button @click = "handleLogin()" class = "mr-10 bg-violet-500">login</button>
+        <button @click = "handleLogout()" class = "bg-violet-400">logout</button>
         <HeaderButton class = "hover:bg-green-400/10" @click = "console.log(keycloak.token)">
           <UserCircleIcon class = "size-14 mb-2 text-black"></UserCircleIcon>
         </HeaderButton>
@@ -71,9 +71,15 @@ function refreshPage() {
 
 //KEYCLOACK AUTHENTICATION
 
-keycloak.onAuthSuccess = () => {
-  auth.authenticate(keycloak.token);
 
+//TODOO on auth success, the token is saved n localstorage, and is reloaded after every page rerfresh, this might be bad practice/unsafe
+keycloak.onAuthSuccess = () => {
+  if(keycloak.token)
+    localStorage.setItem('kc_token', keycloak.token)
+
+  auth.authenticate(keycloak.token);
+  footerStore.FirstTotalResults = 0
+  accommodationStore.updateAndFetch()
 };
 
 keycloak.onAuthError = () => {

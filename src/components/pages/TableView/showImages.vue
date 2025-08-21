@@ -30,13 +30,17 @@
       >
         &times;
       </button>
+
+      <div class="flex flex-col h-full text-white text-xl pl-4 absolute top-5 left-5">
+          <p class = ""> validity:</p>
+          <p v-if="selectedImage">from: {{ DateFormatter(selectedImage.ValidFrom) }}</p>
+          <p v-if="selectedImage">to: {{ DateFormatter(selectedImage.ValidTo) }}</p>
+          <div class="h-full" @click.self = "isFullView = false"></div>
+      </div>
+
     </div>
 
-    <div class="flex flex-col">
-      <p> validity:</p>
-      <p v-if="selectedImage">from: {{ DateFormatter(selectedImage.ValidFrom) }}</p>
-      <p v-if="selectedImage">to: {{ DateFormatter(selectedImage.ValidTo) }}</p>
-    </div>
+   
   </div>
 
   

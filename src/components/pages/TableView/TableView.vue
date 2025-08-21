@@ -162,6 +162,9 @@
   import { useLanguageStore } from '@/stores/HeaderTableStore'
   import { useAccommodationStore } from '@/stores/AccomodationStore'
   import { useRoute, useRouter } from 'vue-router'
+  import { useAuth } from '@/auth/authStores/auth'
+import { useFooterStore } from '@/stores/FooterStore'
+import { keycloak } from '@/auth/keycloak'
 
 
 
@@ -173,11 +176,18 @@
   const router = useRouter()
 
   const accommodationStore: any = useAccommodationStore()
+  const auth = useAuth()
   
 
 
-  //INITIAL FETCH
+  //INITIAL FETCH //TODOO this is the initial fetch that happens after every reload, might be good to put it in a place that makes more sense, like accommodationStore
   onMounted(() => {
+      const savedToken = localStorage.getItem('kc_token')
+      if (savedToken) {
+        auth.authenticate(savedToken)
+        keycloak.token = savedToken
+      }
+
       accommodationStore.restoreFromUrl(route);
       accommodationStore.fetchData(router, route);
   });

@@ -38,8 +38,11 @@
 <script setup lang="ts">
     import DatasetHeaderButton from './datasetHeaderButton.vue';
     import { ref, defineEmits, defineExpose } from 'vue';
+    import {onClickOutside} from '@vueuse/core'
 
     const isOpen = ref(false);
+
+
     const emit = defineEmits(["toggle", "close"]);
 
 
@@ -68,6 +71,7 @@
     }
 
     defineExpose({ close });
+
 
 </script>
 
