@@ -6,7 +6,7 @@ import { useFooterStore } from "./FooterStore";
 import { useAuth } from "@/auth/authStores/auth";
 import api from "@/components/utils/api";
 
-interface Filter {
+export interface Filter {
     type: string;
     comparison: string;
     value: string;
@@ -17,6 +17,7 @@ export const useAccommodationStore = defineStore("accommodation", {
         const languageStore = useLanguageStore();
         return {
             searchValue: "",
+            typefilter: "",
             results: [] as any[],
             filters: [
                 {
@@ -40,11 +41,17 @@ export const useAccommodationStore = defineStore("accommodation", {
             if (router && route) {
                 const newQuery = { ...route.query };
 
-                if (this.searchValue) {
+
+                if (this.searchValue)
                     newQuery.searchfilter = this.searchValue;
-                } else {
+                else 
                     delete newQuery.searchfilter;
-                }
+                
+
+                if (this.typefilter)
+                    newQuery.typefilter = this.typefilter
+                else
+                    delete newQuery.typefilter
 
              
                 const conditions = this.filters
@@ -62,8 +69,6 @@ export const useAccommodationStore = defineStore("accommodation", {
                         
                         return `${f.comparison}(${f.type},'${f.value}')`
                     });
-                    
-                console.log("raw filter: " + conditions)
 
                 if (conditions.length === 1) {
                     newQuery.rawfilter = conditions[0]; 
@@ -73,17 +78,14 @@ export const useAccommodationStore = defineStore("accommodation", {
                     delete newQuery.rawfilter;
                 }
 
-                console.log("raw filter 2: " + newQuery.rawfilter)
+            
                 const languageStore = useLanguageStore()
                 newQuery.language = languageStore.language.toLowerCase()
 
                 const footerStore = useFooterStore()
-           
                 newQuery.pagesize = footerStore.pagesize.toLocaleString()
-               
                 newQuery.pagenumber = footerStore.pagenumber.toLocaleString()
 
-                
 
 
 
@@ -125,6 +127,7 @@ export const useAccommodationStore = defineStore("accommodation", {
                 const language = languageStore.language.toLowerCase()
                 const pagesize = footerStore.pagesize
                 const pagenumber = footerStore.pagenumber
+                
                                
 
                 const response = await api.get("Accommodation", {
@@ -138,6 +141,7 @@ export const useAccommodationStore = defineStore("accommodation", {
                         availabilitychecklanguage: "en",
                         detail: 0,
                         searchfilter: this.searchValue || undefined,
+                        typefilter: this.typefilter || null,
                         rawfilter,
                         removenullvalues: false,
                         getasidarray: false,
@@ -171,11 +175,16 @@ export const useAccommodationStore = defineStore("accommodation", {
         restoreFromUrl(route: ReturnType<typeof useRoute>) {
            
             //restores searchFilter
-            if (route.query.searchfilter) {
+            if (route.query.searchfilter)
                 this.searchValue = String(route.query.searchfilter);
-            } else {
+            else 
                 this.searchValue = "";
-            }
+            
+
+            if(route.query.typefilter)
+                this.typefilter = String(route.query.typefilter);
+            else
+                this.typefilter = ""
 
             
 

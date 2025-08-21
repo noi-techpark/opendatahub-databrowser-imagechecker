@@ -180,7 +180,7 @@ import { keycloak } from '@/auth/keycloak'
   
 
 
-  //INITIAL FETCH //TODOO this is the initial fetch that happens after every reload, mght be good to put it in a place that makes sense, like accommodationStore
+  //INITIAL FETCH //TODOO this is the initial fetch that happens after every reload, might be good to put it in a place that makes more sense, like accommodationStore
   onMounted(() => {
       const savedToken = localStorage.getItem('kc_token')
       if (savedToken) {
