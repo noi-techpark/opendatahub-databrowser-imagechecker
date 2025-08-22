@@ -5,16 +5,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <th class="px-2 py-4 leading-tight text-gray-900 md:p-4 w-40 border-gray-200 border-2 " >
+  <th class=" min-w-36 px-2 py-4 leading-tight text-gray-900 md:p-4  border-gray-200 border-2 " >
 
-    <div class = " flex flex-row relative font-semibold">
+    <div class = " flex flex-row relative font-bold text-sm">
 
       <slot />
       
 
-        <ChevronDoubleDownIcon v-if = "descendingCheck" class = "size-4 text-green-400"/>
-        <ChevronDoubleUpIcon v-if = "ascendingCheck" class = "size-4 text-green-400"/>
-      <chevron-down-icon v-if = "showSort" class = "h-full size-3 cursor-pointer ml-auto" @click = "isOpen = !isOpen" :class = "isOpen? ' rotate-180' : ''"></chevron-down-icon>
+      <ChevronDoubleDownIcon v-if = "descendingCheck" class = "size-4 text-green-400"/>
+      <ChevronDoubleUpIcon v-if = "ascendingCheck" class = "size-4 text-green-400"/>
+
+      <chevron-down-icon v-if = "showSort" class = "h-full size-3 cursor-pointer ml-auto" @click = "isOpen = !isOpen" :class = "isOpen? ' rotate-180' : ''"/>
 
       <div v-if="isOpen" class =  " absolute left-24 top-4 mt-2 bg-white border border-gray-300 rounded shadow-lg h-64 w-64 z-50
                                   flex flex-row items-center justify-center space-x-5">  <!--TODOO could be a component on its own-->

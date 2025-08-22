@@ -41,7 +41,15 @@
     const accommodationStore = useAccommodationStore()
 
     function updatePageNumber(pagenumber: number){
-        footerStore.pagenumber = pagenumber
+
+        if(pagenumber > footerStore.TotalPages)
+            footerStore.pagenumber = footerStore.TotalPages
+        else if(pagenumber <= 0 )
+            footerStore.pagenumber = 1
+        else
+            footerStore.pagenumber = pagenumber
+        
+            
         accommodationStore.updateAndFetch(router, route)
     }
 

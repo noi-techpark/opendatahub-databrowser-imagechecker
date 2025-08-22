@@ -6,7 +6,7 @@
     
 
     
-    <table class="min-w-full w-full table-fixed  border-separate " cellspacing="0" cellpadding="5" >
+    <table class="min-w-full w-full table-auto  border-separate " cellspacing="0" cellpadding="5" >
   
       <TableHeaders></TableHeaders>
 
@@ -23,8 +23,7 @@
     <div v-if="!accommodationStore.results.Items?.length" class="flex p-4 text-center w-full h-full justify-center items-center">
         <EyeSlashIcon class = "size-36 animate-bounce mb-56 mt-32  text-green-400"></EyeSlashIcon>
     </div>
-
-
+    
   
   </div>
 
@@ -64,9 +63,12 @@
       }
 
       accommodationStore.restoreFromUrl(route);
-      accommodationStore.fetchData(router, route);
+      accommodationStore.fetchData();
 
       console.log(accommodationStore.results)
+
+      const {data} = accommodationStore.fetch2()
+      console.log(data.value)
   });
 
 </script>
@@ -75,11 +77,9 @@
 
 
 <style scoped>
-
   table, th, td, tr {
     @apply border-[1px]
   }
-
 </style>
 
 

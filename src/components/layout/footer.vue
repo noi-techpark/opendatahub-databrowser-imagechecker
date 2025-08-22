@@ -54,7 +54,9 @@
 
   const TotalPages = computed(() => {
     if (!footerStore.pagesize) return 0
-    return Math.ceil(footerStore.TotalResults / footerStore.pagesize)
+
+    return footerStore.TotalPages = Math.ceil(footerStore.TotalResults / footerStore.pagesize)
+ 
   })
 
   function updatePageSize(option: number){

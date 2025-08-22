@@ -11,8 +11,6 @@
       }"
       @click="isFullView = true"
     />
-
-
     
     <div
       v-if="isFullView"
@@ -26,6 +24,7 @@
           <div class="h-full" @click.self = "isFullView = false"></div>
       </div>
 
+      
       <img
         :src="selectedImage?.ImageUrl || imageNotFound"
         alt="Full view"
@@ -53,6 +52,7 @@
   import { useLanguageStore } from '@/stores/HeaderTableStore';
   import type { Accommodation } from './types'
   import { computed, ref } from 'vue'
+import { DivideIcon } from '@heroicons/vue/24/outline';
 
   
 
