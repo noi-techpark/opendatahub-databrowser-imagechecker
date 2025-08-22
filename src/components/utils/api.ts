@@ -9,7 +9,7 @@ import { useAuth } from "@/auth/authStores/auth";
 //as of now, the token seems to expire, should the token keep refreshing? or is it okay like this
 const auth = useAuth()
 const api = axios.create({
-  baseURL: "https://tourism.api.opendatahub.testingmachine.eu/v1/",
+  baseURL: import.meta.env.VITE_APP_API_BASE_URL,
 });
 
 // Interceptor per aggiungere sempre il token

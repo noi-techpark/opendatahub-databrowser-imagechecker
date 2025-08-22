@@ -29,8 +29,11 @@
         const pagesize = footerStore.pagesize
         const pagenumber = footerStore.pagenumber
        
+        const fields = `Id,AccoDetail.de.Name,ImageGallery[0].ImageUrl,AccoType.Id,AccoCategory.Id,
+                    LocationInfo.RegionInfo.Name.${[languageStore.language.toLowerCase()]},LocationInfo.MunicipalityInfo.Name.${[languageStore.language.toLowerCase()]},
+                    AccoBadges,AccoThemes,ODHTags,HasLanguage,_Meta.LastUpdate,_Meta.Source,Active,PublishedOn,ODHTags`
 
-        const response = await api.get("Accommodation?fields=Id,AccoDetail.de.Name,AccoType.Id,ImageGallery[0].ImageUrl,AccoThemes&format=csv", {
+        const response = await api.get(`Accommodation?fields=${fields}&format=csv`, {
             params: {
                 pagenumber,
                 pagesize,

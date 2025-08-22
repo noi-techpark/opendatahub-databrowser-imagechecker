@@ -15,7 +15,7 @@
         :ref ="el => dropdownRef1[index] = el"
         :title="filterTypesMap[filter.type] || filter.type"
         width="min-w-36"
-        class="w-auto whitespace-break-spaces min-w- "
+        class="w-auto whitespace-break-spaces "
       >
           <DatasetHeaderButton
             v-for="(label, key) in filterTypesMap"

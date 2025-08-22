@@ -2,11 +2,11 @@
 
     <div class="flex flex-col relative" >
        
-        <DatasetHeaderButton class=" w-full" :class="props.width" @click="click">
+        <DatasetHeaderButton class=" w-full" :class="[props.width, props.customClassButton]" @click="click">
 
 
             
-            <div class="flex flex-row w-full  items-center space-x-3" :class="props.width">
+            <div class="flex flex-row w-full  items-center space-x-3" :class="[props.width, props.customClassContent]">
 
                 <slot name="icon" />
                 
@@ -50,6 +50,8 @@
         title: string
         bold?: boolean
         width: string
+        customClassButton?: string,
+        customClassContent?: string,
         arrowSize?: string
         showDown?: string
     }>(),

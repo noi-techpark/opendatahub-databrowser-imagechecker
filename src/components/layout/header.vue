@@ -1,34 +1,41 @@
 <template>
-  <header v-bind="$attrs" class="sticky top-0 w-full bg-white ">
-    <AlignX class="flex flex-row gap-x-8 gap-y-2 md:pb-0 w-full ">
+  <header v-bind="$attrs" class="sticky top-0  w-full bg-white ">
+    <AlignX class="flex flex-row gap-x-5 w-full items-start mt-2 ">
       
-      <HeaderButton >
-        <RouterLink to="/" class ="no-underline" @click = "refreshPage()"> 
-          <div class = "border border-black rounded-lg
-                        p-3 h-12
-                        items-start justify-center flex flex-col"> 
-            <b>DATA</b> <b>BROWSER</b>
+      <HeaderButton @click = "refreshPage()">
+
+       
+          <div class = "border border-black rounded-lg  p-3 h-10  items-start justify-center flex flex-col text-sm"> 
+            <b>DATA</b> 
+            <b>BROWSER</b>
           </div>  
-        </RouterLink>
+        
+
       </HeaderButton>
 
       <HeaderButton>     
-        <div class=" bg-yellow-400 flex justify-center  items-center h-12 w-24 rounded-lg">
+        <div class=" bg-yellow-400 flex justify-center  items-center h-10 w-24 rounded-lg">
           <p>TESTING</p>  
         </div>
       </HeaderButton>
 
-      <HeaderButton class="" @click="console.log(keycloak.token)">About</HeaderButton>
-      <HeaderButton class=" whitespace-nowrap">How To</HeaderButton>
-      <HeaderButton class="">Contact</HeaderButton>
+      <div class = "min-h-12 flex flex-row  space-x-10 items-center justify-center">
+        <HeaderButton class="text-sm " @click="console.log(keycloak.token)">About</HeaderButton>
+        <HeaderButton class="text-sm whitespace-nowrap">How To</HeaderButton>
+        <HeaderButton class="text-sm">Contact</HeaderButton>
+      </div>
 
-      <div class=" w-screen flex justify-end mr-6 items-center">
-        <button @click = "handleLogin()" class = "mr-10 bg-violet-500">login</button>
-        <button @click = "handleLogout()" class = "bg-violet-400">logout</button>
+
+      <div class=" w-screen flex justify-end  items-start space-x-2">
+
+        <button @click = "handleLogin()" class = " mt-1 bg-green-400/30 h-6 w-20 rounded-lg">login</button>
+        <button @click = "handleLogout()" class = " mt-1 bg-red-400/30 h-6 w-20 rounded-lg">logout</button>
+
         <HeaderButton class = "hover:bg-green-400/10" @click = "console.log(keycloak.token)">
-          <UserCircleIcon class = "size-14 mb-2 text-black"></UserCircleIcon>
+          <UserCircleIcon class = "size-10 mb-2 text-black"></UserCircleIcon>
         </HeaderButton>
-        <img src="/src/assets/logo-open-data-hub-black.svg" alt="Logo Open Data Hub" class="w-12 ml-3 mb-2" />
+        <img src="/src/assets/logo-open-data-hub-black.svg" alt="Logo Open Data Hub" class="w-9 ml-3 mb-2" />
+
       </div>
 
     </AlignX>

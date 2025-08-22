@@ -18,6 +18,7 @@ export const useAccommodationStore = defineStore("accommodation", {
         return {
             searchValue: "",
             typefilter: "",
+            rawsort: "",
             results: [] as any[],
             filters: [
                 {
@@ -53,11 +54,17 @@ export const useAccommodationStore = defineStore("accommodation", {
                 else
                     delete newQuery.typefilter
 
+
+                if(this.rawsort)
+                    newQuery.rawsort = this.rawsort
+                else
+                    delete newQuery.rawsort
+
              
                 const conditions = this.filters
                     .filter(f => {
                         if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
-                            return true // li teniamo anche senza value
+                            return true // isnull and isnotnull are allowed even without a value
                         }
                             return f.value.trim() !== ""
                     })
@@ -99,7 +106,7 @@ export const useAccommodationStore = defineStore("accommodation", {
             this.loading = true;
             const languageStore = useLanguageStore()
             const footerStore = useFooterStore()
-            const auth = useAuth()
+            
             
 
             //filters the "Filters" that dont have a value, with the exception of isnull and isnotnull filterTypes
@@ -129,7 +136,8 @@ export const useAccommodationStore = defineStore("accommodation", {
                 const pagenumber = footerStore.pagenumber
                 
                                
-
+                console.log("rawsort: " + this.rawsort)
+                
                 const response = await api.get("Accommodation", {
                     params: {
                         pagenumber,
@@ -143,6 +151,7 @@ export const useAccommodationStore = defineStore("accommodation", {
                         searchfilter: this.searchValue || undefined,
                         typefilter: this.typefilter || null,
                         rawfilter,
+                        rawsort: this.rawsort || null,
                         removenullvalues: false,
                         getasidarray: false,
                     },
@@ -185,6 +194,11 @@ export const useAccommodationStore = defineStore("accommodation", {
                 this.typefilter = String(route.query.typefilter);
             else
                 this.typefilter = ""
+
+            if(route.query.rawsort)
+                this.rawsort = String(route.query.rawsort);
+            else
+                this.rawsort = ""
 
             
 

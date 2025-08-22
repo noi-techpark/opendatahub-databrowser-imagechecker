@@ -33,7 +33,7 @@
 
 
 
-            <div class ="bg-white m-4 border rounded max-h-screen overflow-y-auto"> 
+            <div class ="bg-white m-4 border rounded max-h-screen overflow-y-auto "> 
                 <FilterTable></FilterTable>
             </div>
     </div>

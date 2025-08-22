@@ -9,11 +9,11 @@
 
         <div class="flex flex-row overflow-auto">   <!-- REMINDER This overflow-auto wasted 10 hours of my time-->
 
-          <div class="flex-1 overflow-auto">    
+          <div class="flex-1 overflow-auto">    <!--displays TableView-->
             <slot></slot>
           </div>
 
-          <FiltersSideBar v-if = "accommodationStore.showFilterSideBar" class =" min-w-96"></FiltersSideBar>
+          <FiltersSideBar v-if = "accommodationStore.showFilterSideBar" class =" w-96"></FiltersSideBar>
 
         </div>
       

@@ -3,9 +3,9 @@
 
     <div class = "flex flex-row space-x-2 items-center flex-wrap">
 
-    <DatasetHeaderDropDown :title="selectedQuickFilter" :bold="true" width="min-w-52">
+    <DatasetHeaderDropDown :title="selectedQuickFilter" :bold="true" width="min-w-52" arrow-size="size-4">
       
-       <DatasetHeaderButton v-for = "(label, key) in quickFilters" @click = " handleFilter(label, key)" 
+       <DatasetHeaderButton v-for = "(label, key) in typeFilters" @click = " handleFilter(label, key)" 
        class ="border-none rounded-none"
       :class = "selectedQuickFilter === key ? 'bg-green-400/10' : '' "
        >
@@ -15,7 +15,7 @@
     </DatasetHeaderDropDown>
 
 
-    <DatasetHeaderButton @click = "showInfo = !showInfo" class ="relative"> 
+    <DatasetHeaderButton @click = "showInfo = !showInfo" class ="relative "> 
       <InformationCircleIcon class= "size-6 text-green-400"></InformationCircleIcon>
 
       <div v-if="showInfo" class =  " absolute left-0 top-full mt-2 bg-white border border-gray-300 rounded shadow-lg h-64 w-64 z-50">  <!--TODOO-->
@@ -125,7 +125,7 @@
   }
 
 
-  const quickFilters: Record<string, string> = {
+  const typeFilters: Record<string, string> = {
     "Accommodation": "",
     "Accommodation HotelPension": "1",
     "Accommodation Mountain": "32"
@@ -133,10 +133,10 @@
   
   
 
-  function handleFilter(quickFilterLabel : string, quickFilterKey : string){
+  function handleFilter(typefilterLabel : string, typefilterKey : string){
     AccomodatioStore.filters = [ ]
-    AccomodatioStore.typefilter = quickFilterLabel
-    selectedQuickFilter.value = quickFilterKey
+    AccomodatioStore.typefilter = typefilterLabel
+    selectedQuickFilter.value = typefilterKey
     AccomodatioStore.updateAndFetch(router, route)
   }
 
