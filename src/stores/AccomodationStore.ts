@@ -38,8 +38,7 @@ export const useAccommodationStore = defineStore("accommodation", {
         //Updates URL, and fetches Data accordingly
         async updateAndFetch(router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
 
-            
-
+        
             if (router && route) {
                 const newQuery = { ...route.query };
 
@@ -269,83 +268,7 @@ export const useAccommodationStore = defineStore("accommodation", {
             this.filters[index][field] = value;
         },
 
-        //TODOO, caching
-        fetch2() {
-            const languageStore = useLanguageStore();
-            const footerStore = useFooterStore();
-
-            const queryKey = [
-                'accommodations',
-                this.searchValue,
-                this.typefilter,
-                this.rawsort,
-                JSON.stringify(this.filters),
-                footerStore.pagenumber,
-                footerStore.pagesize,
-                languageStore.language,
-            ];
-
-            return useQuery<any[], Error>({
-                        queryKey,
-                        queryFn: async () => {
-
-                            const conditions = this.filters
-                            .filter(f => {
-                                if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
-                                return true
-                                }
-                                return f.value.trim() !== ""
-                            })
-                            .map(f => {
-                                if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
-                                return `${f.comparison}(${f.type})`
-                                }
-                                return `${f.comparison}(${f.type},'${f.value}')`
-                            });
-
-                            const rawfilter = conditions.length > 0 ? `and(${conditions.join(",")})` : undefined;
-                            
-                            const language = languageStore.language.toLowerCase()
-                            const pagesize = footerStore.pagesize
-                            const pagenumber = footerStore.pagenumber
-
-                            const response = await api.get("Accommodation", {
-                                params: {
-                                    pagenumber,
-                                    pagesize,
-                                    language,
-                                    roominfo: "1-18,18",
-                                    bokfilter: "hgv",
-                                    msssource: "sinfo",
-                                    availabilitychecklanguage: "en",
-                                    detail: 0,
-                                    searchfilter: this.searchValue || undefined,
-                                    typefilter: this.typefilter || null,
-                                    rawfilter,
-                                    rawsort: this.rawsort || null,
-                                    removenullvalues: false,
-                                    getasidarray: false,
-                                },
-                            });
-                            this.results = response.data; 
-                            this.APIurl = response.config.url ?? '';
-
-                            if (footerStore.FirstTotalResults === 0) {
-                                const responseNoFilter: any = await api.get("Accommodation");
-                                footerStore.FirstTotalResults = responseNoFilter.data.TotalResults
-                                console.log("first: " + footerStore.FirstTotalResults)
-                            }
-
-                            footerStore.TotalResults = (this.results as any)?.TotalResults ?? 0;
-                            this.loading = false;
-                            
-                            console.log("POOOOTA")
-                            return response.data; // Vue Query lavora con questo
-                        },
-                        staleTime: 1000 * 60 * 5,
-
-                    });
-        }
+      
         
         
         }

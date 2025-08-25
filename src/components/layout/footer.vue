@@ -10,7 +10,7 @@
 
 
     <DatasetHeaderDropDown :title = "footerStore.pagesize.toLocaleString()" width="min-w-14 p-0" arrow-size="size-3" show-down="bottom-full" 
-      custom-class-button="h-6" custom-class-content="h-1" class = "text-green-400 text-sm" >
+      custom-class-button="h-6" custom-class-content="h-1" class = "text-green-400 text-sm" :button-component="DatasetHeaderButton">
 
       <DatasetHeaderButton v-for = "option in dropdownOptions" class = "border-none rounded-none" 
                           :class = "[option === footerStore.pagesize ? 'bg-green-400/10' : '']"

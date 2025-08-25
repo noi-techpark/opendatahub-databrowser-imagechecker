@@ -1,6 +1,6 @@
 <template>
 
-  <div class="flex flex-col items-center p-2 space-y-3 " v-for = "(filter, index) in accommodationStore.filters" :key="index">
+  <div class="flex flex-col items-center p-2 space-y-3" v-for = "(filter, index) in accommodationStore.filters" :key="index">
 
 
     <div class= " w-full flex justify-end">
@@ -14,13 +14,12 @@
       <DatasetHeaderDropDown
         :ref ="el => dropdownRef1[index] = el"
         :title="filterTypesMap[filter.type] || filter.type"
-        width="min-w-36"
-        class="w-auto whitespace-break-spaces "
+        class="w-full whitespace-break-spaces "
+        :button-component="FilterButton"
+     
       >
-          <DatasetHeaderButton
-            v-for="(label, key) in filterTypesMap"
-            :key="key"
-            @click="selectType(key, index)"
+          <FilterButton
+            v-for="(label, key) in filterTypesMap" :key="key" @click="selectType(key, index)"
             :class="[
               'hover:bg-green-400/10 cursor-pointer border-none m-0 rounded-none z-50 whitespace-nowrap',
               filter.type === key ? 'bg-green-400/10' : ''
@@ -29,41 +28,39 @@
    
               {{ label }}
            
-          </DatasetHeaderButton>
+          </FilterButton>
 
       </DatasetHeaderDropDown>
 
       <DatasetHeaderDropDown
         :ref ="el => dropdownRef2[index] = el"
         :title="filterComparison[filter.comparison] || filter.comparison"
-        width="min-w-36"
-        class="w-auto "
+        class="w-full"
+        :button-component="FilterButton"
       >
-        <DatasetHeaderButton
-          v-for="(label, key) in filterComparison"
-          :key="key"
-          @click="selectComparison(key, index)"
+        <FilterButton
+          v-for="(label, key) in filterComparison" :key="key" @click="selectComparison(key, index)"
           :class="[
             'hover:bg-green-100 cursor-pointer border-none m-0 rounded-none',
             accommodationStore.filters[index].comparison === label ? 'bg-green-400/10' : ''
           ]"
         >
           {{ label }}
-        </DatasetHeaderButton>
+        </FilterButton>
       </DatasetHeaderDropDown>
     </div>
 
    
     
     <div class="w-full" v-if = "!(filter.comparison === 'isnull' || filter.comparison === 'isnotnull')">
-      <DatasetHeaderButton class="w-full p-0">
+      <FilterButton class="w-full p-0 h-10">
         <input
-          class="w-full border-none bg-transparent px-2 py-1 focus:outline-none"
+          class="w-full border-none bg-transparent px-2 py-1 focus:outline-none  h-5"
           placeholder="insert search value"
           type="text" v-model = "accommodationStore.filters[index].value"
           @keyup.enter = "handleSearch()"
         />
-      </DatasetHeaderButton>
+      </FilterButton>
     </div>
 
     
@@ -75,15 +72,15 @@
     
 
     <div class = "flex flex-row">
-        <DatasetHeaderButton class ="w-28 h-8  m-4 bg-green-400 flex items-center hover:bg-green-700" @click = "handleSearch()">
+        <FilterButton class ="w-1/3 h-8  m-4 bg-green-400 flex items-center hover:bg-green-700" @click = "handleSearch()">
           <FunnelIcon class="text-white size-6"></FunnelIcon>
             <p class = "text-white">filter</p>
-        </DatasetHeaderButton>
+        </FilterButton>
 
-        <DatasetHeaderButton class ="w-60 h-8 m-4 flex items-center border-green-400 border-2" @click = "accommodationStore.addFilter()">
+        <FilterButton class ="w-2/3 h-8 m-4 flex items-center border-green-400 border-2" @click = "accommodationStore.addFilter()">
             <PlusIcon class = "text-green-400 size-6"></PlusIcon>
             <p class = " text-green-400"> Add a new filter</p>
-        </DatasetHeaderButton>
+        </FilterButton>
     </div>
 
 </template>
@@ -96,16 +93,18 @@
   import { FunnelIcon, XCircleIcon } from '@heroicons/vue/24/outline'; 
   import { PlusIcon } from '@heroicons/vue/16/solid';
 
-
-  import DatasetHeaderButton from '../datasetHeaderButton.vue';
   import DatasetHeaderDropDown from '../datasetHeaderDropDown.vue';
   import ContentDivider from '@/components/contentAlignment/ContentDivider.vue'; 
+  import FilterButton from './filterButton.vue';
+
   import { ref, computed, watch } from 'vue';
   import { useLanguageStore } from '@/stores/HeaderTableStore';
 
   import { useAccommodationStore } from '@/stores/AccomodationStore';
   import { useFooterStore } from '@/stores/FooterStore';
   import { useRoute, useRouter } from 'vue-router';
+
+
 
 
   const accommodationStore = useAccommodationStore()

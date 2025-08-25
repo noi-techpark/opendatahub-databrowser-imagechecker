@@ -1,7 +1,7 @@
 <template>
-    <div class = " left-0 bg-gray-50 w-52 border z-5 shadow-[inset_8px_0_8px_-8px_rgba(0,0,0,0.1)]">
+    <div class = " left-0 bg-gray-50 w-1/3 border z-5 ">
      
-            <div class =" h-[70px] bg-gray-250 border rounded justify-between items-center flex space-x-2"> 
+            <div class =" h-[75 px] bg-gray-250 border rounded justify-between items-center flex space-x-2"> 
                 
                 <Bars3BottomRightIcon class = "size-6 text-green-400 ml-5"></Bars3BottomRightIcon>
 
@@ -34,7 +34,7 @@
 
 
             <div class ="bg-white m-4 border rounded max-h-screen overflow-y-auto "> 
-                <FilterTable></FilterTable>
+                <FilterTable ></FilterTable>
             </div>
     </div>
 

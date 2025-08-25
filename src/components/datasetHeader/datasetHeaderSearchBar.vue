@@ -43,6 +43,7 @@
     function handleSearch() {
         footerStore.pagenumber = 1
         accommodationStore.updateAndFetch(router, route)
+    
     }
     
   

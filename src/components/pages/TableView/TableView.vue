@@ -63,12 +63,11 @@
       }
 
       accommodationStore.restoreFromUrl(route);
-      accommodationStore.fetchData();
+      accommodationStore.fetchData()
 
-      console.log(accommodationStore.results)
 
-      const {data} = accommodationStore.fetch2()
-      console.log(data.value)
+      
+    
   });
 
 </script>

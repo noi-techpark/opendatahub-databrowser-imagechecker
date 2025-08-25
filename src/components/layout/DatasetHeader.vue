@@ -3,7 +3,7 @@
 
     <div class = "flex flex-row space-x-2 items-center flex-wrap ml-3">
 
-      <DatasetHeaderDropDown :title="selectedQuickFilter" :bold="true" width="min-w-52" arrow-size="size-4">
+      <DatasetHeaderDropDown :title="selectedQuickFilter" :bold="true" width="min-w-52" arrow-size="size-4" :button-component="DatasetHeaderButton">
         
         <DatasetHeaderButton v-for = "(label, key) in typeFilters" @click = " handleFilter(label, key)" 
         class ="border-none rounded-none" :class = "selectedQuickFilter === key ? 'bg-green-400/10' : '' "
@@ -34,7 +34,7 @@
           <p>Filters</p>
       </DatasetHeaderButton>
 
-      <DatasetHeaderDropDown :title="selectedLanguage.language" width="min-w-24" >
+      <DatasetHeaderDropDown :title="selectedLanguage.language" width="min-w-24" :button-component="DatasetHeaderButton" >
         <template #icon>
           <GlobeEuropeAfricaIcon class = "size-6 text-green-400"></GlobeEuropeAfricaIcon>
         </template>
@@ -49,11 +49,11 @@
           
       </DatasetHeaderDropDown>
 
-      <DatasetHeaderDropDown title="View" width="min-w-24">
+      <DatasetHeaderDropDown title="View" width="min-w-24" :button-component="DatasetHeaderButton">
         <template #icon>
           <CircleStackIcon class = "size-6 text-green-400"></CircleStackIcon>
         </template>
-        <DatasetHeaderButton>opzione </DatasetHeaderButton>
+        <DatasetHeaderButton>options </DatasetHeaderButton>
       </DatasetHeaderDropDown>
 
 
