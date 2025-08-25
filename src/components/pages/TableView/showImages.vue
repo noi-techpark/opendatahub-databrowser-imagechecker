@@ -5,19 +5,26 @@
       alt="Accommodation Image"
       class="cursor-pointer"
       :style="{
-        width: '300px',
+        width: '100%',
         height: 'auto',
         objectFit: 'cover'
       }"
       @click="isFullView = true"
     />
-
-
+    
     <div
       v-if="isFullView"
       class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
       @click.self="isFullView = false"
     >
+      <div class="flex flex-col h-full text-white text-xl absolute left-5 top-5 ">
+          <p class = ""> validity:</p>
+          <p v-if="selectedImage">from: {{ DateFormatter(selectedImage.ValidFrom) }}</p>
+          <p v-if="selectedImage">to: {{ DateFormatter(selectedImage.ValidTo) }}</p>
+          <div class="h-full" @click.self = "isFullView = false"></div>
+      </div>
+
+      
       <img
         :src="selectedImage?.ImageUrl || imageNotFound"
         alt="Full view"
@@ -31,12 +38,7 @@
         &times;
       </button>
 
-      <div class="flex flex-col h-full text-white text-xl pl-4 absolute top-5 left-5">
-          <p class = ""> validity:</p>
-          <p v-if="selectedImage">from: {{ DateFormatter(selectedImage.ValidFrom) }}</p>
-          <p v-if="selectedImage">to: {{ DateFormatter(selectedImage.ValidTo) }}</p>
-          <div class="h-full" @click.self = "isFullView = false"></div>
-      </div>
+      
 
     </div>
 
@@ -50,6 +52,7 @@
   import { useLanguageStore } from '@/stores/HeaderTableStore';
   import type { Accommodation } from './types'
   import { computed, ref } from 'vue'
+import { DivideIcon } from '@heroicons/vue/24/outline';
 
   
 
@@ -62,6 +65,7 @@
   const languageStore = useLanguageStore()
   const isFullView = ref(false)
   const imageNotFound = 'https://imgs.search.brave.com/LeS4HHKZ1oz1T15VY5MwiUjWDjLiYKj0vgRABB3D2BY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2Lzg2LzE5LzM0/LzM2MF9GXzY4NjE5/MzQwN19ESFp3amV5/ZEJPUjF0RURrTEF6/d00zdzVrWXN0Unp6/Qi5qcGc'
+  // 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='
   const periodDates = {
     winter: '2020-01-15T00:00:00',
     summer: '2020-07-15T00:00:00',
@@ -91,7 +95,7 @@
 
   function DateFormatter(date: string){
     if(date == null)
-      return "null"
+      return "date unavailable"
 
     const d = new Date(date)
     

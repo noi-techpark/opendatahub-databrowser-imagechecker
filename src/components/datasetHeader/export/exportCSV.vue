@@ -22,6 +22,8 @@
     const languageStore = useLanguageStore()
     const footerStore = useFooterStore()
 
+
+
     async function exportCSV(){
 
         const rawfilter = extractRawFilter()
@@ -29,8 +31,24 @@
         const pagesize = footerStore.pagesize
         const pagenumber = footerStore.pagenumber
        
+        const fields = [
+            "Id",
+            "AccoDetail.de.Name",
+            "AccoType.Id",
+            "AccoCategory.Id",
+            `AccoDetail.${languageStore.language.toLowerCase()}.Street`,
+            `AccoDetail.${languageStore.language.toLowerCase()}.Zip`,
+            `LocationInfo.RegionInfo.Name.${languageStore.language.toLowerCase()}`,
+            `LocationInfo.MunicipalityInfo.Name.${languageStore.language.toLowerCase()}`,
+            `AccoDetail.${languageStore.language.toLowerCase()}.Email`,
+            `AccoDetail.${languageStore.language.toLowerCase()}.Phone`,
+            "ImageGallery[0].ImageUrl",
+            "Check",
+            "Comment",
+            ];
 
-        const response = await api.get("Accommodation?fields=Id,AccoDetail.de.Name,AccoType.Id,ImageGallery[0].ImageUrl,AccoThemes&format=csv", {
+
+        const response = await api.get(`Accommodation?fields=${fields.join(",")}&format=csv`, {
             params: {
                 pagenumber,
                 pagesize,

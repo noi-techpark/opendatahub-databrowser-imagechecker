@@ -2,11 +2,11 @@
 
     <div class="flex flex-col relative" >
        
-        <DatasetHeaderButton class=" w-full" :class="props.width" @click="click">
+        <component :is = "buttonComponent" class=" w-full" :class="[props.width, props.customClassButton]" @click="click">
 
 
             
-            <div class="flex flex-row w-full  items-center space-x-3" :class="props.width">
+            <div class="flex flex-row w-full  items-center space-x-3" :class="[props.width, props.customClassContent]">
 
                 <slot name="icon" />
                 
@@ -21,7 +21,7 @@
 
                 </div>
             </div>
-        </DatasetHeaderButton>
+        </component>
 
    
         <!--contains the dropdown menu's Options-->
@@ -38,7 +38,7 @@
 <script setup lang="ts">
     import DatasetHeaderButton from './datasetHeaderButton.vue';
     import { ref, defineEmits, defineExpose } from 'vue';
-    import {onClickOutside} from '@vueuse/core'
+    
 
     const isOpen = ref(false);
 
@@ -49,9 +49,12 @@
     const props = withDefaults(defineProps<{
         title: string
         bold?: boolean
-        width: string
+        width?: string
+        customClassButton?: string,
+        customClassContent?: string,
         arrowSize?: string
-        showDown?: string
+        showDown?: string,
+        buttonComponent: any
     }>(),
     {
         title: "",
