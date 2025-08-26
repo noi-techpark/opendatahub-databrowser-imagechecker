@@ -98,18 +98,18 @@
   import FilterButton from './filterButton.vue';
 
   import { ref, computed, watch } from 'vue';
-  import { useLanguageStore } from '@/stores/HeaderTableStore';
+
 
   import { useAccommodationStore } from '@/stores/AccomodationStore';
-  import { useFooterStore } from '@/stores/FooterStore';
+
   import { useRoute, useRouter } from 'vue-router';
 
 
 
 
   const accommodationStore = useAccommodationStore()
-  const footerStore = useFooterStore()
-  const languageStore = useLanguageStore()
+ 
+
 
   const router = useRouter()
   const route = useRoute()
@@ -135,13 +135,13 @@
 
 
   const filterTypesMap = computed<Record<string, string>>(() => ({
-    [`AccoDetail.${languageStore.language.toLowerCase()}.Name`]: "Title",
+    [`AccoDetail.${accommodationStore.language.toLowerCase()}.Name`]: "Title",
     AccoTypeId: "Accommodation Type",
     AccoCategoryId: "Category",
-    [`LocationInfo.RegionInfo.Name.${languageStore.language.toLowerCase()}`]: "Region",
+    [`LocationInfo.RegionInfo.Name.${accommodationStore.language.toLowerCase()}`]: "Region",
     HasLanguage: "Languages",
     [`ImageGallery.0.ImageUrl`]: "Image",
-    [`LocationInfo.MunicipalityInfo.Name.${languageStore.language.toLowerCase()}`]: "Municipality",
+    [`LocationInfo.MunicipalityInfo.Name.${accommodationStore.language.toLowerCase()}`]: "Municipality",
     BadgeIds: "Badges",
     ThemeIds: "Themes",
     SmgTags: "Tags",
@@ -170,7 +170,7 @@
     }
 
   function handleSearch() {
-    footerStore.pagenumber = 1
+    accommodationStore.pagenumber = 1
     accommodationStore.updateAndFetch(router, route)
     }
 
@@ -184,7 +184,7 @@
   ]
 
   watch(
-    () => languageStore.language,
+    () => accommodationStore.language,
     (newLang) => {
       accommodationStore.filters.forEach((filter) => {
         

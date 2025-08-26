@@ -10,17 +10,17 @@
   
       <TableHeaders></TableHeaders>
 
-      <tbody v-if = "!accommodationStore.loading">
-        <TableRows></TableRows>
+      <tbody v-if = "!isLoading && data?.Items?.length">
+        <TableRows :data = "data"></TableRows>
       </tbody>
 
     </table>
 
-    <div v-if="accommodationStore.loading" class="flex p-4 text-center w-full h-full justify-center items-center">
+    <div v-if="isLoading" class="flex p-4 text-center w-full h-full justify-center items-center">
         <ArrowPathIcon class = "size-36 animate-spin mb-56 mt-32 text-green-400"></ArrowPathIcon>
     </div>
 
-    <div v-if="!accommodationStore.results.Items?.length" class="flex p-4 text-center w-full h-full justify-center items-center">
+    <div v-if="error" class="flex p-4 text-center w-full h-full justify-center items-center">
         <EyeSlashIcon class = "size-36 animate-bounce mb-56 mt-32  text-green-400"></EyeSlashIcon>
     </div>
     
@@ -39,18 +39,21 @@
 
   import { onMounted } from 'vue'
   import { useAccommodationStore } from '@/stores/AccomodationStore'
-  import { useRoute, useRouter } from 'vue-router'
+  import { useRoute } from 'vue-router'
   import { useAuth } from '@/auth/authStores/auth'
   import { keycloak } from '@/auth/keycloak'
-
   import TableRows from './TableRows.vue'
   import TableHeaders from './TableHeaders.vue'
 
+  
+  import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery'
+  
+
 
   const route = useRoute()
-  const router = useRouter()
-
+ 
   const accommodationStore: any = useAccommodationStore()
+
   const auth = useAuth()
   
 
@@ -63,12 +66,16 @@
       }
 
       accommodationStore.restoreFromUrl(route);
-      accommodationStore.fetchData()
-
-
-      
-    
   });
+
+
+
+  accommodationStore.restoreFromUrl(route);
+  const {isLoading, data, error} = useAccommodationsQuery()
+
+
+
+
 
 </script>
 

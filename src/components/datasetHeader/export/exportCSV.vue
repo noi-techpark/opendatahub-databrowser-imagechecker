@@ -15,33 +15,33 @@
     import api from '@/components/utils/api';
 
     import { useAccommodationStore } from '@/stores/AccomodationStore';
-    import { useLanguageStore } from '@/stores/HeaderTableStore';
-    import { useFooterStore } from '@/stores/FooterStore';
+    
+
 
     const accommodationStore = useAccommodationStore() 
-    const languageStore = useLanguageStore()
-    const footerStore = useFooterStore()
+
+
 
 
 
     async function exportCSV(){
 
         const rawfilter = extractRawFilter()
-        const language = languageStore.language.toLowerCase()
-        const pagesize = footerStore.pagesize
-        const pagenumber = footerStore.pagenumber
+        const language = accommodationStore.language.toLowerCase()
+        const pagesize = accommodationStore.pagesize
+        const pagenumber = accommodationStore.pagenumber
        
         const fields = [
             "Id",
             "AccoDetail.de.Name",
             "AccoType.Id",
             "AccoCategory.Id",
-            `AccoDetail.${languageStore.language.toLowerCase()}.Street`,
-            `AccoDetail.${languageStore.language.toLowerCase()}.Zip`,
-            `LocationInfo.RegionInfo.Name.${languageStore.language.toLowerCase()}`,
-            `LocationInfo.MunicipalityInfo.Name.${languageStore.language.toLowerCase()}`,
-            `AccoDetail.${languageStore.language.toLowerCase()}.Email`,
-            `AccoDetail.${languageStore.language.toLowerCase()}.Phone`,
+            `AccoDetail.${accommodationStore.language.toLowerCase()}.Street`,
+            `AccoDetail.${accommodationStore.language.toLowerCase()}.Zip`,
+            `LocationInfo.RegionInfo.Name.${accommodationStore.language.toLowerCase()}`,
+            `LocationInfo.MunicipalityInfo.Name.${accommodationStore.language.toLowerCase()}`,
+            `AccoDetail.${accommodationStore.language.toLowerCase()}.Email`,
+            `AccoDetail.${accommodationStore.language.toLowerCase()}.Phone`,
             "ImageGallery[0].ImageUrl",
             "Check",
             "Comment",
@@ -58,7 +58,7 @@
                 msssource: "sinfo",
                 availabilitychecklanguage: "en",
                 detail: 0,
-                searchfilter: accommodationStore.searchValue || undefined,
+                searchfilter: accommodationStore.searchfilter || undefined,
                 rawfilter,
                 removenullvalues: false,
                 getasidarray: false,

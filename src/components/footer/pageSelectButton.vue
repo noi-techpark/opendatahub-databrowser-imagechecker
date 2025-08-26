@@ -1,14 +1,14 @@
 <template>
 <div class = "flex flex-row space-x-2">
-     <button @click = "updatePageNumber(--footerStore.pagenumber)">
+     <button @click = "updatePageNumber(--accommodationStore.pagenumber)">
             <ChevronLeftIcon class =" size-4 text-green-400"/> 
         </button>
     
     <div class = "flex flex-row border rounded-lg border-gray-400">   
 
-        <input class = "border-none rounded-lg bg-transparent w-14 flex text-green-400 text-sm" :placeholder="footerStore.CurrentPage.toLocaleString()"
-                v-model="footerStore.pagenumber"
-                @keyup.enter = "updatePageNumber(footerStore.pagenumber)" >
+        <input class = "border-none rounded-lg bg-transparent w-14 flex text-green-400 text-sm" :placeholder="accommodationStore.CurrentPage.toLocaleString()"
+                v-model="accommodationStore.pagenumber"
+                @keyup.enter = "updatePageNumber(accommodationStore.pagenumber)" >
 
         </input>
         <button class = "bg-green-400 border-r rounded-lg w-14"
@@ -19,7 +19,7 @@
     
     </div>
     
-         <button @click = "updatePageNumber(++footerStore.pagenumber)">
+         <button @click = "updatePageNumber(++accommodationStore.pagenumber)">
             <ChevronRightIcon class = "size-4 text-green-400"/>
         </button>
 
@@ -30,24 +30,23 @@
 <script setup lang="ts">
 
     import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
-    import { useFooterStore } from '@/stores/FooterStore';
     import { useAccommodationStore } from '@/stores/AccomodationStore';
     import { useRoute, useRouter } from 'vue-router';
 
     const route = useRoute()
     const router = useRouter()
 
-    const footerStore = useFooterStore()
+
     const accommodationStore = useAccommodationStore()
 
     function updatePageNumber(pagenumber: number){
 
-        if(pagenumber > footerStore.TotalPages)
-            footerStore.pagenumber = footerStore.TotalPages
+        if(pagenumber > accommodationStore.TotalPages)
+            accommodationStore.pagenumber = accommodationStore.TotalPages
         else if(pagenumber <= 0 )
-            footerStore.pagenumber = 1
+            accommodationStore.pagenumber = 1
         else
-            footerStore.pagenumber = pagenumber
+            accommodationStore.pagenumber = pagenumber
         
             
         accommodationStore.updateAndFetch(router, route)

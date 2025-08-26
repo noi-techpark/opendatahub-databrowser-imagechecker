@@ -16,20 +16,19 @@
 <script setup lang="ts">
     import TableHeaderCell from '@/components/table/TableHeaderCell.vue';
     import TableHeader from '@/components/table/TableHeader.vue';
-
-    import { useLanguageStore } from '@/stores/HeaderTableStore';
-
-    const languageStore = useLanguageStore()
+    import { useAccommodationStore } from '@/stores/AccomodationStore';
+    
+    const accommodationStore = useAccommodationStore()
     const headerColumns = [
-        { key: "title", label: "Title", type: `AccoDetail.${languageStore.language.toLowerCase()}.Name` },
+        { key: "title", label: "Title", type: `AccoDetail.${accommodationStore.language.toLowerCase()}.Name` },
         { key: "mainImage", label: "Main Image", type: "ImageGallery.0.ImageUrl" },
         { key: "winterImage", label: "Image Winter", type: "ImageGallery.0.ImageUrl" },
         { key: "summerImage", label: "Image Summer", type: "ImageGallery.0.ImageUrl" },
         { key: "yearImage", label: "Image Whole Year", type: "ImageGallery.0.ImageUrl" },
         { key: "accoType", label: "Accommodation Type", type: "AccoType.Id" },
         { key: "category", label: "Category", type: "AccoCategory.Id" },
-        { key: "region", label: "Region", type: `LocationInfo.RegionInfo.Name.${languageStore.language.toLowerCase()}` },
-        { key: "municipality", label: "Municipality", type: `LocationInfo.MunicipalityInfo.Name.${languageStore.language.toLowerCase()}` },
+        { key: "region", label: "Region", type: `LocationInfo.RegionInfo.Name.${accommodationStore.language.toLowerCase()}` },
+        { key: "municipality", label: "Municipality", type: `LocationInfo.MunicipalityInfo.Name.${accommodationStore.language.toLowerCase()}` },
         { key: "badges", label: "Badges", type: "AccoBadges" },
         { key: "themes", label: "Themes", type: "AccoThemes" },
         { key: "tags", label: "Tags", type: "ODHTags" },

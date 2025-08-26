@@ -1,5 +1,5 @@
 <template>
-    <div class = " left-0 bg-gray-50 w-1/3 border z-5 ">
+    <div class = " left-0 bg-gray-50 w-2/6 border z-5 ">
      
             <div class =" h-[75 px] bg-gray-250 border rounded justify-between items-center flex space-x-2"> 
                 
@@ -17,9 +17,9 @@
             <div class = "flex flex-row items-center p-1 mt-5">
 
                 <p class ="ml-5 text-sm"> 
-                    <b>{{ footerStore.TotalResults }}</b>
+                    <b>{{ accomodationStore.TotalResults }}</b>
                      <span class="text-gray-500"> records out of </span> 
-                    <b> {{ footerStore.FirstTotalResults }}</b>
+                    <b> {{ accomodationStore.FirstTotalResults }}</b>
                 
                 </p>
 
@@ -49,13 +49,13 @@
     import FilterTable from './filterTable.vue';
     import { useAccommodationStore } from '@/stores/AccomodationStore';
     import { useRoute, useRouter } from 'vue-router';
-    import { useFooterStore } from '@/stores/FooterStore';
+
 
     const route = useRoute()
     const router = useRouter()
 
     const accomodationStore = useAccommodationStore()
-    const footerStore = useFooterStore()
+  
 
     function removeFiltersAndUpdate() {
         accomodationStore.filters = []

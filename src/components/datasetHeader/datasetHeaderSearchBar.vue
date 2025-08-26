@@ -12,7 +12,7 @@
         
 
         <input class = "    h-9 min-w-6 p-2 m-1 border-none   bg-transparent" 
-        placeholder="insert search value" type="text" v-model="accommodationStore.searchValue" @keyup.enter="handleSearch()">
+        placeholder="insert search value" type="text" v-model="value" @keyup.enter="handleSearch()">
         </input>
 
 
@@ -32,18 +32,26 @@
     import { useRoute, useRouter } from 'vue-router';
 
     import { useAccommodationStore } from '@/stores/AccomodationStore';
-    import { useFooterStore } from '@/stores/FooterStore';
 
+    import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery';
+    
+
+    import { ref } from 'vue';
+    const value = ref("")
     const router = useRouter();
     const route = useRoute();
     const accommodationStore = useAccommodationStore()
-    const footerStore = useFooterStore()
+    const query = useAccommodationsQuery()
+
+
+
+  
 
 
     function handleSearch() {
-        footerStore.pagenumber = 1
+        accommodationStore.pagenumber = 1
+        accommodationStore.searchfilter = value.value
         accommodationStore.updateAndFetch(router, route)
-    
     }
     
   

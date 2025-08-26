@@ -1,10 +1,8 @@
 import { defineStore } from "pinia";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
-import { useLanguageStore } from "./HeaderTableStore";
-import { useFooterStore } from "./FooterStore";
-import { useAuth } from "@/auth/authStores/auth";
-import { useQuery } from "@tanstack/vue-query";
+
+
 import api from "@/components/utils/api";
 
 export interface Filter {
@@ -15,22 +13,27 @@ export interface Filter {
 
 export const useAccommodationStore = defineStore("accommodation", {
     state: () => {
-        const languageStore = useLanguageStore();
+      
         return {
-            searchValue: "",
+            language: "DE",
+
+            searchfilter: "",
             typefilter: "",
             rawsort: "",
-            results: [] as any[],
-            filters: [
-                {
-                    type: `AccoDetail.${languageStore.language.toLowerCase()}.Name`,
-                    comparison: "like",
-                    value: "",
-                } as Filter,
-            ],
+            rawfilter: "",
+            filters: [] as Filter[],
             loading: false,
             showFilterSideBar: false,
-            APIurl: "" 
+            APIurl: "",
+
+            pagenumber: 1,
+            pagesize: 25,
+            TotalResults: 0,
+            TotalPages: 0,
+            CurrentPage: 0,
+            PreviousPage: "",
+            NextPage: "",
+            FirstTotalResults: 0
         };
     },
 
@@ -38,16 +41,14 @@ export const useAccommodationStore = defineStore("accommodation", {
         //Updates URL, and fetches Data accordingly
         async updateAndFetch(router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
 
-        
             if (router && route) {
                 const newQuery = { ...route.query };
 
-
-                if (this.searchValue)
-                    newQuery.searchfilter = this.searchValue;
+                if (this.searchfilter)
+                    newQuery.searchfilter = this.searchfilter;
                 else 
                     delete newQuery.searchfilter;
-                
+
 
                 if (this.typefilter)
                     newQuery.typefilter = this.typefilter
@@ -86,103 +87,17 @@ export const useAccommodationStore = defineStore("accommodation", {
                 }
 
             
-                const languageStore = useLanguageStore()
-                newQuery.language = languageStore.language.toLowerCase()
-
-                const footerStore = useFooterStore()
-                newQuery.pagesize = footerStore.pagesize.toLocaleString()
-                newQuery.pagenumber = footerStore.pagenumber.toLocaleString()
-
-
+               
+                newQuery.language = this.language.toLowerCase()
+                                //TODOO
+                
+                newQuery.pagesize = this.pagesize.toLocaleString()
+                newQuery.pagenumber = this.pagenumber.toLocaleString()
 
 
                 router.replace({ query: newQuery });
             }
-            await this.fetchData();
-        },
-
- 
-        async fetchData(router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
-            this.loading = true;
-            const languageStore = useLanguageStore()
-            const footerStore = useFooterStore()
             
-            
-
-            //filters the "Filters" that dont have a value, with the exception of isnull and isnotnull filterTypes
-            try {
-
-                
-                const conditions = this.filters
-                .filter(f => {
-                    if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
-                    return true
-                    }
-                    return f.value.trim() !== ""
-                })
-                .map(f => {
-                    if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
-                    return `${f.comparison}(${f.type})`
-                    }
-                    return `${f.comparison}(${f.type},'${f.value}')`
-                });
-
-            
-
-                const rawfilter = conditions.length > 0
-                    ? `and(${conditions.join(",")})`
-                    : undefined;
-
-                const language = languageStore.language.toLowerCase()
-                const pagesize = footerStore.pagesize
-                const pagenumber = footerStore.pagenumber
-                
-                               
-                console.log("rawsort: " + this.rawsort)
-                
-                const response = await api.get("Accommodation", {
-                    params: {
-                        pagenumber,
-                        pagesize,
-                        language,
-                        roominfo: "1-18,18",
-                        bokfilter: "hgv",
-                        msssource: "sinfo",
-                        availabilitychecklanguage: "en",
-                        detail: 0,
-                        searchfilter: this.searchValue || undefined,
-                        typefilter: this.typefilter || null,
-                        rawfilter,
-                        rawsort: this.rawsort || null,
-                        removenullvalues: false,
-                        getasidarray: false,
-                    },
-                
-                });
-
-                this.results = response.data;
-                this.APIurl = response.config.url ? response.config.url : ""
-                
-
-                //TODOO, there might be a better way, 2 api calls just for this variable is a waste
-                if (footerStore.FirstTotalResults === 0) {
-                    const responseNoFilter: any = await api.get("Accommodation");
-                    footerStore.FirstTotalResults = responseNoFilter.data.TotalResults
-                    console.log("first: " + footerStore.FirstTotalResults)
-                }
-
-              
-
-            } catch (error) {
-                console.error("Error fetching accommodations:", error);
-            } finally {
-                
-                footerStore.TotalResults = (this.results as any)?.TotalResults ?? 0;
-                console.log( "TOTAL RESULTS: " + footerStore.TotalResults)
-               
-                this.loading = false;
-            }
-        
         },
 
         // restore query state from URL
@@ -190,9 +105,9 @@ export const useAccommodationStore = defineStore("accommodation", {
            
             //restores searchFilter
             if (route.query.searchfilter)
-                this.searchValue = String(route.query.searchfilter);
+                this.searchfilter = String(route.query.searchfilter);
             else 
-                this.searchValue = "";
+                this.searchfilter = "";
             
 
             if(route.query.typefilter)
@@ -231,29 +146,31 @@ export const useAccommodationStore = defineStore("accommodation", {
             } else {
                 this.filters = [];
             }
+            
 
+            //TODOO
             if(route.query.language){
-                const languageStore = useLanguageStore()
-                languageStore.language = String(route.query.language).toUpperCase()
+                
+                this.language = String(route.query.language).toUpperCase()
             }
 
             if(route.query.pagesize){
-                const footerStore = useFooterStore()
-                footerStore.pagesize = Number(route.query.pagesize)
+                
+                this.pagesize = Number(route.query.pagesize)
             }
 
             if(route.query.pagenumber){
-                const footerStore = useFooterStore()
-                footerStore.pagenumber = Number(route.query.pagenumber)
+              
+                this.pagenumber = Number(route.query.pagenumber)
             }
 
         },
 
        
         addFilter() {
-            const languageStore = useLanguageStore();
+           
             this.filters.push({
-                type: `AccoDetail.${languageStore.language.toLowerCase()}.Name`,
+                type: `AccoDetail.${this.language.toLowerCase()}.Name`,
                 comparison: "like",
                 value: "",
             });
@@ -264,13 +181,7 @@ export const useAccommodationStore = defineStore("accommodation", {
             this.updateAndFetch(router, route)
         },
 
-        updateFilter(index: number, field: keyof Filter, value: string) {
-            this.filters[index][field] = value;
-        },
-
-      
-        
-        
+     
         }
     },
 

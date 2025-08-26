@@ -1,5 +1,5 @@
 <template>
-    <tr v-for=" item in accommodationStore.results.Items" :key="item.Id" @click="selectedRow = item.Id"
+    <tr v-for=" item in data.Items" :key="item.Id" @click="selectedRow = item.Id"
         :class="[
             'hover:bg-green-400/10 hover:border-gray-400 border-2 border-gray-200 group',
             selectedRow === item.Id ? 'bg-green-400/10' : ''
@@ -13,7 +13,7 @@
 
             <!-- else show the value directly-->
             <div v-else>
-                {{ col.getValue ? col.getValue(item, languageStore.language.toLowerCase()) : ""}}
+                {{ col.getValue ? col.getValue(item, accommodationStore.language.toLowerCase()) : ""}}
             </div>
 
         </TableCell>
@@ -24,7 +24,7 @@
 
             <div class="flex flex-row space-x-2 justify-center ">
 
-                <DetailButton class = "w-12" @click ="console.log(item.Id)" > 
+                <DetailButton class = "w-12" @click ="console.log(item.Id, accommodationStore.results)" > 
                     <PencilSquareIcon class = "size-5 text-green-400"></PencilSquareIcon>
                     <p class = "text-3xs font-semibold text-green-400">EDIT</p>
                 </DetailButton>
@@ -43,6 +43,11 @@
 
 <script setup lang="ts">
 //ICONS
+ const props = defineProps<{
+        data: any
+   
+    }>()
+
   import { CursorArrowRaysIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
   import TableCell from '@/components/table/TableCell.vue'
@@ -50,11 +55,10 @@
   import DetailButton from '@/components/buttons/DetailButton.vue'
 
   import { ref } from 'vue'
-  import { useLanguageStore } from '@/stores/HeaderTableStore'
   import { useAccommodationStore } from '@/stores/AccomodationStore'
-
+  
   const selectedRow = ref<number | null>(null)
-  const languageStore = useLanguageStore()
+ 
 
 
   const accommodationStore: any = useAccommodationStore()
