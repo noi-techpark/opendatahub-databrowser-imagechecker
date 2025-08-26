@@ -1,7 +1,7 @@
 <template>
 
     <DatasetHeaderButton @click = "exportCSV()"> 
-        <ArrowDownOnSquareIcon class="size-6 text-green-400"></ArrowDownOnSquareIcon>
+        <ArrowDownOnSquareIcon class="size-5 text-green-400"></ArrowDownOnSquareIcon>
         <p> Export </p> 
     </DatasetHeaderButton>
 

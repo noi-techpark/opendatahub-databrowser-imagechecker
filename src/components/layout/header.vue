@@ -26,13 +26,16 @@
       </div>
 
 
-      <div class=" w-screen flex justify-end  items-start space-x-2">
+      <div class=" w-screen flex justify-end  items-start space-x-2 relative">
 
-        <button @click = "handleLogin()" class = " mt-1 bg-green-400/30 h-6 w-20 rounded-lg">login</button>
-        <button @click = "handleLogout()" class = " mt-1 bg-red-400/30 h-6 w-20 rounded-lg">logout</button>
+        <div v-if = "openProfile" class = "absolute top-[47px] right-14 flex flex-col w-52  border bg-white border-gray-300 rounded shadow-lg ">        
+          <button @click = "handleLogin()" class = "hover:bg-yellow-300 h-10 flex items-center pl-3 transition-colors duration-300">login</button>
+          <ContentDivider ></ContentDivider>
+          <button @click = "handleLogout()" class = "hover:bg-yellow-300 h-10 flex items-center pl-3 transition-colors duration-300 ">logout</button>
+        </div>
 
-        <HeaderButton class = "hover:bg-green-400/10" @click = "console.log(keycloak.token)">
-          <UserCircleIcon class = "size-10 mb-2 text-black"></UserCircleIcon>
+        <HeaderButton @click = "openProfile = !openProfile">
+          <UserCircleIcon class = "size-10  text-yellow-400"></UserCircleIcon>
         </HeaderButton>
         <img src="/src/assets/logo-open-data-hub-black.svg" alt="Logo Open Data Hub" class="w-9 ml-3 mb-2" />
 
@@ -54,9 +57,11 @@ import { useRouter } from 'vue-router'
 import { useAuth } from '@/auth/authStores/auth'
 import { keycloak } from '@/auth/keycloak'
 import { useAccommodationStore } from '@/stores/AccomodationStore'
+import { ref } from 'vue'
+import ContentDivider from '../contentAlignment/ContentDivider.vue'
 
 
-
+const openProfile = ref(false)
 const router = useRouter()
 const auth = useAuth()
 const accommodationStore = useAccommodationStore()
