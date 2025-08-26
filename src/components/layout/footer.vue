@@ -44,12 +44,13 @@
   import { computed } from 'vue';
   import { useAccommodationStore } from '@/stores/AccomodationStore';
   import { useRoute, useRouter } from 'vue-router';
-import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery';
+
+
 
   const route = useRoute()
   const router = useRouter()
   const accommodationStore = useAccommodationStore()
-  const query = useAccommodationsQuery()
+
 
   const dropdownOptions = [25, 50, 75, 100]
 
@@ -59,11 +60,12 @@ import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery';
     return accommodationStore.TotalPages = Math.ceil(accommodationStore.TotalResults / accommodationStore.pagesize)
     
   })
+  
 
   function updatePageSize(option: number){
     accommodationStore.pagesize = option
     accommodationStore.updateAndFetch(router, route)
-    query.refetch()
+   
   }
 
 </script>

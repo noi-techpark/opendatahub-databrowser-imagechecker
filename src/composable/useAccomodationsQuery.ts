@@ -10,12 +10,42 @@ export function useAccommodationsQuery() {
 
   const fetchAccommodations = async () => {
     // costruisci params come prima
+    const conditions = accommodationStore.filters
+                .filter(f => {
+                    if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
+                    return true
+                    }
+                    return f.value.trim() !== ""
+                })
+                .map(f => {
+                    if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
+                    return `${f.comparison}(${f.type})`
+                    }
+                    return `${f.comparison}(${f.type},'${f.value}')`
+                });
+
+    const rawfilter = conditions.length > 0
+                    ? `and(${conditions.join(",")})`
+                    : undefined;
+
+    const language = accommodationStore.language.toLowerCase()
+    const pagesize = accommodationStore.pagesize
+    const pagenumber = accommodationStore.pagenumber
+
+
     return api.get('Accommodation', {
       params: {
+        roominfo: "1-18,18",
+        bokfilter: "hgv",
+        msssource: "sinfo",
+        availabilitychecklanguage: "en",
+        detail: 0,
+        removenullvalues: false,
+        getasidarray: false,
         searchfilter: accommodationStore.searchfilter || undefined,
         typefilter: accommodationStore.typefilter || null,
         rawsort: accommodationStore.rawsort || null,
-        rawfilter: accommodationStore.filters.map(f => `${f.type}|${f.comparison}|${f.value}`).join(',') || undefined,
+        rawfilter: rawfilter || undefined,
         pagenumber: accommodationStore.pagenumber,
         pagesize: accommodationStore.pagesize,
         language: accommodationStore.language.toLowerCase(),
@@ -37,7 +67,7 @@ export function useAccommodationsQuery() {
     queryFn: fetchAccommodations,
     staleTime: 5 * 60 * 1000,
   })
-
   
+
   return query
 }

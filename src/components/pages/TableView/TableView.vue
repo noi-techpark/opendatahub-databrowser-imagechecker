@@ -37,7 +37,7 @@
   //ICONS
   import { ArrowPathIcon, EyeSlashIcon } from '@heroicons/vue/24/outline'
 
-  import { onMounted } from 'vue'
+  import { onMounted, computed, watch } from 'vue'
   import { useAccommodationStore } from '@/stores/AccomodationStore'
   import { useRoute } from 'vue-router'
   import { useAuth } from '@/auth/authStores/auth'
@@ -69,9 +69,23 @@
   });
 
 
-
   accommodationStore.restoreFromUrl(route);
   const {isLoading, data, error} = useAccommodationsQuery()
+
+
+  watch(data, () => {
+
+    if(accommodationStore.FirstTotalResults == 0){
+      const FirstTotalResults = data.value.TotalResults
+      accommodationStore.FirstTotalResults = FirstTotalResults
+    }
+
+    const totalResults = computed(() => data.value?.TotalResults ?? 0)
+    accommodationStore.TotalResults = totalResults.value
+
+    
+  }) 
+  
 
 
 

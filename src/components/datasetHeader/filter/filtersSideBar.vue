@@ -34,7 +34,7 @@
 
 
             <div class ="bg-white m-4 border rounded max-h-screen overflow-y-auto "> 
-                <FilterTable ></FilterTable>
+                <FilterTable ref="filterTableRef" ></FilterTable>
             </div>
     </div>
 
@@ -49,17 +49,19 @@
     import FilterTable from './filterTable.vue';
     import { useAccommodationStore } from '@/stores/AccomodationStore';
     import { useRoute, useRouter } from 'vue-router';
+    import { ref } from 'vue';
 
-
+    const filterTableRef = ref<any>()
     const route = useRoute()
     const router = useRouter()
-
+    
     const accomodationStore = useAccommodationStore()
-  
+
 
     function removeFiltersAndUpdate() {
         accomodationStore.filters = []
         accomodationStore.updateAndFetch(router, route)
+        filterTableRef.value?.resetFiltersRef()
     }
 
 </script>
