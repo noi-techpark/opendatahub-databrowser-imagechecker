@@ -203,7 +203,7 @@
   watch(
     () => accommodationStore.language,
     (newLang) => {
-      accommodationStore.filters.forEach((filter) => {
+      filtersRef.value.forEach((filter) => {
         
         for (const baseKey of languageDependentKeys) {
           if (filter.type.startsWith(baseKey)) {
