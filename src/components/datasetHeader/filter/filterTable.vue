@@ -1,6 +1,6 @@
 <template>
 
-  <div class="flex flex-col items-center p-2 space-y-3" v-for = "(filter, index) in filtersRef" :key="index">
+  <div class="flex flex-col items-center p-2 space-y-3" v-for = "(filter, index) in accommodationStore.filtersRef" :key="index">
 
 
     <div class= " w-full flex justify-end">
@@ -42,7 +42,7 @@
           v-for="(label, key) in filterComparison" :key="key" @click="selectComparison(key, index)"
           :class="[
             'hover:bg-green-100 cursor-pointer border-none m-0 rounded-none',
-            filtersRef[index].comparison === label ? 'bg-green-400/10' : ''
+            accommodationStore.filtersRef[index].comparison === label ? 'bg-green-400/10' : ''
           ]"
         >
           {{ label }}
@@ -57,7 +57,7 @@
         <input
           class="w-full border-none bg-transparent px-2 py-1 focus:outline-none  h-5"
           placeholder="insert search value"
-          type="text" v-model = "filtersRef[index].value"
+          type="text" v-model = "accommodationStore.filtersRef[index].value"
           @keyup.enter = "handleSearch()"
         />
       </FilterButton>
@@ -100,13 +100,18 @@
   import { ref, computed, watch } from 'vue';
 
 
-  import { type Filter, useAccommodationStore } from '@/stores/AccomodationStore';
+  import { useAccommodationStore } from '@/stores/AccomodationStore';
 
   import { useRoute, useRouter } from 'vue-router';
 
 
   const accommodationStore = useAccommodationStore()
-  const filtersRef = ref<Filter[]>([... accommodationStore.filters])
+
+  
+  accommodationStore.filtersRef = ([
+    ...accommodationStore.filtersRef,
+    ... accommodationStore.filters
+  ])
 
   const router = useRouter()
   const route = useRoute()
@@ -139,13 +144,14 @@
     HasLanguage: "Languages",
     [`ImageGallery.0.ImageUrl`]: "Image",
     [`LocationInfo.MunicipalityInfo.Name.${accommodationStore.language.toLowerCase()}`]: "Municipality",
-    BadgeIds: "Badges",
-    ThemeIds: "Themes",
-    SmgTags: "Tags",
-    LastChange: "Edited on",
-    Source: "Source",
+    AccoBadges: "Badges",
+    AccoThemes: "Themes",
+    ODHTags: "Tags",
+    "_Meta.LastUpdate": "Edited on",
+    "_Meta.Source": "Source",
     Active: "Source State",
     PublishedOn: "Published On"
+
     //TODOO, missing Push Data Filter
   }));
 
@@ -157,39 +163,37 @@
 
   function selectType(typeKey: string, index: number) {
 
-    filtersRef.value[index].type = typeKey
+    accommodationStore.filtersRef[index].type = typeKey
     //accommodationStore.filters[index].type = typeKey;
     dropdownRef1.value[index]?.close?.();   //close function comes from emit in DatasetHeaderDropDown
     }
 
 
   function selectComparison(comparison: string, index: number) {
-    filtersRef.value[index].comparison = comparison
+    accommodationStore.filtersRef[index].comparison = comparison
     //accommodationStore.filters[index].comparison = comparison;
     dropdownRef2.value[index]?.close?.();
     }
 
   function handleSearch() {
-    accommodationStore.filters = JSON.parse(JSON.stringify(filtersRef.value))
+    accommodationStore.filters = JSON.parse(JSON.stringify(accommodationStore.filtersRef))
     accommodationStore.pagenumber = 1
     accommodationStore.updateAndFetch(router, route)
     }
 
   function addFilterRef(){
-    filtersRef.value = [...filtersRef.value,
+    accommodationStore.filtersRef = [...accommodationStore.filtersRef,
       {
           type: `AccoDetail.${accommodationStore.language.toLowerCase()}.Name`,
           comparison: "like",
           value: "",
       }
     ]
-
-    console.log(filtersRef.value)
   }
 
   function removeFilter(index: number){
     accommodationStore.removeFilter(index, router, route)
-    filtersRef.value.splice(index, 1)
+    accommodationStore.filtersRef.splice(index, 1)
   }
 
 
@@ -203,7 +207,7 @@
   watch(
     () => accommodationStore.language,
     (newLang) => {
-      filtersRef.value.forEach((filter) => {
+      accommodationStore.filtersRef.forEach((filter) => {
         
         for (const baseKey of languageDependentKeys) {
           if (filter.type.startsWith(baseKey)) {
@@ -220,8 +224,8 @@
   )
 
   defineExpose({
-  resetFiltersRef: () => { filtersRef.value = [] }
-})
+    resetfiltersRef: () => { accommodationStore.filtersRef = []}
+  })
 
 
 </script>

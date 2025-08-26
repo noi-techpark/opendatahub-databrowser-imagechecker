@@ -1,9 +1,6 @@
 import { defineStore } from "pinia";
 import { useRoute, useRouter } from "vue-router";
-import axios from "axios";
 
-
-import api from "@/components/utils/api";
 
 export interface Filter {
     type: string;
@@ -15,17 +12,18 @@ export const useAccommodationStore = defineStore("accommodation", {
     state: () => {
       
         return {
+            
+            
+            //search and filter parameters
             language: "DE",
-
             searchfilter: "",
             typefilter: "",
             rawsort: "",
             rawfilter: "",
             filters: [] as Filter[],
             loading: false,
-            showFilterSideBar: false,
-            APIurl: "",
-
+            
+            //pagination parameters
             pagenumber: 1,
             pagesize: 25,
             TotalResults: 0,
@@ -33,7 +31,12 @@ export const useAccommodationStore = defineStore("accommodation", {
             CurrentPage: 0,
             PreviousPage: "",
             NextPage: "",
-            FirstTotalResults: 0
+            FirstTotalResults: 0,
+
+            //for comunication between components
+            filtersRef: [] as Filter[],
+            showFilterSideBar: false,
+            APIurl: ""
         };
     },
 

@@ -1,7 +1,7 @@
 <template>
     <div class = " left-0 bg-gray-50 w-2/6 border z-5 ">
      
-            <div class =" h-[75 px] bg-gray-250 border rounded justify-between items-center flex space-x-2"> 
+            <div class =" h-[75px] bg-gray-250 border rounded justify-between items-center flex space-x-2"> 
                 
                 <Bars3BottomRightIcon class = "size-6 text-green-400 ml-5"></Bars3BottomRightIcon>
 
@@ -61,7 +61,7 @@
     function removeFiltersAndUpdate() {
         accomodationStore.filters = []
         accomodationStore.updateAndFetch(router, route)
-        filterTableRef.value?.resetFiltersRef()
+        filterTableRef.value?.resetfiltersRef()
     }
 
 </script>

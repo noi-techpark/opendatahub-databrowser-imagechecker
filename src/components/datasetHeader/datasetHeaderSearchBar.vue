@@ -33,26 +33,25 @@
 
     import { useAccommodationStore } from '@/stores/AccomodationStore';
 
-    import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery';
-    
+    import { ref, watch } from 'vue';
 
-    import { ref } from 'vue';
     const searchValue = ref("")
     const router = useRouter();
     const route = useRoute();
     const accommodationStore = useAccommodationStore()
 
+    searchValue.value = String(route.query.searchfilter)
 
-
-
-  
 
 
     function handleSearch() {
+
         accommodationStore.pagenumber = 1
         accommodationStore.searchfilter = searchValue.value
         accommodationStore.updateAndFetch(router, route)
     }
+
+
     
   
 </script>

@@ -25,8 +25,8 @@
         { key: "winterImage", label: "Image Winter", type: "ImageGallery.0.ImageUrl" },
         { key: "summerImage", label: "Image Summer", type: "ImageGallery.0.ImageUrl" },
         { key: "yearImage", label: "Image Whole Year", type: "ImageGallery.0.ImageUrl" },
-        { key: "accoType", label: "Accommodation Type", type: "AccoType.Id" },
-        { key: "category", label: "Category", type: "AccoCategory.Id" },
+        { key: "accoType", label: "Accommodation Type", type: "AccoTypeId" },
+        { key: "category", label: "Category", type: "AccoCategoryId" },
         { key: "region", label: "Region", type: `LocationInfo.RegionInfo.Name.${accommodationStore.language.toLowerCase()}` },
         { key: "municipality", label: "Municipality", type: `LocationInfo.MunicipalityInfo.Name.${accommodationStore.language.toLowerCase()}` },
         { key: "badges", label: "Badges", type: "AccoBadges" },
@@ -37,7 +37,7 @@
         { key: "source", label: "Source", type: "_Meta.Source" },
         { key: "active", label: "Source state", type: "Active" },
         { key: "published", label: "Published on", type: "PublishedOn" },
-        { key: "push", label: "Push data", type: "ODHTags" },
+        { key: "push", label: "Push data", type: "ODHTags" },  //TODOO; change type and add pushData filter in filterTable
     ]
 
 
