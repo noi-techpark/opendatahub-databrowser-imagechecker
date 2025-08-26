@@ -1,10 +1,10 @@
 <template>
 
-  <div class="flex flex-col items-center p-2 space-y-3" v-for = "(filter, index) in accommodationStore.filters" :key="index">
+  <div class="flex flex-col items-center p-2 space-y-3" v-for = "(filter, index) in accommodationStore.filtersRef" :key="index">
 
 
     <div class= " w-full flex justify-end">
-    <button @click = "accommodationStore.removeFilter(index, router, route)" class= " w-8 flex justify-end">
+    <button @click = "removeFilter(index)" class= " w-8 flex justify-end">
       <XCircleIcon class = "size-6 text-red-500 mr-1"></XCircleIcon>
     </button>
     </div>
@@ -42,7 +42,7 @@
           v-for="(label, key) in filterComparison" :key="key" @click="selectComparison(key, index)"
           :class="[
             'hover:bg-green-100 cursor-pointer border-none m-0 rounded-none',
-            accommodationStore.filters[index].comparison === label ? 'bg-green-400/10' : ''
+            accommodationStore.filtersRef[index].comparison === label ? 'bg-green-400/10' : ''
           ]"
         >
           {{ label }}
@@ -57,7 +57,7 @@
         <input
           class="w-full border-none bg-transparent px-2 py-1 focus:outline-none  h-5"
           placeholder="insert search value"
-          type="text" v-model = "accommodationStore.filters[index].value"
+          type="text" v-model = "accommodationStore.filtersRef[index].value"
           @keyup.enter = "handleSearch()"
         />
       </FilterButton>
@@ -77,7 +77,7 @@
             <p class = "text-white">filter</p>
         </FilterButton>
 
-        <FilterButton class ="w-2/3 h-8 m-4 flex items-center border-green-400 border-2" @click = "accommodationStore.addFilter()">
+        <FilterButton class ="w-2/3 h-8 m-4 flex items-center border-green-400 border-2" @click = "addFilterRef()">
             <PlusIcon class = "text-green-400 size-6"></PlusIcon>
             <p class = " text-green-400"> Add a new filter</p>
         </FilterButton>
@@ -98,18 +98,20 @@
   import FilterButton from './filterButton.vue';
 
   import { ref, computed, watch } from 'vue';
-  import { useLanguageStore } from '@/stores/HeaderTableStore';
+
 
   import { useAccommodationStore } from '@/stores/AccomodationStore';
-  import { useFooterStore } from '@/stores/FooterStore';
+
   import { useRoute, useRouter } from 'vue-router';
 
 
-
-
   const accommodationStore = useAccommodationStore()
-  const footerStore = useFooterStore()
-  const languageStore = useLanguageStore()
+
+  
+  accommodationStore.filtersRef = ([
+    ...accommodationStore.filtersRef,
+    ... accommodationStore.filters
+  ])
 
   const router = useRouter()
   const route = useRoute()
@@ -135,20 +137,21 @@
 
 
   const filterTypesMap = computed<Record<string, string>>(() => ({
-    [`AccoDetail.${languageStore.language.toLowerCase()}.Name`]: "Title",
+    [`AccoDetail.${accommodationStore.language.toLowerCase()}.Name`]: "Title",
     AccoTypeId: "Accommodation Type",
     AccoCategoryId: "Category",
-    [`LocationInfo.RegionInfo.Name.${languageStore.language.toLowerCase()}`]: "Region",
+    [`LocationInfo.RegionInfo.Name.${accommodationStore.language.toLowerCase()}`]: "Region",
     HasLanguage: "Languages",
     [`ImageGallery.0.ImageUrl`]: "Image",
-    [`LocationInfo.MunicipalityInfo.Name.${languageStore.language.toLowerCase()}`]: "Municipality",
-    BadgeIds: "Badges",
-    ThemeIds: "Themes",
-    SmgTags: "Tags",
-    LastChange: "Edited on",
-    Source: "Source",
+    [`LocationInfo.MunicipalityInfo.Name.${accommodationStore.language.toLowerCase()}`]: "Municipality",
+    AccoBadges: "Badges",
+    AccoThemes: "Themes",
+    ODHTags: "Tags",
+    "_Meta.LastUpdate": "Edited on",
+    "_Meta.Source": "Source",
     Active: "Source State",
     PublishedOn: "Published On"
+
     //TODOO, missing Push Data Filter
   }));
 
@@ -159,21 +162,39 @@
 
 
   function selectType(typeKey: string, index: number) {
-    accommodationStore.filters[index].type = typeKey;
+
+    accommodationStore.filtersRef[index].type = typeKey
+    //accommodationStore.filters[index].type = typeKey;
     dropdownRef1.value[index]?.close?.();   //close function comes from emit in DatasetHeaderDropDown
     }
 
 
   function selectComparison(comparison: string, index: number) {
-    accommodationStore.filters[index].comparison = comparison;
+    accommodationStore.filtersRef[index].comparison = comparison
+    //accommodationStore.filters[index].comparison = comparison;
     dropdownRef2.value[index]?.close?.();
     }
 
   function handleSearch() {
-    footerStore.pagenumber = 1
+    accommodationStore.filters = JSON.parse(JSON.stringify(accommodationStore.filtersRef))
+    accommodationStore.pagenumber = 1
     accommodationStore.updateAndFetch(router, route)
     }
 
+  function addFilterRef(){
+    accommodationStore.filtersRef = [...accommodationStore.filtersRef,
+      {
+          type: `AccoDetail.${accommodationStore.language.toLowerCase()}.Name`,
+          comparison: "like",
+          value: "",
+      }
+    ]
+  }
+
+  function removeFilter(index: number){
+    accommodationStore.removeFilter(index, router, route)
+    accommodationStore.filtersRef.splice(index, 1)
+  }
 
 
   // Watch for changes in the language selected and update filter types accordingly (this way, filters look for the values in the language selected)
@@ -184,9 +205,9 @@
   ]
 
   watch(
-    () => languageStore.language,
+    () => accommodationStore.language,
     (newLang) => {
-      accommodationStore.filters.forEach((filter) => {
+      accommodationStore.filtersRef.forEach((filter) => {
         
         for (const baseKey of languageDependentKeys) {
           if (filter.type.startsWith(baseKey)) {
@@ -201,6 +222,10 @@
       })
     }
   )
+
+  defineExpose({
+    resetfiltersRef: () => { accommodationStore.filtersRef = []}
+  })
 
 
 </script>

@@ -49,11 +49,11 @@
 </template>
 
 <script setup lang="ts">
-  import { useLanguageStore } from '@/stores/HeaderTableStore';
+ 
   import type { Accommodation } from './types'
   import { computed, ref } from 'vue'
 import { DivideIcon } from '@heroicons/vue/24/outline';
-
+  import { useAccommodationStore } from '@/stores/AccomodationStore';
   
 
   const props = defineProps<{
@@ -61,8 +61,7 @@ import { DivideIcon } from '@heroicons/vue/24/outline';
     period: 'winter' | 'summer' | 'year' | 'mainImage'
   }>()
   
-
-  const languageStore = useLanguageStore()
+  const accommodationStore = useAccommodationStore()
   const isFullView = ref(false)
   const imageNotFound = 'https://imgs.search.brave.com/LeS4HHKZ1oz1T15VY5MwiUjWDjLiYKj0vgRABB3D2BY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2Lzg2LzE5LzM0/LzM2MF9GXzY4NjE5/MzQwN19ESFp3amV5/ZEJPUjF0RURrTEF6/d00zdzVrWXN0Unp6/Qi5qcGc'
   // 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='
@@ -99,7 +98,7 @@ import { DivideIcon } from '@heroicons/vue/24/outline';
 
     const d = new Date(date)
     
-    return d.toLocaleDateString(languageStore.language.toLowerCase());
+    return d.toLocaleDateString(accommodationStore.language.toLowerCase());
   }
 
 

@@ -10,17 +10,17 @@
   
       <TableHeaders></TableHeaders>
 
-      <tbody v-if = "!accommodationStore.loading">
-        <TableRows></TableRows>
+      <tbody v-if = "!isLoading && data?.Items?.length">
+        <TableRows :data = "data"></TableRows>
       </tbody>
 
     </table>
 
-    <div v-if="accommodationStore.loading" class="flex p-4 text-center w-full h-full justify-center items-center">
+    <div v-if="isLoading" class="flex p-4 text-center w-full h-full justify-center items-center">
         <ArrowPathIcon class = "size-36 animate-spin mb-56 mt-32 text-green-400"></ArrowPathIcon>
     </div>
 
-    <div v-if="!accommodationStore.results.Items?.length" class="flex p-4 text-center w-full h-full justify-center items-center">
+    <div v-if="error" class="flex p-4 text-center w-full h-full justify-center items-center">
         <EyeSlashIcon class = "size-36 animate-bounce mb-56 mt-32  text-green-400"></EyeSlashIcon>
     </div>
     
@@ -37,38 +37,64 @@
   //ICONS
   import { ArrowPathIcon, EyeSlashIcon } from '@heroicons/vue/24/outline'
 
-  import { onMounted } from 'vue'
+  import { onMounted, computed, watch } from 'vue'
   import { useAccommodationStore } from '@/stores/AccomodationStore'
-  import { useRoute, useRouter } from 'vue-router'
+  import { useRoute } from 'vue-router'
   import { useAuth } from '@/auth/authStores/auth'
   import { keycloak } from '@/auth/keycloak'
 
+  import api from '@/components/utils/api'
   import TableRows from './TableRows.vue'
   import TableHeaders from './TableHeaders.vue'
 
+  import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery'
+  
+
 
   const route = useRoute()
-  const router = useRouter()
-
+ 
   const accommodationStore: any = useAccommodationStore()
+
   const auth = useAuth()
   
 
-  //INITIAL FETCH //TODOO this is the initial fetch that happens after every reload, might be good to put it in a place that makes more sense, like accommodationStore
-  onMounted(() => {
-      const savedToken = localStorage.getItem('kc_token')
-      if (savedToken) {
-        auth.authenticate(savedToken)
-        keycloak.token = savedToken
-      }
-
-      accommodationStore.restoreFromUrl(route);
-      accommodationStore.fetchData()
+  //INITIAL FETCH: all other api calls happen because the queryKeys are updated
+  const {isLoading, data, error} = useAccommodationsQuery()
 
 
-      
+  watch(data, async () => {
+
+    if(accommodationStore.FirstTotalResults == 0){ //TODOO use Tanstack query to chache this result, and avoid an extra api call
+
+      const result = await api.get("Accommodation")
+      const FirstTotalResults = result.data.TotalResults
+      accommodationStore.FirstTotalResults = FirstTotalResults
+    }
+
+    const totalResults = computed(() => data.value?.TotalResults ?? 0)
+    accommodationStore.TotalResults = totalResults.value
     
+  }) 
+
+  //INITIAL FETCH 
+ 
+  onMounted(() => {
+    accommodationStore.restoreFromUrl(route);
+
+    const savedToken = localStorage.getItem('kc_token')
+    if (savedToken) {
+      auth.authenticate(savedToken)
+      keycloak.token = savedToken
+    }
+
   });
+
+
+  
+
+
+
+
 
 </script>
 

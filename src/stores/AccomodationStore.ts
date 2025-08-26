@@ -1,11 +1,6 @@
 import { defineStore } from "pinia";
 import { useRoute, useRouter } from "vue-router";
-import axios from "axios";
-import { useLanguageStore } from "./HeaderTableStore";
-import { useFooterStore } from "./FooterStore";
-import { useAuth } from "@/auth/authStores/auth";
-import { useQuery } from "@tanstack/vue-query";
-import api from "@/components/utils/api";
+
 
 export interface Filter {
     type: string;
@@ -15,93 +10,38 @@ export interface Filter {
 
 export const useAccommodationStore = defineStore("accommodation", {
     state: () => {
-        const languageStore = useLanguageStore();
+      
         return {
-            searchValue: "",
+            
+            
+            //search and filter parameters
+            language: "DE",
+            searchfilter: "",
             typefilter: "",
             rawsort: "",
-            results: [] as any[],
-            filters: [
-                {
-                    type: `AccoDetail.${languageStore.language.toLowerCase()}.Name`,
-                    comparison: "like",
-                    value: "",
-                } as Filter,
-            ],
+            rawfilter: "",
+            filters: [] as Filter[],
             loading: false,
+            
+            //pagination parameters
+            pagenumber: 1,
+            pagesize: 25,
+            TotalResults: 0,
+            TotalPages: 0,
+            CurrentPage: 0,
+            PreviousPage: "",
+            NextPage: "",
+            FirstTotalResults: 0,
+
+            //for comunication between components
+            filtersRef: [] as Filter[],
             showFilterSideBar: false,
-            APIurl: "" 
+            APIurl: ""
         };
     },
 
     actions: {
-        //Updates URL, and fetches Data accordingly
-        async updateAndFetch(router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
-
-        
-            if (router && route) {
-                const newQuery = { ...route.query };
-
-
-                if (this.searchValue)
-                    newQuery.searchfilter = this.searchValue;
-                else 
-                    delete newQuery.searchfilter;
-                
-
-                if (this.typefilter)
-                    newQuery.typefilter = this.typefilter
-                else
-                    delete newQuery.typefilter
-
-
-                if(this.rawsort)
-                    newQuery.rawsort = this.rawsort
-                else
-                    delete newQuery.rawsort
-
-             
-                const conditions = this.filters
-                    .filter(f => {
-                        if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
-                            return true // isnull and isnotnull are allowed even without a value
-                        }
-                            return f.value.trim() !== ""
-                    })
-                    .map(f => {
-                        if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
-                           
-                            return `${f.comparison}(${f.type})`
-                        }
-                        
-                        return `${f.comparison}(${f.type},'${f.value}')`
-                    });
-
-                if (conditions.length === 1) {
-                    newQuery.rawfilter = conditions[0]; 
-                } else if (conditions.length > 1) {
-                    newQuery.rawfilter = `and(${conditions.join(",")})`; 
-                } else {
-                    delete newQuery.rawfilter;
-                }
-
-            
-                const languageStore = useLanguageStore()
-                newQuery.language = languageStore.language.toLowerCase()
-
-                const footerStore = useFooterStore()
-                newQuery.pagesize = footerStore.pagesize.toLocaleString()
-                newQuery.pagenumber = footerStore.pagenumber.toLocaleString()
-
-
-
-
-                router.replace({ query: newQuery });
-            }
-            await this.fetchData();
-        },
-
- 
+        /*
         async fetchData(router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
             this.loading = true;
             const languageStore = useLanguageStore()
@@ -150,7 +90,7 @@ export const useAccommodationStore = defineStore("accommodation", {
                         msssource: "sinfo",
                         availabilitychecklanguage: "en",
                         detail: 0,
-                        searchfilter: this.searchValue || undefined,
+                        searchfilter: this.searchfilter || undefined,
                         typefilter: this.typefilter || null,
                         rawfilter,
                         rawsort: this.rawsort || null,
@@ -184,15 +124,78 @@ export const useAccommodationStore = defineStore("accommodation", {
             }
         
         },
+        */
+
+        //Updates URL, and fetches Data accordingly
+        async updateAndFetch(router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
+
+            if (router && route) {
+                const newQuery = { ...route.query };
+
+                if (this.searchfilter)
+                    newQuery.searchfilter = this.searchfilter;
+                else 
+                    delete newQuery.searchfilter;
+
+
+                if (this.typefilter)
+                    newQuery.typefilter = this.typefilter
+                else
+                    delete newQuery.typefilter
+
+
+                if(this.rawsort)
+                    newQuery.rawsort = this.rawsort
+                else
+                    delete newQuery.rawsort
+
+             
+                const conditions = this.filters
+                    .filter(f => {
+                        if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
+                            return true // isnull and isnotnull are allowed even without a value
+                        }
+                            return f.value.trim() !== ""
+                    })
+                    .map(f => {
+                        if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
+                           
+                            return `${f.comparison}(${f.type})`
+                        }
+                        
+                        return `${f.comparison}(${f.type},'${f.value}')`
+                    });
+
+                if (conditions.length === 1) {
+                    newQuery.rawfilter = conditions[0]; 
+                } else if (conditions.length > 1) {
+                    newQuery.rawfilter = `and(${conditions.join(",")})`; 
+                } else {
+                    delete newQuery.rawfilter;
+                }
+
+            
+               
+                newQuery.language = this.language.toLowerCase()
+                                //TODOO
+                
+                newQuery.pagesize = this.pagesize.toLocaleString()
+                newQuery.pagenumber = this.pagenumber.toLocaleString()
+
+
+                router.replace({ query: newQuery });
+            }
+            
+        },
 
         // restore query state from URL
         restoreFromUrl(route: ReturnType<typeof useRoute>) {
            
             //restores searchFilter
             if (route.query.searchfilter)
-                this.searchValue = String(route.query.searchfilter);
+                this.searchfilter = String(route.query.searchfilter);
             else 
-                this.searchValue = "";
+                this.searchfilter = "";
             
 
             if(route.query.typefilter)
@@ -231,29 +234,31 @@ export const useAccommodationStore = defineStore("accommodation", {
             } else {
                 this.filters = [];
             }
+            
 
+            //TODOO
             if(route.query.language){
-                const languageStore = useLanguageStore()
-                languageStore.language = String(route.query.language).toUpperCase()
+                
+                this.language = String(route.query.language).toUpperCase()
             }
 
             if(route.query.pagesize){
-                const footerStore = useFooterStore()
-                footerStore.pagesize = Number(route.query.pagesize)
+                
+                this.pagesize = Number(route.query.pagesize)
             }
 
             if(route.query.pagenumber){
-                const footerStore = useFooterStore()
-                footerStore.pagenumber = Number(route.query.pagenumber)
+              
+                this.pagenumber = Number(route.query.pagenumber)
             }
 
         },
 
        
         addFilter() {
-            const languageStore = useLanguageStore();
+           
             this.filters.push({
-                type: `AccoDetail.${languageStore.language.toLowerCase()}.Name`,
+                type: `AccoDetail.${this.language.toLowerCase()}.Name`,
                 comparison: "like",
                 value: "",
             });
@@ -264,13 +269,7 @@ export const useAccommodationStore = defineStore("accommodation", {
             this.updateAndFetch(router, route)
         },
 
-        updateFilter(index: number, field: keyof Filter, value: string) {
-            this.filters[index][field] = value;
-        },
-
-      
-        
-        
+     
         }
     },
 

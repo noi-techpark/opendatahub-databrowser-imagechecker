@@ -34,7 +34,7 @@
           <p>Filters</p>
       </DatasetHeaderButton>
 
-      <DatasetHeaderDropDown :title="selectedLanguage.language" width="min-w-24" :button-component="DatasetHeaderButton" >
+      <DatasetHeaderDropDown :title="AccomodatioStore.language" width="min-w-24" :button-component="DatasetHeaderButton" >
         <template #icon>
           <GlobeEuropeAfricaIcon class = "size-6 text-green-400"></GlobeEuropeAfricaIcon>
         </template>
@@ -42,7 +42,7 @@
         <DatasetHeaderButton v-for = "language in Languages" :key="language" @click = "changeLanguage(language)"
                             :class="[
                               'hover:bg-green-400/10 cursor-pointer border-none m-0 rounded-none',
-                              selectedLanguage.language === language ? 'bg-green-400/10' : ''
+                              AccomodatioStore.language === language ? 'bg-green-400/10' : ''
                             ]">
           {{ language }}
         </DatasetHeaderButton> 
@@ -99,12 +99,11 @@
 
   import { ref } from 'vue';
   import { useAccommodationStore } from '@/stores/AccomodationStore';
-  import { useLanguageStore } from '@/stores/HeaderTableStore';
+
   import { useRoute, useRouter } from 'vue-router';
 
   
   const Languages = ["DE", "IT", "EN", "NL", "CS", "PL", "FR", "RU", "LD"];
-  const selectedLanguage = useLanguageStore();
   const AccomodatioStore = useAccommodationStore()
   const route = useRoute()
   const router = useRouter()
@@ -114,7 +113,7 @@
 
 
   function changeLanguage(language: string){
-    selectedLanguage.language = language
+    AccomodatioStore.language = language
     AccomodatioStore.updateAndFetch(router, route)
   }
 

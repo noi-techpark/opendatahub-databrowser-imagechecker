@@ -54,13 +54,13 @@ import { useRouter } from 'vue-router'
 import { useAuth } from '@/auth/authStores/auth'
 import { keycloak } from '@/auth/keycloak'
 import { useAccommodationStore } from '@/stores/AccomodationStore'
-import { useFooterStore } from '@/stores/FooterStore'
+
 
 
 const router = useRouter()
 const auth = useAuth()
 const accommodationStore = useAccommodationStore()
-const footerStore = useFooterStore()
+
 
 defineOptions({ inheritAttrs: false })
 
@@ -85,7 +85,7 @@ keycloak.onAuthSuccess = () => {
     localStorage.setItem('kc_token', keycloak.token)
 
   auth.authenticate(keycloak.token);
-  footerStore.FirstTotalResults = 0
+  accommodationStore.FirstTotalResults = 0
   accommodationStore.updateAndFetch()
 };
 

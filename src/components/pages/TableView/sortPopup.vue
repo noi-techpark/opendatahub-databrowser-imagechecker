@@ -97,12 +97,21 @@
     }
 
     function addFilter(){
-        accommodationStore.showFilterSideBar = true
-        accommodationStore.filters.push({
+
+
+
+        accommodationStore.filtersRef = [
+            ...accommodationStore.filtersRef,
+            {
                 type: props.type,
                 comparison: "like",
                 value: "",
-        });
+            }
+        ]
+
+        accommodationStore.showFilterSideBar = true
+
+        
     }
 
 

@@ -1,7 +1,7 @@
 <template>
-    <div class = " left-0 bg-gray-50 w-1/3 border z-5 ">
+    <div class = " left-0 bg-gray-50 w-2/6 border z-5 ">
      
-            <div class =" h-[75 px] bg-gray-250 border rounded justify-between items-center flex space-x-2"> 
+            <div class =" h-[75px] bg-gray-250 border rounded justify-between items-center flex space-x-2"> 
                 
                 <Bars3BottomRightIcon class = "size-6 text-green-400 ml-5"></Bars3BottomRightIcon>
 
@@ -17,9 +17,9 @@
             <div class = "flex flex-row items-center p-1 mt-5">
 
                 <p class ="ml-5 text-sm"> 
-                    <b>{{ footerStore.TotalResults }}</b>
+                    <b>{{ accomodationStore.TotalResults }}</b>
                      <span class="text-gray-500"> records out of </span> 
-                    <b> {{ footerStore.FirstTotalResults }}</b>
+                    <b> {{ accomodationStore.FirstTotalResults }}</b>
                 
                 </p>
 
@@ -34,7 +34,7 @@
 
 
             <div class ="bg-white m-4 border rounded max-h-screen overflow-y-auto "> 
-                <FilterTable ></FilterTable>
+                <FilterTable ref="filterTableRef" ></FilterTable>
             </div>
     </div>
 
@@ -49,17 +49,19 @@
     import FilterTable from './filterTable.vue';
     import { useAccommodationStore } from '@/stores/AccomodationStore';
     import { useRoute, useRouter } from 'vue-router';
-    import { useFooterStore } from '@/stores/FooterStore';
+    import { ref } from 'vue';
 
+    const filterTableRef = ref<any>()
     const route = useRoute()
     const router = useRouter()
-
+    
     const accomodationStore = useAccommodationStore()
-    const footerStore = useFooterStore()
+
 
     function removeFiltersAndUpdate() {
         accomodationStore.filters = []
         accomodationStore.updateAndFetch(router, route)
+        filterTableRef.value?.resetfiltersRef()
     }
 
 </script>

@@ -4,16 +4,16 @@
   <div class="flex flex-row justify-end items-center space-x-3  w-full h-4 bg-gray-50 p-[18px]    ">
 
     <p class ="text-sm font-semibold mr-5"> 
-      {{ footerStore.pagenumber == TotalPages ? footerStore.TotalResults % footerStore.pagesize : footerStore.pagesize}} 
-      records out of {{ footerStore.TotalResults}} are shown
+      {{ accommodationStore.pagenumber == TotalPages ? accommodationStore.TotalResults % accommodationStore.pagesize : accommodationStore.pagesize}} 
+      records out of {{ accommodationStore.TotalResults}} are shown
     </p>
 
 
-    <DatasetHeaderDropDown :title = "footerStore.pagesize.toLocaleString()" width="min-w-14 p-0" arrow-size="size-3" show-down="bottom-full" 
+    <DatasetHeaderDropDown :title = "accommodationStore.pagesize.toLocaleString()" width="min-w-14 p-0" arrow-size="size-3" show-down="bottom-full" 
       custom-class-button="h-6" custom-class-content="h-1" class = "text-green-400 text-sm" :button-component="DatasetHeaderButton">
 
       <DatasetHeaderButton v-for = "option in dropdownOptions" class = "border-none rounded-none" 
-                          :class = "[option === footerStore.pagesize ? 'bg-green-400/10' : '']"
+                          :class = "[option === accommodationStore.pagesize ? 'bg-green-400/10' : '']"
                           @click = "updatePageSize(option)">
          {{option}} 
       </DatasetHeaderButton>
@@ -42,26 +42,30 @@
   import DatasetHeaderDropDown from '../datasetHeader/datasetHeaderDropDown.vue';
   import PageSelectButton from '../footer/pageSelectButton.vue';
   import { computed } from 'vue';
-  import { useFooterStore } from '@/stores/FooterStore';
   import { useAccommodationStore } from '@/stores/AccomodationStore';
   import { useRoute, useRouter } from 'vue-router';
+
+
 
   const route = useRoute()
   const router = useRouter()
   const accommodationStore = useAccommodationStore()
-  const footerStore = useFooterStore()
+
+
   const dropdownOptions = [25, 50, 75, 100]
 
   const TotalPages = computed(() => {
-    if (!footerStore.pagesize) return 0
+    if (!accommodationStore.pagesize) return 0
 
-    return footerStore.TotalPages = Math.ceil(footerStore.TotalResults / footerStore.pagesize)
- 
+    return accommodationStore.TotalPages = Math.ceil(accommodationStore.TotalResults / accommodationStore.pagesize)
+    
   })
+  
 
   function updatePageSize(option: number){
-    footerStore.pagesize = option
+    accommodationStore.pagesize = option
     accommodationStore.updateAndFetch(router, route)
+   
   }
 
 </script>
