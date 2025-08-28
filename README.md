@@ -1,21 +1,27 @@
 # Accommodation Filter App
 
-A Vue.js project that allows users to search and filter accommodations using a dynamic sidebar, URL query parameters, and API integration.
+A Dataset Browser that allows users to search and filter accommodations using a dynamic sidebar, URL query parameters, and API integration.
 
 ## Features
-
-- Search accommodations by text input (`searchfilter`)  
-- Filter accommodations by multiple criteria (`rawfilter`)  
+SEARCH-FILTER-SORT, API AND QUERY HANDLING, CSV EXPORT, AUTHENTICATION
+- Search accommodations by text input (`params: searchfilter`)  
+- Filter and sort accommodations by multiple criteria (`params: rawfilter, typefilter, rawsort`)  
+- Navigation of different pages and page sizes (`params: pagenumber, pagesize`)
 - filters and search persist across page refreshes  
-- Supports multiple languages (`language`)  
+- Supports multiple languages
 - Constructs API requests dynamically with proper URL query handling
+- Caching of api requests through TanstackQuery
+- Export csv file containing the accomodations data
+- Authentication with KeyCloak
+
   
 
 ## Technologies Used
 
 - Vue 3
 - TypeScript  
-- Vue Router  
+- Vue Router
+- TanstackQuery (AKA VueQuery)
 - Pinia (for state management)  
 - Axios for backend requests  
 
@@ -23,7 +29,7 @@ A Vue.js project that allows users to search and filter accommodations using a d
 
 ### Prerequisites
 
-- Node.js 18+  
+- Node.js 19+  
 - npm or yarn  
 
 ### Installation
