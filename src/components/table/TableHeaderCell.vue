@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <th class=" min-w-36 px-2 py-4 leading-tight text-gray-900 md:p-4  border-gray-200 border-2 " >
+  <th class=" min-w-36 px-2 py-4 leading-tight text-gray-900 md:p-4  border-gray-200 border-2 " ref = "target" >
 
     <div class = " flex flex-row relative font-bold text-sm items-center">
 
@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
       <chevron-down-icon v-if = "showSort" class = "h-full size-4 cursor-pointer ml-auto" @click = "isOpen = !isOpen" :class = "isOpen? ' rotate-180' : ''"/>
 
-      <sortPopup v-if = "isOpen" :type="props.type" @update-sort="handleSortUpdate"  />
+      <sortPopup v-if = "isOpen" :parameter="props.parameter" @update-sort="handleSortUpdate"  />
       
     </div>
    
@@ -31,8 +31,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import sortPopup from '../pages/TableView/sortPopup.vue';
 
   import { ref } from 'vue';
-  
+  import { onClickOutside } from '@vueuse/core';
 
+  const target = ref(null)
   const isOpen = ref(false)
   const ascendingCheck = ref(false)
   const descendingCheck = ref(false)
@@ -40,20 +41,26 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
   const props = withDefaults(
     defineProps<{
-      type?: string
+      parameter?: string
       showSort?: boolean
     }>(),
     {
-      type: '',
+      parameter: '',
       showSort: true
 
     },
   )
 
-  function handleSortUpdate(payload: { ascending: boolean; descending: boolean }){
+  function handleSortUpdate(payload: { ascending: boolean; descending: boolean; isOpen: boolean }){
     ascendingCheck.value = payload.ascending
     descendingCheck.value = payload.descending
+    isOpen.value = payload.isOpen
   }
+
+  onClickOutside(target, () => {
+    if(isOpen.value)
+      isOpen.value = false
+  })
     
   
 </script>

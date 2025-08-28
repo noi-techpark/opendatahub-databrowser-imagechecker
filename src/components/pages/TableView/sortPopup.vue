@@ -7,17 +7,21 @@
 
             <p class = " text-gray-600 font-bold text-base"> sort</p>
 
-            <div class = "flex flex-row space-x-2 ">
+            <div class = "flex flex-row space-x-2 items-center ">
               <DatasetHeaderButton class = "w-full" >
-                <input type="checkbox" name="option1" v-model="ascendingCheck" @change="orderAscending()"></input>
-                <p>Ascending</p>
-                <ChevronDoubleUpIcon class = "size-5 text-green-400"/>
+                <label class = "flex flex-row space-x-2 items-center ">
+                    <input type="checkbox" name="option1" v-model="ascendingCheck" @change="orderAscending()"></input>
+                    <p>Ascending</p>
+                    <ChevronDoubleUpIcon class = "size-5 text-green-400"/>
+                </label>
               </DatasetHeaderButton>
 
               <DatasetHeaderButton class = "w-full" >
-                <input type="checkbox" name="option2" v-model="descendingCheck" @change="orderDescending()"></input>
-                <p>Descending</p>
-                <ChevronDoubleDownIcon class = "size-5 text-green-400"/>
+                <label class="flex flex-row items-center space-x-2">
+                    <input type="checkbox" name="option2" v-model="descendingCheck" @change="orderDescending()"></input>
+                    <p>Descending</p>
+                    <ChevronDoubleDownIcon class = "size-5 text-green-400"/>
+                </label>
               </DatasetHeaderButton>
             </div>
             
@@ -44,51 +48,51 @@
     const descendingCheck = ref(false)
 
     onMounted(() => {
-    if(String(route.query.rawsort) === props.type)
+    if(String(route.query.rawsort) === props.parameter)
         ascendingCheck.value = true
-    if(String(route.query.rawsort) === "-" + props.type)
+    if(String(route.query.rawsort) === "-" + props.parameter)
         descendingCheck.value = true
 
     })
 
     const props = withDefaults(
     defineProps<{
-        type?: string
+        parameter?: string
         showSort?: boolean
         isOpen?: boolean
     }>(),
     {
-        type: '',
+        parameter: '',
         showSort: true,
         isOpen: false
     },
     )
 
     const emit = defineEmits<{
-     (e: "update-sort", payload: { ascending: boolean; descending: boolean }): void
+     (e: "update-sort", payload: { ascending: boolean; descending: boolean; isOpen:boolean }): void
     }>()
 
 
     function orderAscending(){
     if (ascendingCheck.value) {
         descendingCheck.value = false
-        accommodationStore.rawsort = props.type
+        accommodationStore.rawsort = props.parameter
         accommodationStore.updateAndFetch(router, route)
     } else {
         disableRawSort()
     }
-    emit("update-sort", { ascending: ascendingCheck.value, descending: descendingCheck.value })
+    emit("update-sort", { ascending: ascendingCheck.value, descending: descendingCheck.value, isOpen: true })
     }
 
     function orderDescending(){
     if(descendingCheck.value){
         ascendingCheck.value = false
-        accommodationStore.rawsort = "-" + props.type
+        accommodationStore.rawsort = "-" + props.parameter
         accommodationStore.updateAndFetch(router, route)
     } else {
         disableRawSort()
     }
-    emit("update-sort", { ascending: ascendingCheck.value, descending: descendingCheck.value })
+    emit("update-sort", { ascending: ascendingCheck.value, descending: descendingCheck.value, isOpen: true })
     }
 
     function disableRawSort(){
@@ -103,15 +107,14 @@
         accommodationStore.filtersRef = [
             ...accommodationStore.filtersRef,
             {
-                type: props.type,
+                type: props.parameter,
                 comparison: "like",
                 value: "",
             }
         ]
 
         accommodationStore.showFilterSideBar = true
-
-        
+        emit("update-sort", {ascending: ascendingCheck.value, descending: descendingCheck.value, isOpen: false})
     }
 
 

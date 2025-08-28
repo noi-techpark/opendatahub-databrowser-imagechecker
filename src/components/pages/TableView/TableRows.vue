@@ -1,7 +1,7 @@
 <template>
-    <tr v-for=" item in data.Items" :key="item.Id" @click="selectedRow = item.Id"
+    <tr v-for=" item in props.data.Items" :key="item.Id" @click="selectedRow = item.Id "
         :class="[
-            'hover:bg-green-400/10 hover:border-gray-400 border-2 border-gray-200 group',
+            'hover:bg-green-400/10 hover:border-gray-400 border-2 border-gray-200 group ',
             selectedRow === item.Id ? 'bg-green-400/10' : ''
         ]"
     >
@@ -20,25 +20,33 @@
 
 
         <!--Detail Column-->
-        <TableCell class = "sticky right-0 z-10 bg-white border w-52 whitespace-nowrap "> <!--shadow-[inset_4px_0_4px_-4px_rgba(0,0,0,0.1)]-->
+        <TableCell class = "sticky right-0 z-10 bg-white border w-52  whitespace-nowrap shadow-[0px_5px_10px_-5px_gray] "> <!--TODOO maybe change out shadows-->
 
             <div class="flex flex-row space-x-2 justify-center ">
 
                 <DetailButton class = "w-12" @click ="console.log(item.Id, accommodationStore.results)" > 
-                    <PencilSquareIcon class = "size-5 text-green-400"></PencilSquareIcon>
+                    <PencilSquareIcon class = "size-5 text-green-400"/>
                     <p class = "text-3xs font-semibold text-green-400">EDIT</p>
                 </DetailButton>
 
                 <DetailButton class = " w-12" > 
-                    <CursorArrowRaysIcon class = "size-5 text-green-400"></CursorArrowRaysIcon>
+                    <CursorArrowRaysIcon class = "size-5 text-green-400"/>
                     <p class = "text-3xs font-semibold   text-green-400">ACTIONS</p>
+                </DetailButton>
+
+                <DetailButton @click = "openFullView(item)">
+                    <PhotoIcon class =" size-5 text-green-400"/>
+                    <p class = "text-3xs font-semibold   text-green-400"> IMAGES</p>
                 </DetailButton>
 
             </div>
             
         </TableCell>
 
-    </tr>
+
+        <ImagesCarousel v-if = "fullViewItem" :item="fullViewItem"  @close="fullViewItem = null" ></ImagesCarousel>
+
+    </tr> 
 </template>
 
 <script setup lang="ts">
@@ -48,17 +56,21 @@
    
     }>()
 
-  import { CursorArrowRaysIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
-
+  import { CursorArrowRaysIcon, PencilSquareIcon, PhotoIcon } from '@heroicons/vue/24/outline'
+  
   import TableCell from '@/components/table/TableCell.vue'
   import showImages from './showImages.vue'
   import DetailButton from '@/components/buttons/DetailButton.vue'
 
   import { ref } from 'vue'
   import { useAccommodationStore } from '@/stores/AccomodationStore'
+import ImagesCarousel from './ImagesCarousel.vue';
   
   const selectedRow = ref<number | null>(null)
+
+  const fullViewItem = ref<any | null>(null)  
  
+
 
 
   const accommodationStore: any = useAccommodationStore()
@@ -104,6 +116,10 @@
       return "-"
 
     return Array.map(obj => obj).join(",\n");
+  }
+
+    function openFullView(item: any) {
+    fullViewItem.value = item
   }
 
 

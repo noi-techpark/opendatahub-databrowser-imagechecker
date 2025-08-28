@@ -26,13 +26,16 @@
       </div>
 
 
-      <div class=" w-screen flex justify-end  items-start space-x-2">
+      <div class=" w-screen flex justify-end  items-start space-x-2 relative" ref = "target">
 
-        <button @click = "handleLogin()" class = " mt-1 bg-green-400/30 h-6 w-20 rounded-lg">login</button>
-        <button @click = "handleLogout()" class = " mt-1 bg-red-400/30 h-6 w-20 rounded-lg">logout</button>
+        <div v-if = "openProfile" class = "absolute top-[47px] right-14 flex flex-col w-52  border bg-white border-gray-300 rounded shadow-lg ">        
+          <button v-if = "!auth.isAuthenticated" @click = "handleLogin()" class = "hover:bg-yellow-300/90 h-10 flex items-center pl-3 transition-colors duration-300">login</button>
+          <ContentDivider ></ContentDivider>
+          <button  v-if = "auth.isAuthenticated" @click = "handleLogout()" class = "hover:bg-yellow-300/90 h-10 flex items-center pl-3 transition-colors duration-300 ">logout</button>
+        </div>
 
-        <HeaderButton class = "hover:bg-green-400/10" @click = "console.log(keycloak.token)">
-          <UserCircleIcon class = "size-10 mb-2 text-black"></UserCircleIcon>
+        <HeaderButton @click = "() => {openProfile = !openProfile, console.log('is authenticated:', auth.isAuthenticated)}" >
+          <UserCircleIcon class = "size-10  text-yellow-400"></UserCircleIcon>
         </HeaderButton>
         <img src="/src/assets/logo-open-data-hub-black.svg" alt="Logo Open Data Hub" class="w-9 ml-3 mb-2" />
 
@@ -54,13 +57,17 @@ import { useRouter } from 'vue-router'
 import { useAuth } from '@/auth/authStores/auth'
 import { keycloak } from '@/auth/keycloak'
 import { useAccommodationStore } from '@/stores/AccomodationStore'
+import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery'
+import { ref } from 'vue'
+import ContentDivider from '../contentAlignment/ContentDivider.vue'
+import { onClickOutside } from '@vueuse/core'
 
-
-
+const target = ref(null)
+const openProfile = ref(false)
 const router = useRouter()
 const auth = useAuth()
 const accommodationStore = useAccommodationStore()
-
+const {refetch} = useAccommodationsQuery()
 
 defineOptions({ inheritAttrs: false })
 
@@ -80,40 +87,59 @@ function refreshPage() {
 
 
 //TODOO on auth success, the token is saved n localstorage, and is reloaded after every page rerfresh, this might be bad practice/unsafe
-keycloak.onAuthSuccess = () => {
-  if(keycloak.token)
-    localStorage.setItem('kc_token', keycloak.token)
 
-  auth.authenticate(keycloak.token);
-  accommodationStore.FirstTotalResults = 0
-  accommodationStore.updateAndFetch()
-};
 
-keycloak.onAuthError = () => {
-  auth.unauthenticate();
-};
 
+
+//executes on token refresh
 keycloak.onAuthRefreshSuccess = () => {
+  console.log("on auth refresh success:")
   auth.authenticate(keycloak.token);
 };
 
 keycloak.onAuthRefreshError = () => {
+  console.log("on auth refresherror:")
   auth.unauthenticate();
 };
+
+//executes on login or logout
+keycloak.onAuthError = () => {
+  console.log("on auth error:")
+  auth.unauthenticate();
+};
+
+keycloak.onAuthSuccess = () => {
+  console.log("on auth success:")
+
+  //INFO, TODOO, by saving the token in localstorage you can stay logged in after refreshes, this is only for dev purposes
+  //might be bad practice
+  //if(keycloak.token) localStorage.setItem('kc_token', keycloak.token)
+
+  auth.authenticate(keycloak.token);
+  accommodationStore.FirstTotalResults = 0
+  accommodationStore.updateAndFetch()
+  refetch()
+
+};
+
 
 keycloak.onReady = () => {
   auth.ready = true;
 };
 
 function handleLogin(){
+
   keycloak.login()
 }
 
 function handleLogout(){
+
   keycloak.logout()
 }
 
 const profileUrl = keycloak.createAccountUrl();
 
-
+onClickOutside(target, () => {
+  openProfile.value = false
+})
 </script>

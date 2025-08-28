@@ -1,6 +1,6 @@
 <template>
 
-    <div class="flex flex-col relative" >
+    <div class="flex flex-col relative" ref = "target" >
        
         <component :is = "buttonComponent" class=" w-full" :class="[props.width, props.customClassButton]" @click="click">
 
@@ -38,9 +38,10 @@
 <script setup lang="ts">
     import DatasetHeaderButton from './datasetHeaderButton.vue';
     import { ref, defineEmits, defineExpose } from 'vue';
-    
+    import { onClickOutside } from '@vueuse/core';
 
     const isOpen = ref(false);
+    const target = ref(null);
 
 
     const emit = defineEmits(["toggle", "close"]);
@@ -75,6 +76,11 @@
 
     defineExpose({ close });
 
+    onClickOutside(target, () => {
+        if (isOpen.value) {
+            close();
+        }
+    });
 
 </script>
 

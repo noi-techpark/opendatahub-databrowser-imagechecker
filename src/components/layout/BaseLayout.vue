@@ -13,7 +13,7 @@
             <slot></slot>
           </div>
 
-          <FiltersSideBar v-if = "accommodationStore.showFilterSideBar" class =" w-96"></FiltersSideBar>
+          <FiltersSideBar v-if = "accommodationStore.showFilterSideBar" class =" w-96 overflow-auto "></FiltersSideBar>
 
         </div>
       

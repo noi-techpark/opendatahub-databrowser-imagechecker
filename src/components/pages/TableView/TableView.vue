@@ -5,7 +5,6 @@
    
     
 
-    
     <table class="min-w-full w-full table-auto  border-separate " cellspacing="0" cellpadding="5" >
   
       <TableHeaders></TableHeaders>
@@ -16,6 +15,7 @@
 
     </table>
 
+
     <div v-if="isLoading" class="flex p-4 text-center w-full h-full justify-center items-center">
         <ArrowPathIcon class = "size-36 animate-spin mb-56 mt-32 text-green-400"></ArrowPathIcon>
     </div>
@@ -23,10 +23,9 @@
     <div v-if="error" class="flex p-4 text-center w-full h-full justify-center items-center">
         <EyeSlashIcon class = "size-36 animate-bounce mb-56 mt-32  text-green-400"></EyeSlashIcon>
     </div>
-    
   
-  </div>
 
+  </div>
   
 </template>
 
@@ -50,6 +49,7 @@
   import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery'
   
 
+  //TODOO on login, you need yo reload page to seee NON REDUCED data
 
   const route = useRoute()
  
@@ -76,16 +76,21 @@
     
   }) 
 
-  //INITIAL FETCH 
- 
+  
+  //INITIAL FETCH  
   onMounted(() => {
     accommodationStore.restoreFromUrl(route);
 
-    const savedToken = localStorage.getItem('kc_token')
+    
+    //INFO, TODOO, 
+    //by extracting the token from localstorage you can stay logged in after refreshes, useful when developing
+    // this might be bad practice, tokens should be stored in HttpOnly Cookie
+    /*const savedToken = localStorage.getItem('kc_token')
     if (savedToken) {
       auth.authenticate(savedToken)
       keycloak.token = savedToken
     }
+    */
 
   });
 
