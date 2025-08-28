@@ -7,15 +7,17 @@
 
         <magnifying-glass-icon class = "size-5 text-green-400"></magnifying-glass-icon>
 
-        
-
-        <input class = "    h-9 min-w-6 p-2 m-1 border-none   bg-transparent text-sm" 
-        placeholder="insert search value" type="text" v-model="searchValue" @keyup.enter="handleSearch()">
+    
+        <input class = "h-9 min-w-6 p-2 m-1 border-none   bg-transparent text-sm " 
+        placeholder="insert search value " type="text" v-model="searchValue" @keyup.enter="handleSearch(searchValue)">
         </input>
 
+        <button class ="bg-transparent " v-if = "searchValue">
+            <x-mark-icon class="size-4 mr-2" @click="() => {searchValue = '', handleSearch('')}"></x-mark-icon>
+        </button>
 
-        <button class = "bg-green-500 border rounded p-2 jus text-white text-xs hover:bg-green-700  font-bold"
-        @click=" handleSearch()">
+        <button class = "bg-green-500  rounded p-2  text-white text-xs hover:bg-green-700  font-bold"
+                @click=" handleSearch(searchValue)">
             Search
         </button>
 
@@ -26,7 +28,7 @@
 
 <script setup lang="ts">
         
-    import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
+    import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 
     import { useRoute, useRouter } from 'vue-router';
 
@@ -43,10 +45,10 @@
 
 
 
-    function handleSearch() {
+    function handleSearch(value:string) {
 
         accommodationStore.pagenumber = 1
-        accommodationStore.searchfilter = searchValue.value
+        accommodationStore.searchfilter = value
         accommodationStore.updateAndFetch(router, route)
     }
 

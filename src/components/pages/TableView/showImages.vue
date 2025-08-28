@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img
+    <img v-if = "selectedImage?.ImageUrl "
       :src="selectedImage?.ImageUrl || imageNotFound"
       alt="Accommodation Image"
       class="cursor-pointer"
@@ -11,7 +11,8 @@
       }"
       @click="isFullView = true"
     />
-    
+
+    <PlaceHolderImage v-else></PlaceHolderImage>
     <div
       v-if="isFullView"
       class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
@@ -52,9 +53,9 @@
  
   import type { Accommodation } from './types'
   import { computed, ref } from 'vue'
-import { DivideIcon } from '@heroicons/vue/24/outline';
+
   import { useAccommodationStore } from '@/stores/AccomodationStore';
-  
+  import PlaceHolderImage from '@/components/Image/PlaceHolderImage.vue';
 
   const props = defineProps<{
     imageGallery: Accommodation['ImageGallery'] | null
@@ -111,10 +112,11 @@ import { DivideIcon } from '@heroicons/vue/24/outline';
 
     for(const image of images){
 
-      if(period == "winter"){
+      if(period == "winter" && image !== images[0]){
 
           if(isMonthDayInRange(periodDates.winter, image.ValidFrom, image.ValidTo) && !isMonthDayInRange(periodDates.summer, image.ValidFrom, image.ValidTo))
             return image
+
       }
       if(period == "summer"){
 

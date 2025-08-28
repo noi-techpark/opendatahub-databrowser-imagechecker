@@ -63,10 +63,10 @@
       </FilterButton>
     </div>
 
-    
+    <ContentDivider></ContentDivider>
     
   </div>
-    <ContentDivider class = "mt-3"></ContentDivider> <!--TODOO make the divider appear betweeen each Filter-->
+    
 
 
     <div class = "flex flex-row "> 

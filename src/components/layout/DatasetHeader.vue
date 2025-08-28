@@ -13,18 +13,18 @@
         
       </DatasetHeaderDropDown>
 
+      <div ref ="target" class = "relative">
+        <DatasetHeaderButton @click = "showInfo = !showInfo" class ="relative flex items-center"> 
+          <InformationCircleIcon class= "size-5 text-green-400"></InformationCircleIcon>
+        </DatasetHeaderButton>
 
-      <DatasetHeaderButton @click = "showInfo = !showInfo" class ="relative flex items-center" ref = "target"> 
-        <InformationCircleIcon class= "size-5 text-green-400"></InformationCircleIcon>
-
-        <div v-if="showInfo" class =  " absolute left-0 top-full mt-2 bg-white border border-gray-300 rounded shadow-lg h-64 w-64 z-50">  <!--TODOO-->
+        <div v-if="showInfo" class =  " absolute left-0 top-full mt-2 bg-white border border-gray-300 rounded shadow-lg h-64 w-64 z-50" >  <!--TODOO-->
           <CardContainer > 
             INFO SUL DATASET  
           </CardContainer>
         </div>
-
-      </DatasetHeaderButton>
-
+      </div>
+      
       <!--SearchBar, TODOO, it's  margin controls the h of the dsh-->
       <DatasetHeaderSearchBar class ="w-60"/>
       
@@ -74,11 +74,23 @@
 
       <ExportCSV/>
 
-      <DatasetHeaderButton> 
-        <CursorArrowRaysIcon class="size-5 text-green-400"></CursorArrowRaysIcon>
-        <p> Actions </p> 
-      </DatasetHeaderButton>
-    
+      <div ref ="target2" class ="relative">
+        <DatasetHeaderButton @click = "showActions = !showActions" > 
+          <CursorArrowRaysIcon class="size-5 text-green-400"></CursorArrowRaysIcon>
+          <p> Actions </p>    
+        </DatasetHeaderButton>
+
+        <div v-if="showActions" class =  " absolute right-0 top-full 
+        flex flex-col  items-start space-y-2 mt-2 p-4 z-50 
+        rounded shadow-lg text-sm text-gray-600 bg-white border border-gray-300 whitespace-nowrap ">  <!--TODOO-->
+            <button @click = "refreshPage()"> Refresh </button>
+            <ContentDivider></ContentDivider>
+            <button> Force Sync </button>
+            <ContentDivider></ContentDivider>
+            <button> Push </button>
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -103,14 +115,17 @@
   import { useAccommodationStore } from '@/stores/AccomodationStore';
   import { useRoute, useRouter } from 'vue-router';
   import { onClickOutside } from '@vueuse/core';
+import ContentDivider from '../contentAlignment/ContentDivider.vue';
 
 
   const target = ref(null)
+  const target2 = ref(null)
   const Languages = ["DE", "IT", "EN", "NL", "CS", "PL", "FR", "RU", "LD"];
   const AccomodatioStore = useAccommodationStore()
   const route = useRoute()
   const router = useRouter()
   
+  const showActions = ref(false)
   const showInfo = ref(false);
   const selectedQuickFilter = ref("Accommodation")
 
@@ -138,4 +153,18 @@
   onClickOutside(target, () => {
     showInfo.value = false
   })
+
+   onClickOutside(target2, () => {
+    showActions.value = false
+  })
+
+  function refreshPage() {
+  router
+  .push({ path: '/' })
+  .then(
+    () => {
+    window.location.reload()
+    }
+  )
+}
 </script>

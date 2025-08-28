@@ -48,21 +48,21 @@
     const descendingCheck = ref(false)
 
     onMounted(() => {
-    if(String(route.query.rawsort) === props.type)
+    if(String(route.query.rawsort) === props.parameter)
         ascendingCheck.value = true
-    if(String(route.query.rawsort) === "-" + props.type)
+    if(String(route.query.rawsort) === "-" + props.parameter)
         descendingCheck.value = true
 
     })
 
     const props = withDefaults(
     defineProps<{
-        type?: string
+        parameter?: string
         showSort?: boolean
         isOpen?: boolean
     }>(),
     {
-        type: '',
+        parameter: '',
         showSort: true,
         isOpen: false
     },
@@ -76,7 +76,7 @@
     function orderAscending(){
     if (ascendingCheck.value) {
         descendingCheck.value = false
-        accommodationStore.rawsort = props.type
+        accommodationStore.rawsort = props.parameter
         accommodationStore.updateAndFetch(router, route)
     } else {
         disableRawSort()
@@ -87,7 +87,7 @@
     function orderDescending(){
     if(descendingCheck.value){
         ascendingCheck.value = false
-        accommodationStore.rawsort = "-" + props.type
+        accommodationStore.rawsort = "-" + props.parameter
         accommodationStore.updateAndFetch(router, route)
     } else {
         disableRawSort()
@@ -107,7 +107,7 @@
         accommodationStore.filtersRef = [
             ...accommodationStore.filtersRef,
             {
-                type: props.type,
+                type: props.parameter,
                 comparison: "like",
                 value: "",
             }

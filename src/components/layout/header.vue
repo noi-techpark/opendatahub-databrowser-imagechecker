@@ -34,7 +34,7 @@
           <button  v-if = "auth.isAuthenticated" @click = "handleLogout()" class = "hover:bg-yellow-300/90 h-10 flex items-center pl-3 transition-colors duration-300 ">logout</button>
         </div>
 
-        <HeaderButton @click = "() => {openProfile = !openProfile, console.log(auth.isAuthenticated)}" >
+        <HeaderButton @click = "() => {openProfile = !openProfile, console.log('is authenticated:', auth.isAuthenticated)}" >
           <UserCircleIcon class = "size-10  text-yellow-400"></UserCircleIcon>
         </HeaderButton>
         <img src="/src/assets/logo-open-data-hub-black.svg" alt="Logo Open Data Hub" class="w-9 ml-3 mb-2" />
@@ -111,7 +111,8 @@ keycloak.onAuthError = () => {
 keycloak.onAuthSuccess = () => {
   console.log("on auth success:")
 
-  //INFO, by saving the token in localstorage you can stay logged in after refreshes, this is only for dev purposes
+  //INFO, TODOO, by saving the token in localstorage you can stay logged in after refreshes, this is only for dev purposes
+  //might be bad practice
   //if(keycloak.token) localStorage.setItem('kc_token', keycloak.token)
 
   auth.authenticate(keycloak.token);
@@ -120,12 +121,6 @@ keycloak.onAuthSuccess = () => {
   refetch()
 
 };
-
-keycloak.onAuthLogout= () => {
-  console.log("on auth logout")
-  auth.unauthenticate()
-}
-
 
 
 keycloak.onReady = () => {

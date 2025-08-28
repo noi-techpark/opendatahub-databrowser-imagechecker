@@ -23,6 +23,8 @@ keycloak
       keycloak.updateToken(70)
         .catch((e) => {
           
+          console.log("token update error", e)
+          
           if (keycloak.token) {
             // Application has still an invalid token. Let's clear it.
             keycloak.clearToken();

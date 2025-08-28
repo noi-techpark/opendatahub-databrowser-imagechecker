@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
       <chevron-down-icon v-if = "showSort" class = "h-full size-4 cursor-pointer ml-auto" @click = "isOpen = !isOpen" :class = "isOpen? ' rotate-180' : ''"/>
 
-      <sortPopup v-if = "isOpen" :type="props.type" @update-sort="handleSortUpdate"  />
+      <sortPopup v-if = "isOpen" :parameter="props.parameter" @update-sort="handleSortUpdate"  />
       
     </div>
    
@@ -41,11 +41,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
   const props = withDefaults(
     defineProps<{
-      type?: string
+      parameter?: string
       showSort?: boolean
     }>(),
     {
-      type: '',
+      parameter: '',
       showSort: true
 
     },
