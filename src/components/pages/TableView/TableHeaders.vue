@@ -25,7 +25,7 @@
         { key: "winterImage", label: "Image Winter", parameter: "ImageGallery.0.ImageUrl" },
         { key: "summerImage", label: "Image Summer", parameter: "ImageGallery.0.ImageUrl" },
         { key: "yearImage", label: "Image Whole Year", parameter: "ImageGallery.0.ImageUrl" },
-        { key: "accoType", label: "Accommodation parameter", parameter: "AccoTypeId" },
+        { key: "accoType", label: "Accommodation type", parameter: "AccoTypeId" },
         { key: "category", label: "Category", parameter: "AccoCategoryId" },
         { key: "region", label: "Region", parameter: `LocationInfo.RegionInfo.Name.${accommodationStore.language.toLowerCase()}` },
         { key: "municipality", label: "Municipality", parameter: `LocationInfo.MunicipalityInfo.Name.${accommodationStore.language.toLowerCase()}` },
