@@ -1,0 +1,76 @@
+/*
+ * SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+ *
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+body {
+  @apply text-gray-900;
+  height: 100vh;
+  font-family:
+    'SourceSansPro',
+    ui-sans-serif,
+    system-ui,
+    -apple-system;
+}
+
+#app {
+  height: 100vh;
+  margin: 0;    /* TODO margin temporary fix, removes lateral margins, there might be a better solution */
+  padding: 0;   /* TODO padding temporary fix, removes lateral margins, there might be a better solution */
+}
+
+a {
+  @apply underline;
+}
+
+a:focus-visible:not([button-link]) {
+  @apply outline outline-1 outline-offset-2 outline-green-500;
+}
+
+button:focus-visible,
+input:focus-visible,
+ul:focus-visible {
+  @apply outline outline-1 outline-green-500;
+}
+
+input:focus-visible {
+  @apply outline-0;
+}
+
+[type='checkbox']:focus {
+  @apply outline-green-500;
+}
+
+[type='text']:focus,
+[type='email']:focus,
+[type='url']:focus,
+[type='password']:focus,
+[type='number']:focus,
+[type='date']:focus,
+[type='datetime-local']:focus,
+[type='month']:focus,
+[type='search']:focus,
+[type='tel']:focus,
+[type='time']:focus,
+[type='week']:focus,
+[type='radio']:focus [multiple]:focus,
+textarea:focus,
+select:focus {
+  box-shadow: none;
+  border-color: transparent;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; 
+}
