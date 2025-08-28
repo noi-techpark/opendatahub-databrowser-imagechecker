@@ -32,7 +32,7 @@
     import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
     import { useAccommodationStore } from '@/stores/AccomodationStore';
     import { useRoute, useRouter } from 'vue-router';
-    import { ref } from 'vue';
+    import { ref, watch } from 'vue';
 
     const pagenumberRef = ref(1)
    
@@ -68,5 +68,10 @@
         accommodationStore.updateAndFetch(router, route)
     }
 
+    watch(() => accommodationStore.pagenumber, () => {
+        pagenumberRef.value = accommodationStore.pagenumber
+    })
+
 
 </script>
+

@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <th class=" min-w-36 px-2 py-4 leading-tight text-gray-900 md:p-4  border-gray-200 border-2 " >
+  <th class=" min-w-36 px-2 py-4 leading-tight text-gray-900 md:p-4  border-gray-200 border-2 " ref = "target" >
 
     <div class = " flex flex-row relative font-bold text-sm items-center">
 
@@ -31,8 +31,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import sortPopup from '../pages/TableView/sortPopup.vue';
 
   import { ref } from 'vue';
-  
+  import { onClickOutside } from '@vueuse/core';
 
+  const target = ref(null)
   const isOpen = ref(false)
   const ascendingCheck = ref(false)
   const descendingCheck = ref(false)
@@ -50,10 +51,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     },
   )
 
-  function handleSortUpdate(payload: { ascending: boolean; descending: boolean }){
+  function handleSortUpdate(payload: { ascending: boolean; descending: boolean; isOpen: boolean }){
     ascendingCheck.value = payload.ascending
     descendingCheck.value = payload.descending
+    isOpen.value = payload.isOpen
   }
+
+  onClickOutside(target, () => {
+    if(isOpen.value)
+      isOpen.value = false
+  })
     
   
 </script>

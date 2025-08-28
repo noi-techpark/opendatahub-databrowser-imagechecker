@@ -1,14 +1,14 @@
 <template>
-    <div class = " left-0 bg-gray-50 w-2/6 border z-5 ">
+    <div class = " left-0 bg-gray-50 w-[33.3333%] border z-5 ">
      
-            <div class =" h-[75px] bg-gray-250 border rounded justify-between items-center flex space-x-2"> 
+            <div class =" h-[75px] bg-gray-250 border rounded justify-between items-center flex  sticky top-0 z-20" > 
                 
                 <Bars3BottomRightIcon class = "size-6 text-green-400 ml-5"></Bars3BottomRightIcon>
 
                 <b class = "text-xl">Filters</b>
 
-                <DatasetHeaderButton @click = "accomodationStore.showFilterSideBar = false">
-                    <XMarkIcon class = "ml-auto size-6 text-green-400"></XMarkIcon>
+                <DatasetHeaderButton @click = "accomodationStore.showFilterSideBar = false" class = "mr-5" >
+                    <XMarkIcon class = "size-6 text-green-400 "></XMarkIcon>
                 </DatasetHeaderButton>
             </div>
           
@@ -33,7 +33,7 @@
 
 
 
-            <div class ="bg-white m-4 border rounded max-h-screen overflow-y-auto "> 
+            <div class ="bg-white m-4 border rounded max-h-screen "> 
                 <FilterTable ref="filterTableRef" ></FilterTable>
             </div>
     </div>

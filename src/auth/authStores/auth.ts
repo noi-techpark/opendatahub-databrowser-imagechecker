@@ -36,6 +36,7 @@ export const useAuth = defineStore('auth', {
   },
   actions: {
     authenticate(accessToken: string | undefined) {
+      console.log("!!authenticating")
       this.ready = true;
 
       if (accessToken == null) {
@@ -46,6 +47,7 @@ export const useAuth = defineStore('auth', {
       this.accessToken = accessToken;
     },
     unauthenticate() {
+      console.log("--unauthenticating")
       this.isAuthenticated = false;
       this.accessToken = null;
     },

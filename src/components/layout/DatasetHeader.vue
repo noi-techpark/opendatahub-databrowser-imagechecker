@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row flex-wrap gap-x-3 gap-y-2 z-30 items-center justify-between p-2 bg-white ">
 
-    <div class = "flex flex-row items-center justify-center flex-wrap ml-3 space-x-2">
+    <div class = "flex flex-row items-center justify-center flex-wrap ml-3 space-x-2 gap-y-2">
 
       <DatasetHeaderDropDown :title="selectedQuickFilter" :bold="true"  arrow-size="size-4" :button-component="DatasetHeaderButton">
         
@@ -14,7 +14,7 @@
       </DatasetHeaderDropDown>
 
 
-      <DatasetHeaderButton @click = "showInfo = !showInfo" class ="relative flex items-center "> 
+      <DatasetHeaderButton @click = "showInfo = !showInfo" class ="relative flex items-center" ref = "target"> 
         <InformationCircleIcon class= "size-5 text-green-400"></InformationCircleIcon>
 
         <div v-if="showInfo" class =  " absolute left-0 top-full mt-2 bg-white border border-gray-300 rounded shadow-lg h-64 w-64 z-50">  <!--TODOO-->
@@ -25,7 +25,7 @@
 
       </DatasetHeaderButton>
 
-      <!--SearchBar, TODOO its, margin controls the h of the dsh-->
+      <!--SearchBar, TODOO, it's  margin controls the h of the dsh-->
       <DatasetHeaderSearchBar class ="w-60"/>
       
 
@@ -97,14 +97,15 @@
   import DatasetHeaderSearchBar from '../datasetHeader/datasetHeaderSearchBar.vue';
   import CardContainer from '../card/CardContainer.vue';
   import ExportCSV from '../datasetHeader/export/exportCSV.vue'
+  import FilterButton from '../datasetHeader/filter/filterButton.vue';
 
   import { ref } from 'vue';
   import { useAccommodationStore } from '@/stores/AccomodationStore';
-
   import { useRoute, useRouter } from 'vue-router';
-import FilterButton from '../datasetHeader/filter/filterButton.vue';
+  import { onClickOutside } from '@vueuse/core';
 
-  
+
+  const target = ref(null)
   const Languages = ["DE", "IT", "EN", "NL", "CS", "PL", "FR", "RU", "LD"];
   const AccomodatioStore = useAccommodationStore()
   const route = useRoute()
@@ -134,4 +135,7 @@ import FilterButton from '../datasetHeader/filter/filterButton.vue';
     AccomodatioStore.updateAndFetch(router, route)
   }
 
+  onClickOutside(target, () => {
+    showInfo.value = false
+  })
 </script>

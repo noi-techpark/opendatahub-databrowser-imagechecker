@@ -81,11 +81,14 @@
   onMounted(() => {
     accommodationStore.restoreFromUrl(route);
 
+    /*
+    //INFO, by extracting the token from localstorage you can stay logged in after refreshes, this is only for dev purposes
     const savedToken = localStorage.getItem('kc_token')
     if (savedToken) {
       auth.authenticate(savedToken)
       keycloak.token = savedToken
     }
+    */
 
   });
 

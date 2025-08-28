@@ -1,12 +1,12 @@
 <template>
-        <TableHeader class = " sticky top-0 z-20">
+        <TableHeader class = " sticky top-0 z-20 ">
         
         <TableHeaderCell v-for="col in headerColumns" :key="col.key" :type="col.type">
             {{ col.label }}
         </TableHeaderCell>
 
         <!-- Detail Column -->
-        <TableHeaderCell class="sticky right-0 bg-gray-50 w-40 z-30 " :show-sort="false"> <!--shadow-[inset_4px_0_4px_-4px_rgba(0,0,0,0.1)]-->
+        <TableHeaderCell class="sticky right-0 bg-gray-50 w-52 z-30 shadow-[0px_0px_10px_-5px_gray]  " :show-sort="false"> <!--shadow-[inset_4px_0_4px_-4px_rgba(0,0,0,0.1)]-->
             Detail
         </TableHeaderCell>
       </TableHeader>
