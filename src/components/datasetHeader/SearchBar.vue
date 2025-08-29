@@ -22,34 +22,29 @@
         </button>
 
       
-
     </div>
 </template>
 
 <script setup lang="ts">
         
     import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/vue/24/outline';
-
-    import { useRoute, useRouter } from 'vue-router';
-
-    import { useAccommodationStore } from '@/stores/AccomodationStore';
-
     import { ref } from 'vue';
+import type { LocationQueryValue } from 'vue-router';
 
     const searchValue = ref("")
-    const router = useRouter();
-    const route = useRoute();
-    const accommodationStore = useAccommodationStore()
+  
 
-    searchValue.value = route.query.searchfilter ? String(route.query.searchfilter): ""
+    const props = defineProps<{
+        queryParam?: LocationQueryValue | LocationQueryValue[]  
+    }>()
+    const emit = defineEmits<{
+        (e: "search-value", value: string): void
+    }>()
 
-
-
+    searchValue.value = props.queryParam ? String(props.queryParam) : ""
+    
     function handleSearch(value:string) {
-
-        accommodationStore.pagenumber = 1
-        accommodationStore.searchfilter = value
-        accommodationStore.updateAndFetch(router, route)
+        emit("search-value", value)
     }
 
   

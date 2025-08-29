@@ -10,8 +10,6 @@
 <script setup lang="ts">
 
 import BaseLayout from '../layout/BaseLayout.vue';
-
-
-import TableView from './TableView/TableView.vue';
+import TableView from '@/pages/TableView/TableView.vue';
 
 </script>

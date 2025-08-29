@@ -29,7 +29,7 @@ SEARCH-FILTER-SORT, API AND QUERY HANDLING, CSV EXPORT, AUTHENTICATION
 
 ### Prerequisites
 
-- Node.js 18+  
+- Node.js 19+  
 - npm or yarn  
 
 ### Installation

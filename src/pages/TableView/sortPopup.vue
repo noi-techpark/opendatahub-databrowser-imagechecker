@@ -35,7 +35,7 @@
 <script setup lang="ts">
     import { ChevronDoubleUpIcon, ChevronDoubleDownIcon } from '@heroicons/vue/24/outline';
 
-    import DatasetHeaderButton from '@/components/datasetHeader/datasetHeaderButton.vue';
+    import DatasetHeaderButton from '@/components/buttons/datasetHeaderButton.vue';
     import { useAccommodationStore } from '@/stores/AccomodationStore';
     import { useRoute, useRouter } from 'vue-router';
     import { onMounted, ref } from 'vue';
@@ -48,61 +48,63 @@
     const descendingCheck = ref(false)
 
     onMounted(() => {
-    if(String(route.query.rawsort) === props.parameter)
-        ascendingCheck.value = true
-    if(String(route.query.rawsort) === "-" + props.parameter)
-        descendingCheck.value = true
+
+        if(String(route.query.rawsort) === props.parameter)
+            ascendingCheck.value = true
+        
+        if(String(route.query.rawsort) === "-" + props.parameter)
+            descendingCheck.value = true
 
     })
 
     const props = withDefaults(
-    defineProps<{
-        parameter?: string
-        showSort?: boolean
-        isOpen?: boolean
-    }>(),
-    {
-        parameter: '',
-        showSort: true,
-        isOpen: false
-    },
+        defineProps<{
+            parameter?: string
+            isOpen?: boolean
+        }>(),
+        {   
+            parameter: '',
+            isOpen: false
+        },
     )
-
     const emit = defineEmits<{
-     (e: "update-sort", payload: { ascending: boolean; descending: boolean; isOpen:boolean }): void
+     (e: "emit-event", payload: { ascending: boolean; descending: boolean; isOpen:boolean }): void
     }>()
 
 
     function orderAscending(){
-    if (ascendingCheck.value) {
-        descendingCheck.value = false
-        accommodationStore.rawsort = props.parameter
-        accommodationStore.updateAndFetch(router, route)
-    } else {
-        disableRawSort()
-    }
-    emit("update-sort", { ascending: ascendingCheck.value, descending: descendingCheck.value, isOpen: true })
+
+        if (ascendingCheck.value) {
+            descendingCheck.value = false
+            accommodationStore.rawsort = props.parameter
+            accommodationStore.updateAndFetch(router, route)
+        } else {
+            disableRawSort()
+        }
+        emit("emit-event", { ascending: ascendingCheck.value, descending: descendingCheck.value, isOpen: true })
+
     }
 
     function orderDescending(){
-    if(descendingCheck.value){
-        ascendingCheck.value = false
-        accommodationStore.rawsort = "-" + props.parameter
-        accommodationStore.updateAndFetch(router, route)
-    } else {
-        disableRawSort()
-    }
-    emit("update-sort", { ascending: ascendingCheck.value, descending: descendingCheck.value, isOpen: true })
+
+        if(descendingCheck.value){
+            ascendingCheck.value = false
+            accommodationStore.rawsort = "-" + props.parameter
+            accommodationStore.updateAndFetch(router, route)
+        } 
+        else {
+            disableRawSort()
+        }
+        emit("emit-event", { ascending: ascendingCheck.value, descending: descendingCheck.value, isOpen: true })
     }
 
+
     function disableRawSort(){
-    accommodationStore.rawsort = ""
-    accommodationStore.updateAndFetch(router, route)
+        accommodationStore.rawsort = ""
+        accommodationStore.updateAndFetch(router, route)
     }
 
     function addFilter(){
-
-
 
         accommodationStore.filtersRef = [
             ...accommodationStore.filtersRef,
@@ -114,7 +116,7 @@
         ]
 
         accommodationStore.showFilterSideBar = true
-        emit("update-sort", {ascending: ascendingCheck.value, descending: descendingCheck.value, isOpen: false})
+        emit("emit-event", {ascending: ascendingCheck.value, descending: descendingCheck.value, isOpen: false})
     }
 
 

@@ -45,7 +45,8 @@
     //ICONS
     import { XCircleIcon, Bars3BottomRightIcon, XMarkIcon } from '@heroicons/vue/16/solid';
 
-    import DatasetHeaderButton from '../datasetHeaderButton.vue';
+    
+    import DatasetHeaderButton from '@/components/buttons/datasetHeaderButton.vue';
     import FilterTable from './filterTable.vue';
     import { useAccommodationStore } from '@/stores/AccomodationStore';
     import { useRoute, useRouter } from 'vue-router';

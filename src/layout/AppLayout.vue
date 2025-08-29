@@ -17,8 +17,8 @@
 
 <script setup lang="ts">
 
-  import Header from './header.vue'
-  import Footer from './footer.vue'
-  import ContentDivider from '../contentAlignment/ContentDivider.vue';
+  import Header from '../pages/header.vue'
+  import Footer from '../pages/footer.vue'
+  import ContentDivider from '@/components/contentAlignment/ContentDivider.vue';
 
 </script>

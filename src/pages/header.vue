@@ -50,8 +50,11 @@
 //ICONS
 import { UserCircleIcon } from '@heroicons/vue/24/outline'
 
-import HeaderButton from '../header/headerButton.vue'
-import AlignX from '../contentAlignment/AlignX.vue'
+
+import HeaderButton from '@/components/header/headerButton.vue'
+import AlignX from '@/components/contentAlignment/AlignX.vue'
+import ContentDivider from '@/components/contentAlignment/ContentDivider.vue'
+
 
 import { useRouter } from 'vue-router'
 import { useAuth } from '@/auth/authStores/auth'
@@ -59,7 +62,6 @@ import { keycloak } from '@/auth/keycloak'
 import { useAccommodationStore } from '@/stores/AccomodationStore'
 import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery'
 import { ref } from 'vue'
-import ContentDivider from '../contentAlignment/ContentDivider.vue'
 import { onClickOutside } from '@vueuse/core'
 
 const target = ref(null)

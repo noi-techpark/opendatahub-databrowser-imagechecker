@@ -28,10 +28,6 @@ export function useAccommodationsQuery() {
                     ? `and(${conditions.join(",")})`
                     : undefined;
 
-    const language = accommodationStore.language.toLowerCase()
-    const pagesize = accommodationStore.pagesize
-    const pagenumber = accommodationStore.pagenumber
-
 
     return api.get('Accommodation', {
       params: {

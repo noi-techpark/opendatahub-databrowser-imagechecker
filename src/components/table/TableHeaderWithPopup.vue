@@ -15,9 +15,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <ChevronDoubleDownIcon v-if = "descendingCheck" class = "size-4 text-green-400"/>
       <ChevronDoubleUpIcon v-if = "ascendingCheck" class = "size-4 text-green-400"/>
 
-      <chevron-down-icon v-if = "showSort" class = "h-full size-4 cursor-pointer ml-auto" @click = "isOpen = !isOpen" :class = "isOpen? ' rotate-180' : ''"/>
+      <chevron-down-icon v-if = "showPopup" class = "h-full size-4 cursor-pointer ml-auto" @click = "isOpen = !isOpen" :class = "isOpen? ' rotate-180' : ''"/>
 
-      <sortPopup v-if = "isOpen" :parameter="props.parameter" @update-sort="handleSortUpdate"  />
+      
+       <component
+        v-if="isOpen "
+        :is = "props.Popup"
+        :parameter="props.parameter"
+        @emit-event="handleSortUpdate"
+      />
       
     </div>
    
@@ -28,10 +34,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
   import { ChevronDownIcon, ChevronDoubleUpIcon, ChevronDoubleDownIcon } from '@heroicons/vue/24/outline';
   
-  import sortPopup from '../pages/TableView/sortPopup.vue';
+  
 
   import { ref } from 'vue';
   import { onClickOutside } from '@vueuse/core';
+
 
   const target = ref(null)
   const isOpen = ref(false)
@@ -42,12 +49,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   const props = withDefaults(
     defineProps<{
       parameter?: string
-      showSort?: boolean
+      showPopup?: boolean
+      Popup?: any
     }>(),
     {
       parameter: '',
-      showSort: true
-
+      showPopup: true,
+      Popup: null
     },
   )
 

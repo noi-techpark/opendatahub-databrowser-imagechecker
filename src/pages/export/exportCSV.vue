@@ -1,37 +1,31 @@
 <template>
 
-    <DatasetHeaderButton @click = "exportCSV()"> 
-        <ArrowDownOnSquareIcon class="size-5 text-green-400"></ArrowDownOnSquareIcon>
-        <p> Export </p> 
-    </DatasetHeaderButton>
+    <ExportCSVButton v-if = "csvData" :results="csvData">
+        <ArrowDownOnSquareIcon class="size-5 text-green-400"></ArrowDownOnSquareIcon>  
+    </ExportCSVButton>
+     
 
 
 </template>
 
 <script setup lang="ts">
-    import { ArrowDownOnSquareIcon } from '@heroicons/vue/24/outline';
-
-    import DatasetHeaderButton from '../datasetHeaderButton.vue';
+    import ExportCSVButton from '@/components/buttons/ExportCSVButton.vue';
     import api from '@/components/utils/api';
 
+    import { ArrowDownOnSquareIcon } from '@heroicons/vue/24/outline';
+  
     import { useAccommodationStore } from '@/stores/AccomodationStore';
-    
+    import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery';
+    import { ref } from 'vue';
+    import { watch } from 'vue';
 
 
+
+    const csvData = ref<string | null>(null);
     const accommodationStore = useAccommodationStore() 
+    const query = useAccommodationsQuery()
 
-
-
-
-
-    async function exportCSV(){
-
-        const rawfilter = extractRawFilter()
-        const language = accommodationStore.language.toLowerCase()
-        const pagesize = accommodationStore.pagesize
-        const pagenumber = accommodationStore.pagenumber
-       
-        const fields = [
+    const fields = [
             "Id",
             "AccoDetail.de.Name",
             "AccoType.Id",
@@ -45,8 +39,22 @@
             "ImageGallery[0].ImageUrl",
             "Check",
             "Comment",
-            ];
+        ];
 
+
+    watch(query.data, async () =>{
+        csvData.value = await calculateResults()
+    })
+
+
+
+
+    async function calculateResults(){
+        
+        const rawfilter = accommodationStore.rawfilter
+        const language = accommodationStore.language.toLowerCase()
+        const pagesize = accommodationStore.pagesize
+        const pagenumber = accommodationStore.pagenumber
 
         const response = await api.get(`Accommodation?fields=${fields.join(",")}&format=csv`, {
             params: {
@@ -66,22 +74,7 @@
         })
         
         const results = response.data
-        const cleanResults = results.replace(/,/g, ";");
-        const blob = new Blob([cleanResults], { type: "text/csv;charset=utf-8;" });
-
-        
-        //creating blob and downloading
-        const url = URL.createObjectURL(blob);
-        
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", "accommodations.csv"); 
-
-        document.body.appendChild(link);
-        link.click();
-
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
+        return results
     }
     
 
