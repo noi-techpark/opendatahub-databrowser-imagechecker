@@ -91,9 +91,11 @@
   import { FunnelIcon, XCircleIcon } from '@heroicons/vue/24/outline'; 
   import { PlusIcon } from '@heroicons/vue/16/solid';
 
-  import DatasetHeaderDropDown from '../datasetHeaderDropDown.vue';
+
+  import DatasetHeaderDropDown from '@/components/datasetHeader/DropDownMenu.vue';
+  import FilterButton from '@/components/buttons/filterButton.vue';
   import ContentDivider from '@/components/contentAlignment/ContentDivider.vue'; 
-  import FilterButton from './filterButton.vue';
+ 
 
   import { ref, computed, watch } from 'vue';
 

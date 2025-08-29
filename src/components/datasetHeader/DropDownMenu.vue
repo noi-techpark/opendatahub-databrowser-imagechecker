@@ -36,7 +36,7 @@
 </template> 
 
 <script setup lang="ts">
-    import DatasetHeaderButton from './datasetHeaderButton.vue';
+
     import { ref, defineEmits, defineExpose } from 'vue';
     import { onClickOutside } from '@vueuse/core';
 

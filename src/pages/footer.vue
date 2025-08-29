@@ -24,7 +24,10 @@
     <p class = "text-sm"> lines per page </p>
 
     <div class = "flex flex-row items-center">
-      <PageSelectButton class = " ml-5 h-6"/>
+      <PageSelectButton class = " ml-5 h-6"  
+        @update-page-number="updatePageNumber" 
+        :page-number="Number(accommodationStore.pagenumber)"
+         />
       <p class = "ml-3 text-sm"> of {{ TotalPages }}</p>
     </div>
 
@@ -38,13 +41,14 @@
 
   //ICONS
 
-  import DatasetHeaderButton from '../datasetHeader/datasetHeaderButton.vue';
-  import DatasetHeaderDropDown from '../datasetHeader/datasetHeaderDropDown.vue';
-  import PageSelectButton from '../footer/pageSelectButton.vue';
+  import DatasetHeaderButton from '@/components/buttons/datasetHeaderButton.vue';
+  import DatasetHeaderDropDown from '@/components/datasetHeader/DropDownMenu.vue';
+  import PageSelectButton from '@/components/footer/pageSelectButton.vue';
+
   import { computed } from 'vue';
   import { useAccommodationStore } from '@/stores/AccomodationStore';
   import { useRoute, useRouter } from 'vue-router';
-
+  
 
 
   const route = useRoute()
@@ -65,7 +69,33 @@
   function updatePageSize(option: number){
     accommodationStore.pagesize = option
     accommodationStore.updateAndFetch(router, route)
+  }
+
+  function updatePageNumber(pagenumber: number){
+
+    if (isNaN(pagenumber) || pagenumber === null) {
+      alert("Insert a valid number")
+      return
+    }
+        
+    let newPage = pagenumber
+
+    if (pagenumber > accommodationStore.TotalPages){
+        
+        newPage = accommodationStore.TotalPages
+      
+    }
+    else if (pagenumber <= 0) {
+
+        newPage = 1
+
+    }
+
    
+    accommodationStore.pagenumber = newPage 
+  
+
+    accommodationStore.updateAndFetch(router, route)
   }
 
 </script>

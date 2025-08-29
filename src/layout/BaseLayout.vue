@@ -24,9 +24,10 @@
 </template>
 
 <script setup lang="ts">
-  import AppLayout from '@/components/layout/AppLayout.vue'
-  import DatasetHeader from '@/components/layout/DatasetHeader.vue'
-  import FiltersSideBar from '../datasetHeader/filter/filtersSideBar.vue'
+
+  import AppLayout from './AppLayout.vue'
+  import DatasetHeader from '../pages/DatasetHeader.vue'
+  import FiltersSideBar from '@/pages/filter/filtersSideBar.vue'
   import { useAccommodationStore } from '@/stores/AccomodationStore'
 
   const accommodationStore = useAccommodationStore()

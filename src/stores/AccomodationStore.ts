@@ -166,6 +166,11 @@ export const useAccommodationStore = defineStore("accommodation", {
                         return `${f.comparison}(${f.type},'${f.value}')`
                     });
 
+                this.rawfilter = conditions.length > 0
+                    ? `and(${conditions.join(",")})`
+                    : "";
+
+
                 if (conditions.length === 1) {
                     newQuery.rawfilter = conditions[0]; 
                 } else if (conditions.length > 1) {
@@ -224,7 +229,7 @@ export const useAccommodationStore = defineStore("accommodation", {
                 this.filters = [];
                 let match;
                 while ((match = regex.exec(raw)) !== null) {
-                    console.log(match[1])
+                    
                     const comparison = match[1]; // eq, like, etc...
                     const type = match[2];  // title, image, etc...
                     const value = match[3]; 

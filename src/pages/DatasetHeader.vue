@@ -3,10 +3,10 @@
 
     <div class = "flex flex-row items-center justify-center flex-wrap ml-3 space-x-2 gap-y-2">
 
-      <DatasetHeaderDropDown :title="selectedQuickFilter" :bold="true"  arrow-size="size-4" :button-component="DatasetHeaderButton">
+      <DatasetHeaderDropDown :title="typeFilterRef" :bold="true"  arrow-size="size-4" :button-component="DatasetHeaderButton">
         
         <FilterButton v-for = "(label, key) in typeFilters" @click = " handleFilter(label, key)" 
-        class ="border-none rounded-none" :class = "selectedQuickFilter === key ? 'bg-green-400/10' : '' "
+        class ="border-none rounded-none" :class = "typeFilterRef === key ? 'bg-green-400/10' : '' "
         >
           {{ key }}
         </FilterButton>            <!--TODO, add list of options  (where can i fetch them? ASK)-->
@@ -26,7 +26,7 @@
       </div>
       
       <!--SearchBar, TODOO, it's  margin controls the h of the dsh-->
-      <DatasetHeaderSearchBar class ="w-60"/>
+      <DatasetHeaderSearchBar class ="w-60" @search-value="handleSearch" :queryParam="route.query.searchfilter"/>
       
 
       <DatasetHeaderButton @click = "AccomodatioStore.showFilterSideBar = !AccomodatioStore.showFilterSideBar"
@@ -104,67 +104,78 @@
   import { InformationCircleIcon, Bars3BottomRightIcon, GlobeEuropeAfricaIcon, CircleStackIcon, 
     Bars3Icon, PlusCircleIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/outline';  
 
-  import DatasetHeaderButton from '../datasetHeader/datasetHeaderButton.vue';
-  import DatasetHeaderDropDown from '../datasetHeader/datasetHeaderDropDown.vue';
-  import DatasetHeaderSearchBar from '../datasetHeader/datasetHeaderSearchBar.vue';
-  import CardContainer from '../card/CardContainer.vue';
-  import ExportCSV from '../datasetHeader/export/exportCSV.vue'
-  import FilterButton from '../datasetHeader/filter/filterButton.vue';
+
+  import DatasetHeaderButton from '@/components/buttons/datasetHeaderButton.vue';
+  import DatasetHeaderDropDown from '@/components/datasetHeader/DropDownMenu.vue';
+  import DatasetHeaderSearchBar from '@/components/datasetHeader/SearchBar.vue';
+  import CardContainer from '@/components/card/CardContainer.vue';
+  import ExportCSV from '@/pages/export/exportCSV.vue';
+  import FilterButton from '@/components/buttons/filterButton.vue';
+  import ContentDivider from '@/components/contentAlignment/ContentDivider.vue';
 
   import { ref } from 'vue';
   import { useAccommodationStore } from '@/stores/AccomodationStore';
   import { useRoute, useRouter } from 'vue-router';
   import { onClickOutside } from '@vueuse/core';
-import ContentDivider from '../contentAlignment/ContentDivider.vue';
+
+    
 
 
   const target = ref(null)
   const target2 = ref(null)
-  const Languages = ["DE", "IT", "EN", "NL", "CS", "PL", "FR", "RU", "LD"];
+  
   const AccomodatioStore = useAccommodationStore()
   const route = useRoute()
   const router = useRouter()
   
   const showActions = ref(false)
   const showInfo = ref(false);
-  const selectedQuickFilter = ref("Accommodation")
+  const typeFilterRef = ref("Accommodation")
 
-
-  function changeLanguage(language: string){
-    AccomodatioStore.language = language
-    AccomodatioStore.updateAndFetch(router, route)
-  }
-
-
+  const Languages = ["DE", "IT", "EN", "NL", "CS", "PL", "FR", "RU", "LD"];
+  
   const typeFilters: Record<string, string> = {
     "Accommodation": "",
     "Accommodation HotelPension": "1",
     "Accommodation Mountain": "32"
   }
   
+  function changeLanguage(language: string){
+    AccomodatioStore.language = language
+    AccomodatioStore.updateAndFetch(router, route)
+  }
 
   function handleFilter(typefilterLabel : string, typefilterKey : string){
     AccomodatioStore.filters = [ ]
     AccomodatioStore.typefilter = typefilterLabel
-    selectedQuickFilter.value = typefilterKey
+    typeFilterRef.value = typefilterKey
     AccomodatioStore.updateAndFetch(router, route)
+  }
+
+  function handleSearch(value:string) {
+    AccomodatioStore.pagenumber = 1
+    AccomodatioStore.searchfilter = value
+    AccomodatioStore.updateAndFetch(router, route)
+  }
+
+
+  function refreshPage() {
+    router
+    .push({ path: '/' })
+    .then(
+      () => window.location.reload()
+    )
   }
 
   onClickOutside(target, () => {
     showInfo.value = false
   })
 
-   onClickOutside(target2, () => {
+  onClickOutside(target2, () => {
     showActions.value = false
   })
 
-  function refreshPage() {
-  router
-  .push({ path: '/' })
-  .then(
-    () => {
-    window.location.reload()
-    }
-  )
-}
+
+
+
 </script>

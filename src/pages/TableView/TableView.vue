@@ -7,10 +7,10 @@
 
     <table class="min-w-full w-full table-auto  border-separate " cellspacing="0" cellpadding="5" >
   
-      <TableHeaders></TableHeaders>
+      <TableHeaders :column-data = "headerColumns"></TableHeaders>
 
       <tbody v-if = "!isLoading && data?.Items?.length">
-        <TableRows :data = "data"></TableRows>
+        <TableRows :data = "data" :column-data="columnData"></TableRows>
       </tbody>
 
     </table>
@@ -47,7 +47,7 @@
   import TableHeaders from './TableHeaders.vue'
 
   import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery'
-  
+  import { headerColumns, columnData } from './ColumnValues'
 
   //TODOO on login, you need yo reload page to seee NON REDUCED data
 
