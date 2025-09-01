@@ -3,13 +3,16 @@ import { useQuery } from '@tanstack/vue-query'
 import { useAccommodationStore } from '@/stores/AccomodationStore'
 import { computed } from 'vue'
 import api from '@/components/utils/api'
+import { useAuth } from '@/auth/authStores/auth'
+import { keycloak } from '@/auth/keycloak'
 
 export function useAccommodationsQuery() {
   const accommodationStore = useAccommodationStore()
-
+  const auth = useAuth()
 
   const fetchAccommodations = async () => {
     // costruisci params come prima
+    
     const conditions = accommodationStore.filters
                 .filter(f => {
                     if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
@@ -27,7 +30,9 @@ export function useAccommodationsQuery() {
     const rawfilter = conditions.length > 0
                     ? `and(${conditions.join(",")})`
                     : undefined;
+    
 
+ 
 
     return api.get('Accommodation', {
       params: {
@@ -58,7 +63,8 @@ export function useAccommodationsQuery() {
     accommodationStore.filters.map(f => `${f.type}|${f.comparison}|${f.value}`).join(','),
     accommodationStore.pagenumber,
     accommodationStore.pagesize,
-    accommodationStore.language
+    accommodationStore.language,
+    auth.accessToken
   ]),
     queryFn: fetchAccommodations,
     staleTime: 5 * 60 * 1000,

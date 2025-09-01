@@ -81,7 +81,6 @@
   onMounted(() => {
     accommodationStore.restoreFromUrl(route);
 
-    
     //INFO, TODOO, 
     //by extracting the token from localstorage you can stay logged in after refreshes, useful when developing
     // this might be bad practice, tokens should be stored in HttpOnly Cookie
@@ -93,12 +92,6 @@
     */
 
   });
-
-
-  
-
-
-
 
 
 </script>
