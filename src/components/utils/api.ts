@@ -18,6 +18,7 @@ api.interceptors.request.use((config) => {
     if (!config.headers) {
       config.headers = new AxiosHeaders();
     }
+
     (config.headers as AxiosHeaders).set(
       "Authorization",
       `Bearer ${auth.accessToken}`

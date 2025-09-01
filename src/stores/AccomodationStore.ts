@@ -166,9 +166,7 @@ export const useAccommodationStore = defineStore("accommodation", {
                         return `${f.comparison}(${f.type},'${f.value}')`
                     });
 
-                this.rawfilter = conditions.length > 0
-                    ? `and(${conditions.join(",")})`
-                    : "";
+                
 
 
                 if (conditions.length === 1) {
@@ -239,6 +237,7 @@ export const useAccommodationStore = defineStore("accommodation", {
             } else {
                 this.filters = [];
             }
+            
             
 
             //TODOO

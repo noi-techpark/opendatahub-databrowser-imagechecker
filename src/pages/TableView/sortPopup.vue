@@ -67,8 +67,10 @@
             isOpen: false
         },
     )
+
+
     const emit = defineEmits<{
-     (e: "emit-event", payload: { ascending: boolean; descending: boolean; isOpen:boolean }): void
+     (e: "popup-event", payload: { ascending: boolean; descending: boolean; isOpen:boolean }): void
     }>()
 
 
@@ -81,7 +83,7 @@
         } else {
             disableRawSort()
         }
-        emit("emit-event", { ascending: ascendingCheck.value, descending: descendingCheck.value, isOpen: true })
+        emit("popup-event", { ascending: ascendingCheck.value, descending: descendingCheck.value, isOpen: true })
 
     }
 
@@ -95,7 +97,7 @@
         else {
             disableRawSort()
         }
-        emit("emit-event", { ascending: ascendingCheck.value, descending: descendingCheck.value, isOpen: true })
+        emit("popup-event", { ascending: ascendingCheck.value, descending: descendingCheck.value, isOpen: true })
     }
 
 
@@ -116,7 +118,7 @@
         ]
 
         accommodationStore.showFilterSideBar = true
-        emit("emit-event", {ascending: ascendingCheck.value, descending: descendingCheck.value, isOpen: false})
+        emit("popup-event", {ascending: ascendingCheck.value, descending: descendingCheck.value, isOpen: false})
     }
 
 

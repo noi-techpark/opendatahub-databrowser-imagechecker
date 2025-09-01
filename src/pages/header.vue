@@ -1,21 +1,21 @@
 <template>
   <header v-bind="$attrs" class="sticky top-0  w-full bg-white ">
     <AlignX class="flex flex-row gap-x-5 w-full items-start mt-2 ">
-      
+
       <HeaderButton @click = "refreshPage()">
 
-       
-          <div class = "border border-black rounded-lg  p-3 h-10  items-start justify-center flex flex-col text-sm"> 
-            <b>DATA</b> 
+
+          <div class = "border border-black rounded-lg  p-3 h-10  items-start justify-center flex flex-col text-sm">
+            <b>DATA</b>
             <b>BROWSER</b>
-          </div>  
-        
+          </div>
+
 
       </HeaderButton>
 
-      <HeaderButton>     
+      <HeaderButton>
         <div class=" bg-yellow-400 flex justify-center  items-center h-10 w-24 rounded-lg">
-          <p>TESTING</p>  
+          <p>TESTING</p>
         </div>
       </HeaderButton>
 
@@ -28,7 +28,7 @@
 
       <div class=" w-screen flex justify-end  items-start space-x-2 relative" ref = "target">
 
-        <div v-if = "openProfile" class = "absolute top-[47px] right-14 flex flex-col w-52  border bg-white border-gray-300 rounded shadow-lg ">        
+        <div v-if = "openProfile" class = "absolute top-[47px] right-14 flex flex-col w-52  border bg-white border-gray-300 rounded shadow-lg ">
           <button v-if = "!auth.isAuthenticated" @click = "handleLogin()" class = "hover:bg-yellow-300/90 h-10 flex items-center pl-3 transition-colors duration-300">login</button>
           <ContentDivider ></ContentDivider>
           <button  v-if = "auth.isAuthenticated" @click = "handleLogout()" class = "hover:bg-yellow-300/90 h-10 flex items-center pl-3 transition-colors duration-300 ">logout</button>
@@ -139,7 +139,7 @@ function handleLogout(){
   keycloak.logout()
 }
 
-const profileUrl = keycloak.createAccountUrl();
+
 
 onClickOutside(target, () => {
   openProfile.value = false
