@@ -1,3 +1,5 @@
+[![REUSE Compliance](https://github.com/noi-techpark/opendatahub-databrowser-imagechecker/actions/workflows/reuse.yml/badge.svg)](https://github.com/noi-techpark/opendatahub-docs/wiki/REUSE#badges)
+
 # Accommodation Filter App
 
 A Dataset Browser that allows users to search and filter accommodations using a dynamic sidebar, URL query parameters, and API integration.
