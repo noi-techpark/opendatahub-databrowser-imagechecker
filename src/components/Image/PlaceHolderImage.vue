@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-//TODOO, Decide wich placeholder to use, or not use...
+
 import IconImagePlaceholder from './IconImagePlaceholder.vue';
 
 </script>

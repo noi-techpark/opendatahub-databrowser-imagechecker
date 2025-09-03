@@ -30,6 +30,7 @@
                     v-for="image in props.item.ImageGallery"
                     :key="image.ImageUrl"
                     class="flex flex-col items-center"
+                    @click = "openImage(image)"
                 >
                     <img
                     :src="image?.ImageUrl || ''"
@@ -37,14 +38,21 @@
                     class="w-full object-cover rounded-lg"
                     :style="{ width: sizeRef + 'rem', height: sizeRef + 'rem', objectFit: 'cover' }"
                     />
-
+                    
                     <div class="text-sm  mt-2 text-white">
                         <p v-if="image.ValidFrom" >from: {{ DateFormatter(image.ValidFrom) }}</p>
                         <p v-if="image.ValidTo" >to: {{ DateFormatter(image.ValidTo) }}</p>
                         <p v-else class = "text-gray-500">Missing Validity Dates</p>
                     </div>
+
+                    
+
+
                 </div>
             </div>
+
+
+            <ShowImageFullView v-if = "isFullView" :image="selectedImage" :date-formatter="DateFormatter" @close="isFullView = false"></ShowImageFullView>
 
 
             
@@ -55,17 +63,20 @@
 
 <script setup lang="ts">
     
-    import { PlusIcon } from '@heroicons/vue/24/outline';
+   
+    import ShowImageFullView from '@/components/Image/showImageFullView.vue';
     import { useAccommodationStore } from '@/stores/AccomodationStore';
     import { ref } from 'vue';
 
+
     const accommodationStore = useAccommodationStore()
     const sizeRef = ref(10)
-
+    const isFullView = ref(false)
+    const selectedImage = ref<any>()
 
     const props = defineProps<{
         item: any
-
+        
     }>()
     const emit = defineEmits<{
         (e: "close"): void
@@ -79,6 +90,12 @@
     const d = new Date(date)
     return d.toLocaleDateString(accommodationStore.language.toLowerCase());
   }
+
+
+  function openImage(image: any){
+    selectedImage.value = image
+    isFullView.value = true
+}
 
 
 

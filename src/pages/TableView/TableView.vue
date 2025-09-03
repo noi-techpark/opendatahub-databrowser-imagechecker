@@ -49,10 +49,9 @@
   import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery'
   import { headerColumns, columnData } from './ColumnValues'
 
-  //TODOO on login, you need yo reload page to seee NON REDUCED data
+  
 
   const route = useRoute()
- 
   const accommodationStore: any = useAccommodationStore()
 
   const auth = useAuth()
@@ -64,11 +63,12 @@
 
   watch(data, async () => {
 
-    if(accommodationStore.FirstTotalResults == 0){ //TODOO use Tanstack query to chache this result, and avoid an extra api call
-
+    if(accommodationStore.FirstTotalResults == 0){ //TODOO, an extra call mght be unnecessary here
+      
       const result = await api.get("Accommodation")
       const FirstTotalResults = result.data.TotalResults
       accommodationStore.FirstTotalResults = FirstTotalResults
+    
     }
 
     const totalResults = computed(() => data.value?.TotalResults ?? 0)
