@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
 
 <template>
   <th class="min-w-36 leading-tight text-gray-900 md:p-4  border-gray-200 border-2 " ref = "target"  >

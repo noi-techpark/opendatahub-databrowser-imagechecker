@@ -1,3 +1,10 @@
+/*
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+
+*/
+   
    import { useAccommodationStore } from "@/stores/AccomodationStore"
    const accommodationStore = useAccommodationStore()
    import showImages from "./showImages.vue"

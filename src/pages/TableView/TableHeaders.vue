@@ -1,3 +1,10 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+
 <template>
       <TableHeader class = " sticky top-0 z-20 ">
         

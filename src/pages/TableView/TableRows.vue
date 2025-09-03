@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
     <tr v-for=" item in props.data.Items" :key="item.Id" @click="selectedRow = item.Id "
         :class="[

@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
 <div class = "flex flex-row space-x-2">
      <button @click = "updatePageNumber(--pagenumberRef)">

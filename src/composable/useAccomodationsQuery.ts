@@ -1,3 +1,11 @@
+/*
+
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+
+*/
+
 // composables/useAccommodationsQuery.ts
 import { useQuery } from '@tanstack/vue-query'
 import { useAccommodationStore } from '@/stores/AccomodationStore'
