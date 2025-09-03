@@ -1,4 +1,3 @@
-
 [![REUSE Compliance](https://github.com/noi-techpark/opendatahub-databrowser-imagechecker/actions/workflows/reuse.yml/badge.svg)](https://github.com/noi-techpark/opendatahub-docs/wiki/REUSE#badges)
 
 # Accommodation Filter App
