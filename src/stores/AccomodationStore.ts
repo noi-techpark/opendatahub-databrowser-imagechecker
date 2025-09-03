@@ -1,3 +1,8 @@
+/*
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+*/
 import { defineStore } from "pinia";
 import { useRoute, useRouter } from "vue-router";
 
@@ -41,92 +46,8 @@ export const useAccommodationStore = defineStore("accommodation", {
     },
 
     actions: {
-        /*
-        async fetchData(router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
-            this.loading = true;
-            const languageStore = useLanguageStore()
-            const footerStore = useFooterStore()
-            
-            
 
-            //filters the "Filters" that dont have a value, with the exception of isnull and isnotnull filterTypes
-            try {
-
-                
-                const conditions = this.filters
-                .filter(f => {
-                    if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
-                    return true
-                    }
-                    return f.value.trim() !== ""
-                })
-                .map(f => {
-                    if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
-                    return `${f.comparison}(${f.type})`
-                    }
-                    return `${f.comparison}(${f.type},'${f.value}')`
-                });
-
-            
-
-                const rawfilter = conditions.length > 0
-                    ? `and(${conditions.join(",")})`
-                    : undefined;
-
-                const language = languageStore.language.toLowerCase()
-                const pagesize = footerStore.pagesize
-                const pagenumber = footerStore.pagenumber
-                
-                               
-                console.log("rawsort: " + this.rawsort)
-                
-                const response = await api.get("Accommodation", {
-                    params: {
-                        pagenumber,
-                        pagesize,
-                        language,
-                        roominfo: "1-18,18",
-                        bokfilter: "hgv",
-                        msssource: "sinfo",
-                        availabilitychecklanguage: "en",
-                        detail: 0,
-                        searchfilter: this.searchfilter || undefined,
-                        typefilter: this.typefilter || null,
-                        rawfilter,
-                        rawsort: this.rawsort || null,
-                        removenullvalues: false,
-                        getasidarray: false,
-                    },
-                
-                });
-
-                this.results = response.data;
-                this.APIurl = response.config.url ? response.config.url : ""
-                
-
-                //TODOO, there might be a better way, 2 api calls just for this variable is a waste
-                if (footerStore.FirstTotalResults === 0) {
-                    const responseNoFilter: any = await api.get("Accommodation");
-                    footerStore.FirstTotalResults = responseNoFilter.data.TotalResults
-                    console.log("first: " + footerStore.FirstTotalResults)
-                }
-
-              
-
-            } catch (error) {
-                console.error("Error fetching accommodations:", error);
-            } finally {
-                
-                footerStore.TotalResults = (this.results as any)?.TotalResults ?? 0;
-                console.log( "TOTAL RESULTS: " + footerStore.TotalResults)
-               
-                this.loading = false;
-            }
-        
-        },
-        */
-
-        //Updates URL, and fetches Data accordingly
+        //Updates URL, TODOO update name and calls to "updateURL"
         async updateAndFetch(router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
 
             if (router && route) {
@@ -165,6 +86,9 @@ export const useAccommodationStore = defineStore("accommodation", {
                         
                         return `${f.comparison}(${f.type},'${f.value}')`
                     });
+
+                
+
 
                 if (conditions.length === 1) {
                     newQuery.rawfilter = conditions[0]; 
@@ -224,7 +148,7 @@ export const useAccommodationStore = defineStore("accommodation", {
                 this.filters = [];
                 let match;
                 while ((match = regex.exec(raw)) !== null) {
-                    console.log(match[1])
+                    
                     const comparison = match[1]; // eq, like, etc...
                     const type = match[2];  // title, image, etc...
                     const value = match[3]; 
@@ -234,6 +158,7 @@ export const useAccommodationStore = defineStore("accommodation", {
             } else {
                 this.filters = [];
             }
+            
             
 
             //TODOO

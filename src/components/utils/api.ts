@@ -1,3 +1,9 @@
+/*
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+*/
+
 // api.ts
 import axios from "axios";
 import { keycloak } from "@/auth/keycloak";
@@ -18,6 +24,7 @@ api.interceptors.request.use((config) => {
     if (!config.headers) {
       config.headers = new AxiosHeaders();
     }
+
     (config.headers as AxiosHeaders).set(
       "Authorization",
       `Bearer ${auth.accessToken}`

@@ -1,3 +1,11 @@
+/*
+
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+
+*/
+
 import { createRouter, createWebHistory } from 'vue-router'
 
 export const router = createRouter({
@@ -5,7 +13,7 @@ export const router = createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('./components/pages/homePage.vue'),
+      component: () => import('./layout/homePage.vue'),
       name: 'app',
     }, 
     {

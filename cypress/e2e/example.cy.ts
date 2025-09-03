@@ -1,4 +1,7 @@
-// https://on.cypress.io/api
+/*
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+SPDX-License-Identifier: CC0-1.0
+ */
 
 describe('My First Test', () => {
   it('visits the app root url', () => {

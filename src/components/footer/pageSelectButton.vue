@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
 <div class = "flex flex-row space-x-2">
      <button @click = "updatePageNumber(--pagenumberRef)">
@@ -30,46 +36,27 @@
 <script setup lang="ts">
 
     import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
-    import { useAccommodationStore } from '@/stores/AccomodationStore';
-    import { useRoute, useRouter } from 'vue-router';
     import { ref, watch } from 'vue';
 
     const pagenumberRef = ref(1)
-   
 
-    const route = useRoute()
-    const router = useRouter()
-
-
-    const accommodationStore = useAccommodationStore()
 
     function updatePageNumber(pagenumber: number){
-
-         if (isNaN(pagenumber) || pagenumber === null) {
-            alert("Inserisci un numero valido per la pagina")
-            return
-        }
-        
-        if(pagenumber > accommodationStore.TotalPages){
-            accommodationStore.pagenumber = accommodationStore.TotalPages
-            pagenumberRef.value = accommodationStore.TotalPages
-         
-        }
-        else if(pagenumber <= 0 ){
-            accommodationStore.pagenumber = 1
-            pagenumberRef.value = 1
-           
-        }
-        else{
-            accommodationStore.pagenumber = pagenumber
-            
-        }
-            
-        accommodationStore.updateAndFetch(router, route)
+        console.log("emit")
+        emit("UpdatePageNumber", pagenumber)
     }
 
-    watch(() => accommodationStore.pagenumber, () => {
-        pagenumberRef.value = accommodationStore.pagenumber
+
+    const props = defineProps<{
+        pageNumber: number
+    }>()
+
+    const emit = defineEmits<{
+        (e: "UpdatePageNumber", pagenumber: number): void
+    }>()
+
+    watch(() => props.pageNumber, (val) => {
+        pagenumberRef.value = val
     })
 
 
