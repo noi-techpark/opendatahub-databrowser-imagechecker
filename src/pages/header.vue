@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
   <header v-bind="$attrs" class="sticky top-0  w-full bg-white ">
     <AlignX class="flex flex-row gap-x-5 w-full items-start mt-2 ">

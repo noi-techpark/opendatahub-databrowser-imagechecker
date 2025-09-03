@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
 
   <div class="flex flex-col items-center p-3 space-y-3 " v-for = "(filter, index) in accommodationStore.filtersRef" :key="index">

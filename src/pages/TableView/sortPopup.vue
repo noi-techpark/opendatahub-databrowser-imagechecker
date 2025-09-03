@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template> 
     <div class =  " absolute left-24 top-8
       bg-white border border-gray-300 rounded shadow-lg 
