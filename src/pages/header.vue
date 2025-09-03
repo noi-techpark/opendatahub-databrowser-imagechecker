@@ -88,8 +88,6 @@ function refreshPage() {
 //KEYCLOACK AUTHENTICATION
 
 
-//TODOO on auth success, the token is saved n localstorage, and is reloaded after every page rerfresh, this might be bad practice/unsafe
-
 
 
 

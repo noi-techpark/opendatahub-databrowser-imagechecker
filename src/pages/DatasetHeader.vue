@@ -9,7 +9,7 @@
         class ="border-none rounded-none" :class = "typeFilterRef === key ? 'bg-green-400/10' : '' "
         >
           {{ key }}
-        </FilterButton>            <!--TODO, add list of options  (where can i fetch them? ASK)-->
+        </FilterButton>            
         
       </DatasetHeaderDropDown>
 

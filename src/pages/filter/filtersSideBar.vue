@@ -1,5 +1,5 @@
 <template>
-    <div class = " left-0 bg-gray-50 w-[33.3333%] border z-5 ">
+    <div class = " left-0 bg-gray-50 w-[33.3333%] border z-5  ">
      
             <div class =" h-[75px] bg-gray-250 border rounded justify-between items-center flex  sticky top-0 z-20" > 
                 
@@ -10,6 +10,7 @@
                 <DatasetHeaderButton @click = "accomodationStore.showFilterSideBar = false" class = "mr-5" >
                     <XMarkIcon class = "size-6 text-green-400 "></XMarkIcon>
                 </DatasetHeaderButton>
+                
             </div>
           
 
