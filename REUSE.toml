@@ -5,6 +5,6 @@
 version = 1
 
 [[annotations]]
-path = [ "**/*.json", "**/.gitattributes", "**/.gitignore", "**/.svg", "**/.png", "**/.md", "**/.txt", "**/.env", "**/.env.example", "**/.editorconfig", "**/.yml", "**/.ico" , "**/.ttf"]
+path = [ "**/*.json", "**/.gitattributes", "**/.gitignore", "**/.svg", "**/.png", "**/.md", "**/.txt", "**/.env", "**/.env.example", "**/.editorconfig", "**/.yml", "**/.ico" , "**/.ttf", "**/.cfg","**/.conf", "infrastructure/**" ]
 SPDX-FileCopyrightText = "(c) NOI Techpark <digital@noi.bz.it>"
 SPDX-License-Identifier = "CC0-1.0"
