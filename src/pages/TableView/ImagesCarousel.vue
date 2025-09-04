@@ -36,7 +36,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 <div
                     v-for="image in props.item.ImageGallery"
                     :key="image.ImageUrl"
-                    class="flex flex-col items-center"
+                    class="flex flex-col items-center cursor-pointer"
                     @click = "openImage(image)"
                 >
                     <img
@@ -59,7 +59,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </div>
 
 
-            <ShowImageFullView v-if = "isFullView" :image="selectedImage" :date-formatter="DateFormatter" @close="isFullView = false"></ShowImageFullView>
+            <ShowImageFullView v-if = "isFullView" :image="selectedImage" :date-formatter="DateFormatter" @close="isFullView = false"  ></ShowImageFullView>
 
 
             
