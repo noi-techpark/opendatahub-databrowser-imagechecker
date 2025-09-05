@@ -7,7 +7,7 @@ on:
 env:
   NODE_VERSION: 20.x
   PROJECT_NAME: opendatahub-databrowser-imagechecker
-  DOCKER_IMAGE: ghcr.io/emgira/accommodations/opendatahub-databrowser-imagechecker
+  DOCKER_IMAGE: ghcr.io/${{ github.repository }}/opendatahub-databrowser-imagechecker
 
 jobs:
   test:
