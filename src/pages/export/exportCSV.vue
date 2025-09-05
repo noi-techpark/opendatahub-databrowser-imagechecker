@@ -84,29 +84,5 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     }
     
 
-    function extractRawFilter(): string | undefined{
-
-        const conditions = accommodationStore.filters
-        .filter(f => {
-            if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
-            return true
-            }
-            return f.value.trim() !== ""
-        })
-        .map(f => {
-            if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
-            return `${f.comparison}(${f.type})`
-            }
-             return `${f.comparison}(${f.type},'${f.value}')`
-        });
-
-            
-
-        const rawfilter = conditions.length > 0
-            ? `and(${conditions.join(",")})`
-            : undefined;
-
-        return rawfilter
-    }
 
 </script>
