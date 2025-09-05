@@ -26,11 +26,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 
         <!--Detail Column-->
-        <TableCell class = "sticky right-0 z-10 bg-white border w-52  whitespace-nowrap shadow-[0px_5px_10px_-5px_gray] "> <!--TODOO maybe change out shadows-->
+        <TableCell class = "sticky right-0 z-10 bg-white border w-52  whitespace-nowrap shadow-[0px_5px_10px_-5px_gray] "> 
 
             <div class="flex flex-row space-x-2 justify-center ">
 
-                <DetailButton class = "w-12" @click ="console.log(item.Id, accommodationStore.results)" > 
+                <DetailButton class = "w-12" @click ="console.log(item.Id)" > 
                     <PencilSquareIcon class = "size-5 text-green-400"/>
                     <p class = "text-3xs font-semibold text-green-400">EDIT</p>
                 </DetailButton>
@@ -50,18 +50,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </TableCell>
 
 
-        <ImagesCarousel v-if = "fullViewItem" :item="fullViewItem"  @close="fullViewItem = null" ></ImagesCarousel>
+        <ImagesCarousel v-if = "fullViewItem" :item="fullViewItem"  @close="fullViewItem = null" />
 
     </tr> 
 </template>
 
 <script setup lang="ts">
 //ICONS
- const props = defineProps<{
-        data: any,
-        columnData: any
-   
-    }>()
+
 
   import { CursorArrowRaysIcon, PencilSquareIcon, PhotoIcon } from '@heroicons/vue/24/outline'
   
@@ -71,14 +67,22 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import { ref } from 'vue'
   import { useAccommodationStore } from '@/stores/AccomodationStore'
   import ImagesCarousel from './ImagesCarousel.vue';
+    import type { Accommodation } from './types';
+    import type { ColumnItem } from './ColumnValues'
   
+    const props = defineProps<{
+        data: { Items: Accommodation[]},
+        columnData: ColumnItem[]
+
+    }>()
+
   const selectedRow = ref<number | null>(null)
-  const fullViewItem = ref<any | null>(null)  
+  const fullViewItem = ref<Accommodation | null>(null)  
  
-  const accommodationStore: any = useAccommodationStore()
+  const accommodationStore = useAccommodationStore()
 
 
-  function openFullView(item: any) {
+  function openFullView(item: Accommodation) {
     fullViewItem.value = item
   }
 

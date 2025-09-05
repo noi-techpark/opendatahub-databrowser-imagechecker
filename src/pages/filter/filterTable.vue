@@ -11,14 +11,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <div class= " w-full flex justify-end">
     <button @click = "removeFilter(index)" class= " w-8 flex justify-end">
-      <XCircleIcon class = "size-6 text-red-500 mr-1"></XCircleIcon>
+      <XCircleIcon class = "size-6 text-red-500 mr-1"/>
     </button>
     </div>
 
     <div class="flex space-x-2 w-full h-auto" > 
 
       <DatasetHeaderDropDown
-        :ref ="el => dropdownRef1[index] = el"
+        ref="dropdownRef1"
         :title="filterTypesMap[filter.type] || filter.type"
         class="w-full whitespace-break-spaces "
         :button-component="FilterButton"
@@ -39,7 +39,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </DatasetHeaderDropDown>
 
       <DatasetHeaderDropDown
-        :ref ="el => dropdownRef2[index] = el"
+        ref="dropdownRef2"
         :title="filterComparison[filter.comparison] || filter.comparison"
         class="w-full "
         :button-component="FilterButton"
@@ -122,8 +122,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   const router = useRouter()
   const route = useRoute()
 
-  const dropdownRef1 = ref<any[]>([]);
-  const dropdownRef2 = ref<any[]>([]);
+//const dropdownRef1: Ref<(InstanceType<typeof DatasetHeaderDropDown> | null)[]> = ref([])
+  const dropdownRef1 = ref<InstanceType<typeof DatasetHeaderDropDown>[]>([])
+  const dropdownRef2 = ref<InstanceType<typeof DatasetHeaderDropDown>[]>([])
+//const dropdownRef2: Ref<(InstanceType<typeof DatasetHeaderDropDown> | null)[]> = ref([])
 
 
   const filterComparison =  <Record<string, string>>{

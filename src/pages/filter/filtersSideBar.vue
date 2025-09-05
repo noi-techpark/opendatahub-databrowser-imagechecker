@@ -59,7 +59,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     import { useRoute, useRouter } from 'vue-router';
     import { ref } from 'vue';
 
-    const filterTableRef = ref<any>()
+    //const filterTableRef: Ref<(InstanceType<typeof FilterTable> | null)> = ref<any>()
+    const filterTableRef = ref<InstanceType<typeof FilterTable>>()
     const route = useRoute()
     const router = useRouter()
     

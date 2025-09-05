@@ -36,7 +36,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 <div
                     v-for="image in props.item.ImageGallery"
                     :key="image.ImageUrl"
-                    class="flex flex-col items-center"
+                    class="flex flex-col items-center cursor-pointer"
                     @click = "openImage(image)"
                 >
                     <img
@@ -59,7 +59,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </div>
 
 
-            <ShowImageFullView v-if = "isFullView" :image="selectedImage" :date-formatter="DateFormatter" @close="isFullView = false"></ShowImageFullView>
+            <ShowImageFullView v-if = "isFullView && selectedImage" :image="selectedImage" :date-formatter="DateFormatter" @close="isFullView = false"  ></ShowImageFullView>
 
 
             
@@ -74,15 +74,20 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     import ShowImageFullView from '@/components/Image/showImageFullView.vue';
     import { useAccommodationStore } from '@/stores/AccomodationStore';
     import { ref } from 'vue';
+    import type { Accommodation } from './types';
 
 
     const accommodationStore = useAccommodationStore()
     const sizeRef = ref(10)
     const isFullView = ref(false)
-    const selectedImage = ref<any>()
+    const selectedImage = ref<{
+        ValidFrom: string;
+        ValidTo: string;
+        ImageUrl: string;
+    } | null>(null)
 
     const props = defineProps<{
-        item: any
+        item: Accommodation
         
     }>()
     const emit = defineEmits<{
@@ -99,7 +104,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   }
 
 
-  function openImage(image: any){
+  function openImage(image: {
+        ValidFrom: string;
+        ValidTo: string;
+        ImageUrl: string;
+    } ){
     selectedImage.value = image
     isFullView.value = true
 }

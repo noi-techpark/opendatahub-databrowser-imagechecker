@@ -16,7 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <div class = "flex flex-row space-x-2 items-center ">
               <DatasetHeaderButton class = "w-full" >
                 <label class = "flex flex-row space-x-2 items-center ">
-                    <input type="checkbox" name="option1" v-model="ascendingCheck" @change="orderAscending()"></input>
+                    <input type="checkbox" name="option1" v-model="ascendingCheck" @change="orderAscending()"/>
                     <p>Ascending</p>
                     <ChevronDoubleUpIcon class = "size-5 text-green-400"/>
                 </label>
@@ -24,7 +24,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
               <DatasetHeaderButton class = "w-full" >
                 <label class="flex flex-row items-center space-x-2">
-                    <input type="checkbox" name="option2" v-model="descendingCheck" @change="orderDescending()"></input>
+                    <input type="checkbox" name="option2" v-model="descendingCheck" @change="orderDescending()"/>
                     <p>Descending</p>
                     <ChevronDoubleDownIcon class = "size-5 text-green-400"/>
                 </label>
