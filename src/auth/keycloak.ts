@@ -21,7 +21,7 @@ keycloak
   .then(() => {
     setInterval(() => {
       keycloak.updateToken(70)
-        .catch((e) => {
+        .catch(() => {
           
           
           if (keycloak.token) {

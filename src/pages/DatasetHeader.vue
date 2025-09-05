@@ -11,8 +11,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
       <DatasetHeaderDropDown :title="typeFilterRef" :bold="true"  arrow-size="size-4" :button-component="DatasetHeaderButton">
         
-        <FilterButton v-for = "(label, key) in typeFilters" @click = " handleFilter(label, key)" 
-        class ="border-none rounded-none" :class = "typeFilterRef === key ? 'bg-green-400/10' : '' "
+        <FilterButton 
+          v-for = "(label, key) in typeFilters" 
+          :key = "key" 
+          @click = " handleFilter(label, key)" 
+         class ="border-none rounded-none" :class = "typeFilterRef === key ? 'bg-green-400/10' : '' "
         >
           {{ key }}
         </FilterButton>            

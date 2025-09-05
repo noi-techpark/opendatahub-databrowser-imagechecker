@@ -12,7 +12,7 @@ import { useAccommodationStore } from '@/stores/AccomodationStore'
 import { computed } from 'vue'
 import api from '@/components/utils/api'
 import { useAuth } from '@/auth/authStores/auth'
-import { keycloak } from '@/auth/keycloak'
+
 
 export function useAccommodationsQuery() {
   const accommodationStore = useAccommodationStore()

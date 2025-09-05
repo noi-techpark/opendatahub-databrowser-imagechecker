@@ -11,15 +11,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         border rounded border-gray-300 hover:border-green-400
         bg-white  hover:bg-green-400/10">
 
-        <magnifying-glass-icon class = "size-5 text-green-400"></magnifying-glass-icon>
+        <magnifying-glass-icon class = "size-5 text-green-400"/>
 
     
         <input class = "h-9 min-w-6 p-2 m-1 border-none   bg-transparent text-sm " 
-        placeholder="insert search value " type="text" v-model="searchValue" @keyup.enter="handleSearch(searchValue)">
-        </input>
-
+        placeholder="insert search value " type="text" v-model="searchValue" @keyup.enter="handleSearch(searchValue)"
+        />
+ 
         <button class ="bg-transparent " v-if = "searchValue">
-            <x-mark-icon class="size-4 mr-2" @click="() => {searchValue = '', handleSearch('')}"></x-mark-icon>
+            <x-mark-icon class="size-4 mr-2" @click="() => {searchValue = '', handleSearch('')}"/>
         </button>
 
         <button class = "bg-green-500  rounded p-2  text-white text-xs hover:bg-green-700  font-bold"

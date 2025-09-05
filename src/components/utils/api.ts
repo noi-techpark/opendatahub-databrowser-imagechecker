@@ -6,7 +6,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 // api.ts
 import axios from "axios";
-import { keycloak } from "@/auth/keycloak";
 import { AxiosHeaders } from "axios";
 import { useAuth } from "@/auth/authStores/auth";
 

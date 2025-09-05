@@ -4,13 +4,28 @@ SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
 SPDX-License-Identifier: AGPL-3.0-or-later
 
 */
-   
+
+    import type { Accommodation } from "./types"
    import { useAccommodationStore } from "@/stores/AccomodationStore"
    const accommodationStore = useAccommodationStore()
    import showImages from "./showImages.vue"
+import type { Component } from "vue"
 
 
-export const headerColumns = [
+export type ColumnItem = {
+  key: string
+  getValue?: (item: Accommodation, lang?: string) => string
+  component?: Component
+  props?: Record<string, unknown>
+}
+
+export type HeaderItem = {
+  key: string
+  label: string
+  parameter: string
+}
+
+export const headerColumns: HeaderItem[] = [
     { key: "title",         label: "Title",             parameter: `AccoDetail.${accommodationStore.language.toLowerCase()}.Name` },
     { key: "mainImage",     label: "Main Image",        parameter: "ImageGallery.0.ImageUrl" },
     { key: "winterImage",   label: "Image Winter",      parameter: "" },
@@ -31,24 +46,24 @@ export const headerColumns = [
     { key: "push",          label: "Push data",         parameter: "ODHTags" },  //TODOO; change parameter and add pushData filter in filterTable
 ]
 
-export const columnData = [
-  { key: "title",           getValue: (item: any, lang: string) => item.AccoDetail?.[lang]?.Name || "nessun titolo" },
+export const columnData: ColumnItem[] = [
+  { key: "title",           getValue: (item: Accommodation, lang?: string ) => item.AccoDetail?.[lang ?? "en"]?.Name || "nessun titolo" },
   { key: "mainImage",       component: showImages, props: { period: "mainImage" as const} },
   { key: "winterImage",     component: showImages, props: { period: "winter" as const } },
   { key: "summerImage",     component: showImages, props: { period: "summer" as const } },
   { key: "yearImage",       component: showImages, props: { period: "year" as const } },
-  { key: "accoType",        getValue: (item: any) => item.AccoType?.Id || "not found" },
-  { key: "accoCategory",    getValue: (item: any) => item.AccoCategory?.Id || "not found" },
-  { key: "region",          getValue: (item: any, lang: string) => item.LocationInfo?.RegionInfo?.Name?.[lang] || "not found" },
-  { key: "municipality",    getValue: (item: any, lang: string) => item.LocationInfo?.MunicipalityInfo?.Name?.[lang] || "not found" },
-  { key: "badges",          getValue: (item: any) => formatObject(item.AccoBadges) },
-  { key: "themes",          getValue: (item: any) => formatObject(item.AccoThemes) },
-  { key: "tags",            getValue: (item: any) => formatObject(item.ODHTags) },
-  { key: "languages",       getValue: (item: any) => item.HasLanguage?.toString() },
-  { key: "edited",          getValue: (item: any) => formatEditDate(item._Meta?.LastUpdate || "not found") },
-  { key: "source",          getValue: (item: any) => item._Meta?.Source || "not found" },
-  { key: "active",          getValue: (item: any) => item.Active ? "active" : "Not active" },
-  { key: "published",       getValue: (item: any) => formatArray(item.PublishedOn) },
+  { key: "accoType",        getValue: (item: Accommodation) => item.AccoType?.Id || "not found" },
+  { key: "accoCategory",    getValue: (item: Accommodation) => item.AccoCategory?.Id || "not found" },
+  { key: "region",          getValue: (item: Accommodation, lang?: string) => item.LocationInfo?.RegionInfo?.Name?.[lang ?? "en"] || "not found" },
+  { key: "municipality",    getValue: (item: Accommodation, lang?: string) => item.LocationInfo?.MunicipalityInfo?.Name?.[lang ?? "en"] || "not found" },
+  { key: "badges",          getValue: (item: Accommodation) => formatObject(item.AccoBadges) },
+  { key: "themes",          getValue: (item: Accommodation) => formatObject(item.AccoThemes) },
+  { key: "tags",            getValue: (item: Accommodation) => formatObject(item.ODHTags) },
+  { key: "languages",       getValue: (item: Accommodation) => item.HasLanguage?.toString() ?? "-" },
+  { key: "edited",          getValue: (item: Accommodation) => formatEditDate(item._Meta?.LastUpdate || "not found") },
+  { key: "source",          getValue: (item: Accommodation) => item._Meta?.Source || "not found" },
+  { key: "active",          getValue: (item: Accommodation) => item.Active ? "active" : "Not active" },
+  { key: "published",       getValue: (item: Accommodation) => formatArray(item.PublishedOn) },
   { key: "push",            getValue: () => "push data" }
 ]
 

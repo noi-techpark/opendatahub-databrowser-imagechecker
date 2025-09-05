@@ -23,8 +23,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 
-  import Header from '../pages/header.vue'
-  import Footer from '../pages/footer.vue'
+  import Header from '../pages/AppHeader.vue'
+  import Footer from '../pages/AppFooter.vue'
   import ContentDivider from '@/components/contentAlignment/ContentDivider.vue';
 
 </script>
