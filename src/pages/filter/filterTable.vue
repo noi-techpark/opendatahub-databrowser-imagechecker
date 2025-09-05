@@ -103,7 +103,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import ContentDivider from '@/components/contentAlignment/ContentDivider.vue'; 
  
 
-  import { ref, computed, watch, type Ref } from 'vue';
+  import { ref, computed, watch } from 'vue';
 
 
   import { useAccommodationStore } from '@/stores/AccomodationStore';
