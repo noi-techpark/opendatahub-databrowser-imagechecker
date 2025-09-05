@@ -18,7 +18,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <div class="flex space-x-2 w-full h-auto" > 
 
       <DatasetHeaderDropDown
-        :ref="(instance) => dropdownRef1[index] = instance as InstanceType<typeof DatasetHeaderDropDown> | null"
+        ref="dropdownRef1"
         :title="filterTypesMap[filter.type] || filter.type"
         class="w-full whitespace-break-spaces "
         :button-component="FilterButton"
@@ -39,7 +39,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </DatasetHeaderDropDown>
 
       <DatasetHeaderDropDown
-        :ref="(instance) => dropdownRef2[index] = instance as InstanceType<typeof DatasetHeaderDropDown> | null"
+        ref="dropdownRef2"
         :title="filterComparison[filter.comparison] || filter.comparison"
         class="w-full "
         :button-component="FilterButton"
@@ -122,8 +122,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   const router = useRouter()
   const route = useRoute()
 
-const dropdownRef1: Ref<(InstanceType<typeof DatasetHeaderDropDown> | null)[]> = ref([])
-const dropdownRef2: Ref<(InstanceType<typeof DatasetHeaderDropDown> | null)[]> = ref([])
+//const dropdownRef1: Ref<(InstanceType<typeof DatasetHeaderDropDown> | null)[]> = ref([])
+  const dropdownRef1 = ref<InstanceType<typeof DatasetHeaderDropDown>[]>([])
+  const dropdownRef2 = ref<InstanceType<typeof DatasetHeaderDropDown>[]>([])
+//const dropdownRef2: Ref<(InstanceType<typeof DatasetHeaderDropDown> | null)[]> = ref([])
 
 
   const filterComparison =  <Record<string, string>>{

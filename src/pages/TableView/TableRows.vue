@@ -26,7 +26,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 
         <!--Detail Column-->
-        <TableCell class = "sticky right-0 z-10 bg-white border w-52  whitespace-nowrap shadow-[0px_5px_10px_-5px_gray] "> <!--TODOO maybe change out shadows-->
+        <TableCell class = "sticky right-0 z-10 bg-white border w-52  whitespace-nowrap shadow-[0px_5px_10px_-5px_gray] "> 
 
             <div class="flex flex-row space-x-2 justify-center ">
 

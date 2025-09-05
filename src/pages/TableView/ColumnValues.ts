@@ -9,12 +9,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
    import { useAccommodationStore } from "@/stores/AccomodationStore"
    const accommodationStore = useAccommodationStore()
    import showImages from "./showImages.vue"
+import type { Component } from "vue"
 
 
 export type ColumnItem = {
   key: string
   getValue?: (item: Accommodation, lang?: string) => string
-  component?: any
+  component?: Component
   props?: Record<string, unknown>
 }
 

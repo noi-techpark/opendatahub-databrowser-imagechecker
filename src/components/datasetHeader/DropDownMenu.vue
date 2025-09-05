@@ -43,7 +43,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 
-    import { ref, defineEmits, defineExpose, type DefineComponent, type Component } from 'vue';
+    import { ref, defineEmits, defineExpose, type Component } from 'vue';
     import { onClickOutside } from '@vueuse/core';
 
     const isOpen = ref(false);
