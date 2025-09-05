@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <DatasetHeaderDropDown :title = "accommodationStore.pagesize.toLocaleString()" width="min-w-14 p-0" arrow-size="size-3" show-down="bottom-full" 
       custom-class-button="h-6" custom-class-content="h-1" class = "text-green-400 text-sm" :button-component="DatasetHeaderButton">
 
-      <DatasetHeaderButton v-for = "option in dropdownOptions" class = "border-none rounded-none" 
+      <DatasetHeaderButton v-for = "option in dropdownOptions" :key = "option" class = "border-none rounded-none" 
                           :class = "[option === accommodationStore.pagesize ? 'bg-green-400/10' : '']"
                           @click = "updatePageSize(option)">
          {{option}} 
@@ -50,7 +50,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import DatasetHeaderDropDown from '@/components/datasetHeader/DropDownMenu.vue';
   import PageSelectButton from '@/components/footer/pageSelectButton.vue';
 
-  import { computed } from 'vue';
+  import { computed, watch } from 'vue';
   import { useAccommodationStore } from '@/stores/AccomodationStore';
   import { useRoute, useRouter } from 'vue-router';
   
@@ -66,8 +66,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   const TotalPages = computed(() => {
     if (!accommodationStore.pagesize) return 0
 
-    return accommodationStore.TotalPages = Math.ceil(accommodationStore.TotalResults / accommodationStore.pagesize)
+    return Math.ceil(accommodationStore.TotalResults / accommodationStore.pagesize)
     
+  })
+
+  watch(TotalPages, () => {
+
+    accommodationStore.TotalPages = TotalPages.value
   })
   
 

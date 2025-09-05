@@ -34,9 +34,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     import TableHeader from '@/components/table/TableHeader.vue';
     import sortPopup from './sortPopup.vue';
     import { ref } from 'vue';
+  import type { HeaderItem } from './ColumnValues';
 
     const props = defineProps<{
-      columnData: any
+      columnData: HeaderItem[]
     }>()
 
     const activeSortColumn = ref<string | null>(null)

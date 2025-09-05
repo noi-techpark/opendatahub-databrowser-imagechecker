@@ -14,9 +14,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
         <input class = "border-none rounded-lg bg-transparent w-14 flex text-green-400 text-sm" 
                 v-model="pagenumberRef"
-                @keyup.enter = "updatePageNumber(pagenumberRef)" >
+                @keyup.enter = "updatePageNumber(pagenumberRef)" 
+        />
 
-        </input>
         <button class = "bg-green-400 border-r rounded-lg w-14"
                 @click = "updatePageNumber(pagenumberRef)">
             <p class = "text-white">Go</p>

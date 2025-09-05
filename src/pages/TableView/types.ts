@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 
 export interface Accommodation {
-  Id: string
+  Id: number
   Name: {
     en?: string
     it?: string
@@ -54,4 +54,50 @@ export interface Accommodation {
   SourceSystem?: string
   PublishedOn?: string[]
   PushedOn?: string
+  AccoDetail?: {
+    [lang: string]: {
+      Name?: string
+    }
+  }
+  AccoType?: {
+    Id: string
+    Name: {
+      [key: string]: string
+    }
+  }
+  AccoCategory?: {
+    Id: string
+    Name: {
+      [key: string]: string
+    }
+  }
+
+  LocationInfo?: {
+    RegionInfo?: {
+      Name?: {
+        [key: string]: string
+      }
+    }
+    MunicipalityInfo?: {
+      Name?: {
+        [key: string]: string
+      }
+    }
+  }
+
+  
+  AccoBadges?: { Id: string }[]
+  AccoThemes?: { Id: string }[]
+  ODHTags?:{ Id: string }[]
+  Active?: string
+
+  HasLanguage?: string[]
+
+  _Meta?: {
+    LastUpdate?: string
+    Source?: string
+  }
+
+  
+ 
 }

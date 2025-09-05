@@ -45,8 +45,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import { onMounted, computed, watch } from 'vue'
   import { useAccommodationStore } from '@/stores/AccomodationStore'
   import { useRoute } from 'vue-router'
-  import { useAuth } from '@/auth/authStores/auth'
-  import { keycloak } from '@/auth/keycloak'
+ 
 
   import api from '@/components/utils/api'
   import TableRows from './TableRows.vue'
@@ -58,9 +57,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   
 
   const route = useRoute()
-  const accommodationStore: any = useAccommodationStore()
+  const accommodationStore = useAccommodationStore()
 
-  const auth = useAuth()
+  //const auth = useAuth()
   
 
   //INITIAL FETCH: all other api calls happen because the queryKeys are updated

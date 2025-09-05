@@ -37,7 +37,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
   import { ChevronDownIcon, ChevronDoubleUpIcon, ChevronDoubleDownIcon } from '@heroicons/vue/24/outline';
 
-  import { ref, computed } from 'vue';
+  import { ref, computed, type Component } from 'vue';
   import { onClickOutside } from '@vueuse/core';
 
 
@@ -51,13 +51,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     defineProps<{
       parameter?: string
       showPopup?: boolean
-      Popup?: any
+      Popup?: Component
       activeSortColumn?: string | null
     }>(),
     {
       parameter: '',
       showPopup: true,
-      Popup: null,
+   
     },
   )
   const emit = defineEmits(["emit-event"])
