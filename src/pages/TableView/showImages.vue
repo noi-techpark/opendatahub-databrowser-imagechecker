@@ -20,7 +20,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <PlaceHolderImage v-else></PlaceHolderImage>
 
-    <ShowImageFullView v-if = "isFullView" :image="selectedImage" :date-formatter="DateFormatter" @close="isFullView = false"></ShowImageFullView>
+    <ShowImageFullView v-if = "isFullView && selectedImage" :image="selectedImage" :date-formatter="DateFormatter" @close="isFullView = false"></ShowImageFullView>
 
    
   </div>
