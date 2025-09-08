@@ -2,7 +2,7 @@
 
 # Accommodation Filter App
 
-A Dataset Browser that allows users to search and filter accommodations using a dynamic sidebar, URL query parameters, and API integration.
+A Dataset Browser that enables users to search and filter accommodations through a dynamic sidebar, URL query parameters, and API integration, with a focus on helping users determine whether an accommodation has a complete Image Gallery.
 
 ## Features
 SEARCH-FILTER-SORT, API AND QUERY HANDLING, CSV EXPORT, AUTHENTICATION
@@ -13,7 +13,7 @@ SEARCH-FILTER-SORT, API AND QUERY HANDLING, CSV EXPORT, AUTHENTICATION
 - Supports multiple languages
 - Constructs API requests dynamically with proper URL query handling
 - Caching of api requests through TanstackQuery
-- Export csv file containing the accomodations data
+- Export csv file containing the current page data
 - Authentication with KeyCloak
 
   
@@ -22,10 +22,10 @@ SEARCH-FILTER-SORT, API AND QUERY HANDLING, CSV EXPORT, AUTHENTICATION
 
 - Vue 3
 - TypeScript  
-- Vue Router
 - TanstackQuery (AKA VueQuery)
 - Pinia (for state management)  
 - Axios for backend requests  
+- Keycloak-js for authentication
 
 ## Getting Started
 
@@ -43,8 +43,6 @@ npm install
 npm run dev
 
 ```
-
-Now visit http://localhost:5173 in your browser
 
 
 

@@ -9,7 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <div class = "flex flex-row items-center justify-center flex-wrap ml-3 space-x-2 gap-y-2">
 
-      <DatasetHeaderDropDown :title="typeFilterRef" :bold="true"  arrow-size="size-4" :button-component="DatasetHeaderButton">
+      <DatasetHeaderDropDown :title="typeFilterRef" :bold="true"  arrow-size="size-4" :button-component="DatasetHeaderButton" class ="min-w-44">
         
         <FilterButton 
           v-for = "(label, key) in typeFilters" 
@@ -27,10 +27,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <InformationCircleIcon class= "size-5 text-green-400"></InformationCircleIcon>
         </DatasetHeaderButton>
 
-        <div v-if="showInfo" class =  " absolute left-0 top-full mt-2 bg-white border border-gray-300 rounded shadow-lg h-64 w-64 z-50" >  <!--TODOO-->
-          <CardContainer > 
-            INFO SUL DATASET  
-          </CardContainer>
+        <div v-if="showInfo" class =  " absolute left-0 top-full mt-2 bg-white border border-gray-300 rounded shadow-lg z-50" >  <!--TODOO-->
+          <InfoCard @close= "showInfo = false"></InfoCard>
+
+          
         </div>
       </div>
       
@@ -117,7 +117,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import DatasetHeaderButton from '@/components/buttons/datasetHeaderButton.vue';
   import DatasetHeaderDropDown from '@/components/datasetHeader/DropDownMenu.vue';
   import DatasetHeaderSearchBar from '@/components/datasetHeader/SearchBar.vue';
-  import CardContainer from '@/components/card/CardContainer.vue';
+  import InfoCard from './InfoCard.vue';
   import ExportCSV from '@/pages/export/exportCSV.vue';
   import FilterButton from '@/components/buttons/filterButton.vue';
   import ContentDivider from '@/components/contentAlignment/ContentDivider.vue';
@@ -145,8 +145,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   
   const typeFilters: Record<string, string> = {
     "Accommodation": "",
-    "Accommodation HotelPension": "1",
-    "Accommodation Mountain": "32"
+    "HotelPension": "1",
+    "BedBreakfast": "2",
+    "Farm": "4",
+    "Camping": "8",
+    "Youth": "16",
+    "Mountain": "32",
+    "Apartment": "128",
+
   }
   
   function changeLanguage(language: string){
@@ -166,7 +172,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     AccomodatioStore.searchfilter = value
     AccomodatioStore.updateAndFetch(router, route)
   }
-
 
   function refreshPage() {
     router

@@ -35,8 +35,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
          />
       <p class = "ml-3 text-sm"> of {{ TotalPages }}</p>
     </div>
-
-   
     
 
   </div>
@@ -53,6 +51,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import { computed, watch } from 'vue';
   import { useAccommodationStore } from '@/stores/AccomodationStore';
   import { useRoute, useRouter } from 'vue-router';
+
   
 
 
@@ -101,11 +100,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     }
 
-   
-    accommodationStore.pagenumber = newPage 
-  
 
+    accommodationStore.pagenumber = newPage
+    console.log(accommodationStore.pagenumber)
     accommodationStore.updateAndFetch(router, route)
+
   }
 
 </script>
