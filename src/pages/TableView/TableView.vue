@@ -64,7 +64,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   
 
   //INITIAL FETCH: all other api calls happen because the queryKeys are updated
-  const {isLoading, data, error, isError} = useAccommodationsQuery()
+  const {isLoading, data} = useAccommodationsQuery()
 
 
   watch(data, async () => {
