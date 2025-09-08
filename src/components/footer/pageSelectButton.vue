@@ -6,14 +6,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
 <div class = "flex flex-row space-x-2">
-     <button @click = "updatePageNumber(--pagenumberRef)">
+     <button @click = "updatePageNumber(pagenumberRef - 1)">
             <ChevronLeftIcon class =" size-4 text-green-400"/> 
         </button>
     
     <div class = "flex flex-row border rounded-lg border-gray-400">   
 
         <input class = "border-none rounded-lg bg-transparent w-14 flex text-green-400 text-sm" 
-                v-model="pagenumberRef"
+                v-model.number="pagenumberRef"
                 @keyup.enter = "updatePageNumber(pagenumberRef)" 
         />
 
@@ -25,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     
     </div>
     
-         <button @click = "updatePageNumber(++pagenumberRef)">
+         <button @click = "updatePageNumber(pagenumberRef + 1)">
             <ChevronRightIcon class = "size-4 text-green-400"/>
         </button>
 
@@ -59,6 +59,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         pagenumberRef.value = val
     })
 
-
+  
 </script>
 
