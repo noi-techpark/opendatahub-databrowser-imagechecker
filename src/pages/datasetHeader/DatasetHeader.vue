@@ -76,10 +76,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <div class = "ml-auto flex items-center mr-3 space-x-3">
 
-      <DatasetHeaderButton > 
+      <DatasetHeaderButton> 
         <PlusCircleIcon class = "size-5 text-green-400"></PlusCircleIcon>
         <p> Add record </p> 
       </DatasetHeaderButton>
+
+   
 
       <ExportCSV/>
 
@@ -127,7 +129,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import { useRoute, useRouter } from 'vue-router';
   import { onClickOutside } from '@vueuse/core';
 
-    
 
 
   const target = ref(null)
@@ -140,6 +141,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   const showActions = ref(false)
   const showInfo = ref(false);
   const typeFilterRef = ref("")
+
+
     
  
 
