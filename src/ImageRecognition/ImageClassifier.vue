@@ -12,32 +12,55 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 
-<script setup lang="js">
+<script setup lang="ts">
 
-//this component utilizes TeachableMachine WEB GUI and it is not open source
+//this component utilizes TeachableMachine WEB GUI wich is not open source
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
-const props = defineProps({
-  ImageUrl: {
-    type: String,
-    required: true
-  }
-})
+// @ts-ignore: Import p5 from CDN or local file if available
+import p5 from "p5";
 
-const model = "./mymodel/"
-const canvasContainer = ref(null);
+// Declare p5 on window for TypeScript
+declare global {
+  interface Window {
+    p5: typeof p5;
+    ml5: {
+      imageClassifier(modelURL: string, callback?: () => void): Ml5ImageClassifier;
+    };
+  }
+}
+
+
+interface Ml5ClassificationResult {
+  label: string;
+  confidence: number;
+}
+
+interface Ml5ImageClassifier {
+  classify(
+    input: p5.Image | HTMLImageElement,
+    callback: (results: Ml5ClassificationResult[]) => void
+  ): void;
+}
+
+const props = defineProps<{
+  ImageUrl: string
+}>()
+
+//const model = "./mymodel/"
+const canvasContainer = ref<HTMLDivElement | null>(null);
 onMounted(() => {
-    let myp5
-    let label
-    let confidence
+    
+    let label: string
+    let confidence: string
     let ImageModelURL = "https://teachablemachine.withgoogle.com/models/puw1I64mz/"
 
-    const sketch = (p) => {
-        let img
-        let classifier
+    const loadAndAnalyze = (p: p5) => {
+        let img: p5.Image
+        let classifier: Ml5ImageClassifier
         p.preload = () => {
             img = p.loadImage(props.ImageUrl,
-                () => console.log("Image loaded!"), (err) => console.error("Failed to load image:", err)   
+                () => console.log("Image loaded!"), (err: ErrorEvent) => console.error("Failed to load image:", err)   
              );
             classifier = window.ml5.imageClassifier(ImageModelURL)
         }
@@ -48,7 +71,7 @@ onMounted(() => {
         }
         
 
-        function gotResult(results){
+        function gotResult(results: Ml5ClassificationResult[]){
             console.log(results)
             const best = results[0]
             label = "Label: " + best.label
@@ -63,8 +86,8 @@ onMounted(() => {
 
     };
 
-    myp5 = new window.p5(sketch);
-
+    
+    const myp5 = new window.p5(loadAndAnalyze);
     onBeforeUnmount(() => {
     myp5.remove(); // cleanup
     });
