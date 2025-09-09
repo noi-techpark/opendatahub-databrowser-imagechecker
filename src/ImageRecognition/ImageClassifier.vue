@@ -17,10 +17,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 //this component utilizes TeachableMachine WEB GUI wich is not open source
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
-// @ts-ignore: Import p5 from CDN or local file if available
 import p5 from "p5";
 
-// Declare p5 on window for TypeScript
+
 declare global {
   interface Window {
     p5: typeof p5;
@@ -60,13 +59,13 @@ onMounted(() => {
         let classifier: Ml5ImageClassifier
         p.preload = () => {
             img = p.loadImage(props.ImageUrl,
-                () => console.log("Image loaded!"), (err: ErrorEvent) => console.error("Failed to load image:", err)   
+                () => console.log("Image loaded!"), (err: Event) => console.error("Failed to load image:", err)
              );
             classifier = window.ml5.imageClassifier(ImageModelURL)
         }
 
         p.setup = () => {
-            p.createCanvas(300, 100).parent(canvasContainer.value);
+            p.createCanvas(300, 100).parent(canvasContainer.value!);
             classifier.classify(img, gotResult)
         }
         
