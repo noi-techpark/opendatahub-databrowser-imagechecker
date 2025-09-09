@@ -26,10 +26,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <ArrowPathIcon class = "size-36 animate-spin mb-56 mt-32 text-green-400"></ArrowPathIcon>
     </div>
 
-    <div v-if="error" class="flex p-4 text-center w-full h-full justify-center items-center">
+    <div v-if="!isLoading && data?.Items?.length === 0" class="flex p-4 text-center w-full h-full justify-center items-center">
         <EyeSlashIcon class = "size-36 animate-bounce mb-56 mt-32  text-green-400"></EyeSlashIcon>
     </div>
-  
+
+    
 
   </div>
   
@@ -63,7 +64,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   
 
   //INITIAL FETCH: all other api calls happen because the queryKeys are updated
-  const {isLoading, data, error} = useAccommodationsQuery()
+  const {isLoading, data} = useAccommodationsQuery()
 
 
   watch(data, async () => {
