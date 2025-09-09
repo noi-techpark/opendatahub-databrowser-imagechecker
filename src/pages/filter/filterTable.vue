@@ -65,6 +65,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           placeholder="insert search value"
           type="text" v-model = "accommodationStore.filtersRef[index].value"
           @keyup.enter = "handleSearch()"
+          id = "filter-input"
         />
       </FilterButton>
     </div>

@@ -16,6 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     
         <input class = "h-9 min-w-6 p-2 m-1 border-none   bg-transparent text-sm " 
         placeholder="insert search value " type="text" v-model="searchValue" @keyup.enter="handleSearch(searchValue)"
+        id = "search-input"
         />
  
         <button class ="bg-transparent " v-if = "searchValue">

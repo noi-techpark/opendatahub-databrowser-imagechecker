@@ -35,13 +35,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <div class=" w-screen flex justify-end  items-start space-x-2 relative" ref = "target">
 
         <div v-if = "openProfile" class = "absolute top-[47px] right-14 flex flex-col w-52  border bg-white border-gray-300 rounded shadow-lg ">
-          <button v-if = "!auth.isAuthenticated" @click = "handleLogin()" class = "hover:bg-yellow-300/90 h-10 flex items-center pl-3 transition-colors duration-300">login</button>
+          <button v-if = "!auth.isAuthenticated" @click = "handleLogin()" class = "hover:bg-blue-300/10 h-10 flex items-center pl-3 transition-colors duration-300">login</button>
           <ContentDivider ></ContentDivider>
-          <button  v-if = "auth.isAuthenticated" @click = "handleLogout()" class = "hover:bg-yellow-300/90 h-10 flex items-center pl-3 transition-colors duration-300 ">logout</button>
+          <button  v-if = "auth.isAuthenticated" @click = "handleLogout()" class = "hover:bg-blue-300/10 h-10 flex items-center pl-3 transition-colors duration-300 ">logout</button>
         </div>
 
         <HeaderButton @click = "() => {openProfile = !openProfile, console.log('is authenticated:', auth.isAuthenticated)}" >
-          <UserCircleIcon class = "size-10  text-yellow-400"></UserCircleIcon>
+          <UserCircleIcon class = "size-10" :class = "auth.isAuthenticated ? 'text-green-400' : 'text-yellow-500'"></UserCircleIcon>
         </HeaderButton>
         <img src="/src/assets/logo-open-data-hub-black.svg" alt="Logo Open Data Hub" class="w-9 ml-3 mb-2" />
 

@@ -9,8 +9,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <ExportCSVButton v-if = "csvData" :results="csvData">
         <ArrowDownOnSquareIcon class="size-5 text-green-400"></ArrowDownOnSquareIcon>  
     </ExportCSVButton>
-     
-
 
 </template>
 
