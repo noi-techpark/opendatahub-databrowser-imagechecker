@@ -6,15 +6,31 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div ref="canvasContainer"
-    class =" absolute bottom-0 left-0"
-  ></div>
+    class =" absolute bottom-0 left-0 flex items-center justify-center"
+  >
+    <p v-if = "loading" class="text-white text-center text-xl"
+      :class = "status == 'Error' ? 'text-red-400' : ''"  
+    > {{status}} </p>
+  
+  </div>
   
 </template>
 
 
 <script setup lang="ts">
 
-//this component utilizes TeachableMachine WEB GUI wich is not open source
+/*
+TODOO decide if is worth keeping this or expanding on it
+
+Summary of the tools/libraries utilized:
+- Teachable Machine: proprietary web tool (free to use, models are exportable).
+- Exported Models: open format (TensorFlow.js), no license restrictions.
+- ml5.js: open source library (MIT).
+- p5.js: open source library (LGPL-2.1).
+
+The app fetches the model from Google’s CDN every time it loads, as its utilizing Google’s hosting of the model files, not the exported model.
+*/
+
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
 import p5 from "p5";
@@ -47,21 +63,25 @@ const props = defineProps<{
 }>()
 
 //const model = "./mymodel/"
+const loading = ref<boolean>(true)
+const status = ref("loading...")
 const canvasContainer = ref<HTMLDivElement | null>(null);
 onMounted(() => {
     
-    let label: string
+    let label: string 
     let confidence: string
-    let ImageModelURL = "https://teachablemachine.withgoogle.com/models/puw1I64mz/"
+    let ImageModelURL = "https://teachablemachine.withgoogle.com/models/yAyfNz2Dl/"
+    //let localModel = "./WinterSummerModel/"
+
 
     const loadAndAnalyze = (p: p5) => {
         let img: p5.Image
         let classifier: Ml5ImageClassifier
         p.preload = () => {
             img = p.loadImage(props.ImageUrl,
-                () => console.log("Image loaded!"), (err: Event) => console.error("Failed to load image:", err)
+                () => console.log("Image loaded!"), (err: Event) => {console.error("Failed to load image:", err), status.value = "Error"}
              );
-            classifier = window.ml5.imageClassifier(ImageModelURL)
+            classifier = window.ml5.imageClassifier(ImageModelURL + "./model.json")
         }
 
         p.setup = () => {
@@ -80,6 +100,7 @@ onMounted(() => {
             p.textSize(18);
             p.text(label, 10, 50);
             p.text(confidence, 10, 80)
+            loading.value = false
         }
 
 

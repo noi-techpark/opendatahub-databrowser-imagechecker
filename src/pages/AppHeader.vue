@@ -12,14 +12,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 
           <div class = "border border-black rounded-lg  p-3 h-10  items-start justify-center flex flex-col text-sm">
-            <b>DATA</b>
-            <b>BROWSER</b>
+            <b>IMAGE</b>
+            <b>CHECKER</b>
           </div>
 
 
       </HeaderButton>
 
-      <HeaderButton>
+      <HeaderButton v-if = "isTesting">
         <div class=" bg-yellow-400 flex justify-center  items-center h-10 w-24 rounded-lg">
           <p>TESTING</p>
         </div>
@@ -70,12 +70,13 @@ import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery'
 import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
+const isTesting = (import.meta.env.VITE_APP_ENV_BADGE == "TESTING")
 const target = ref(null)
 const openProfile = ref(false)
 const router = useRouter()
 const auth = useAuth()
 const accommodationStore = useAccommodationStore()
-const {refetch} = useAccommodationsQuery()
+
 
 defineOptions({ inheritAttrs: false })
 
@@ -104,7 +105,7 @@ keycloak.onAuthRefreshSuccess = () => {
 };
 
 keycloak.onAuthRefreshError = () => {
-  console.log("on auth refresherror:")
+  console.log("on auth refresh error:")
   auth.unauthenticate();
 };
 
@@ -124,7 +125,7 @@ keycloak.onAuthSuccess = () => {
   auth.authenticate(keycloak.token);
   accommodationStore.FirstTotalResults = 0
   accommodationStore.updateAndFetch()
-  refetch()
+
 
 };
 
