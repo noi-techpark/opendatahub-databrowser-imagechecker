@@ -6,11 +6,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
 
-    <ExportCSVButton v-if = "csvData" :results="csvData">
+    <ExportCSVButton @click = "calculateAndExport">
         <ArrowDownOnSquareIcon class="size-5 text-green-400"></ArrowDownOnSquareIcon>  
     </ExportCSVButton>
-     
-
 
 </template>
 
@@ -21,15 +19,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     import { ArrowDownOnSquareIcon } from '@heroicons/vue/24/outline';
   
     import { useAccommodationStore } from '@/stores/AccomodationStore';
-    import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery';
     import { ref } from 'vue';
-    import { watch } from 'vue';
 
 
 
     const csvData = ref<string | null>(null);
     const accommodationStore = useAccommodationStore() 
-    const query = useAccommodationsQuery()
+    
 
     const fields = [
             "Id",
@@ -48,40 +44,59 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         ];
 
 
-    watch(query.data, async () =>{
-        csvData.value = await calculateResults()
-    })
 
 
-
-
-    async function calculateResults(){
+    async function fetchResults(){
         
         const rawfilter = accommodationStore.rawfilter
         const language = accommodationStore.language.toLowerCase()
         const pagesize = accommodationStore.pagesize
         const pagenumber = accommodationStore.pagenumber
-
+        const typefilter = accommodationStore.typefilter
+        const rawsort = accommodationStore.rawsort
+        
         const response = await api.get(`Accommodation?fields=${fields.join(",")}&format=csv`, {
             params: {
                 pagenumber,
                 pagesize,
                 language,
-                roominfo: "1-18,18",
-                bokfilter: "hgv",
-                msssource: "sinfo",
-                availabilitychecklanguage: "en",
-                detail: 0,
                 searchfilter: accommodationStore.searchfilter || undefined,
                 rawfilter,
-                removenullvalues: false,
-                getasidarray: false,
+                typefilter,
+                rawsort
             },
         })
         
         const results = response.data
         return results
     }
+
+    async function calculateAndExport() {
+        const results = await fetchResults();  
+        csvData.value = results;               
+        exportCSV(results);                
+        
+    }
+
+    async function exportCSV(results: string){
+    
+            const cleanResults = results.replace(/,/g, ";");
+            const blob = new Blob([cleanResults], { type: "text/csv;charset=utf-8;" });
+            
+            //creating blob and downloading
+            const url = URL.createObjectURL(blob);
+            
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "accommodations.csv"); 
+
+            document.body.appendChild(link);
+            link.click();
+
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+    }
+    
     
 
 

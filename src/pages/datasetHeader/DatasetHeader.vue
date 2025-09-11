@@ -9,15 +9,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <div class = "flex flex-row items-center justify-center flex-wrap ml-3 space-x-2 gap-y-2">
 
-      <DatasetHeaderDropDown :title="typeFilterRef" :bold="true"  arrow-size="size-4" :button-component="DatasetHeaderButton" class ="min-w-44">
+      <DatasetHeaderDropDown :title="typeFilters[typeFilterRef]" :bold="true"  arrow-size="size-4" :button-component="DatasetHeaderButton" class ="min-w-44">
         
         <FilterButton 
-          v-for = "(label, key) in typeFilters" 
+          v-for = "(key) in typeFiltersOrder" 
           :key = "key" 
-          @click = " handleFilter(label, key)" 
+          @click = " handleFilter(key, typeFilters[key])" 
          class ="border-none rounded-none" :class = "typeFilterRef === key ? 'bg-green-400/10' : '' "
         >
-          {{ key }}
+          {{ typeFilters[key] }}
         </FilterButton>            
         
       </DatasetHeaderDropDown>
@@ -81,6 +81,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <p> Add record </p> 
       </DatasetHeaderButton>
 
+   
+
       <ExportCSV/>
 
       <div ref ="target2" class ="relative">
@@ -122,12 +124,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import FilterButton from '@/components/buttons/filterButton.vue';
   import ContentDivider from '@/components/contentAlignment/ContentDivider.vue';
 
-  import { ref } from 'vue';
+  import { ref, watch } from 'vue';
   import { useAccommodationStore } from '@/stores/AccomodationStore';
   import { useRoute, useRouter } from 'vue-router';
   import { onClickOutside } from '@vueuse/core';
 
-    
 
 
   const target = ref(null)
@@ -139,21 +140,33 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   
   const showActions = ref(false)
   const showInfo = ref(false);
-  const typeFilterRef = ref("Accommodation")
+  const typeFilterRef = ref("")
 
+
+    
+ 
+
+  watch(AccomodatioStore, () => {
+     typeFilterRef.value = AccomodatioStore.typefilter
+  })
+
+  
   const Languages = ["DE", "IT", "EN", "NL", "CS", "PL", "FR", "RU", "LD"];
   
-  const typeFilters: Record<string, string> = {
-    "Accommodation": "",
-    "HotelPension": "1",
-    "BedBreakfast": "2",
-    "Farm": "4",
-    "Camping": "8",
-    "Youth": "16",
-    "Mountain": "32",
-    "Apartment": "128",
 
+  const typeFiltersOrder = ["", "1", "2", "4", "8", "16", "32", "64"];
+  const typeFilters: Record<string, string> = {
+  "": "Accommodation",
+  "1": "HotelPension",
+  "2": "BedBreakfast",
+  "4": "Farm",
+  "8": "Camping",
+  "16": "Youth",
+  "32": "Mountain",
+  "64": "Apartment"
   }
+
+  
   
   function changeLanguage(language: string){
     AccomodatioStore.language = language

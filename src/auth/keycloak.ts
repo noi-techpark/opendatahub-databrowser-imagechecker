@@ -10,8 +10,6 @@ export const keycloak = new Keycloak({
   clientId: import.meta.env.VITE_APP_KEYCLOAK_CLIENT_ID,
 });
 
-
-//TODOO token expires after tot seconds, is it normal? also happens in the DataBrowser Testing
 keycloak
     .init({
     onLoad: 'check-sso',
@@ -19,20 +17,16 @@ keycloak
     pkceMethod: 'S256',
   })
   .then(() => {
-    setInterval(() => {
-      keycloak.updateToken(70)
-        .catch(() => {
+      setInterval(() => {
+        keycloak.updateToken(70).catch((err) => {
+            
+            console.error("failed to refresh token:", err)
+            if (keycloak.token) keycloak.clearToken(); // Application has still an invalid token. Let's clear it.
+
+          });
           
-          
-          if (keycloak.token) {
-            // Application has still an invalid token. Let's clear it.
-            keycloak.clearToken();
-          }
-
-          //console.log("failed to update token: ", e)
-
-        });
-
-    }, 6000);
-  });
+      }, 6000);
+    }
+    
+  );
 
