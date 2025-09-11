@@ -66,7 +66,6 @@ import { useRouter } from 'vue-router'
 import { useAuth } from '@/auth/authStores/auth'
 import { keycloak } from '@/auth/keycloak'
 import { useAccommodationStore } from '@/stores/AccomodationStore'
-import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery'
 import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 

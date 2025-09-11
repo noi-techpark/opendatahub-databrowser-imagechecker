@@ -79,7 +79,7 @@ onMounted(() => {
         let classifier: Ml5ImageClassifier
         p.preload = () => {
             img = p.loadImage(props.ImageUrl,
-                () => console.log("Image loaded!"), (err: Event) => {console.error("Failed to load image:", err), status.value = "Error"}
+                () => console.log("Image loaded!"), (err: Event) => {console.error("Failed to load image:", err); status.value = "Error"}
              );
             classifier = window.ml5.imageClassifier(ImageModelURL + "./model.json")
         }
