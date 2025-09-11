@@ -47,8 +47,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import { useAccommodationStore } from '@/stores/AccomodationStore'
   import { useRoute } from 'vue-router'
  
-
-  import api from '@/components/utils/api'
   import TableRows from './TableRows.vue'
   import TableHeaders from './TableHeaders.vue'
 
