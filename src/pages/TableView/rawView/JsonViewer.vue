@@ -67,13 +67,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     import type { JsonValue } from './types';
 
     const props = defineProps<{
-    data: JsonValue
+    data: JsonValue | unknown
     label?: string
     }>()
 
     const expanded = ref(true)
 
-    function isObject(val: JsonValue) {
+    function isObject(val: JsonValue | unknown) {
     return val !== null && typeof val === 'object' && !Array.isArray(val)
     }
 
