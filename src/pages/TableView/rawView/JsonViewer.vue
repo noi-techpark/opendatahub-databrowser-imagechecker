@@ -9,7 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <!-- on first iteration the object is the whole json object, then it recxursively calls itself for each vlaue in the data object-->
   <div class="json-viewer text-sm font-mono">
     <!-- Object -->
-    <template v-if="isObject(data)">
+    <template v-if="isObject(props.data)">
       <div>
 
             <span @click="expanded = !expanded" class="cursor-pointer select-none">
