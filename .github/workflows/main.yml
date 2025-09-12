@@ -34,7 +34,7 @@ jobs:
       VITE_APP_KEYCLOAK_URL: "https://auth.opendatahub.testingmachine.eu/auth"
       VITE_APP_KEYCLOAK_REALM: "noi"
       VITE_APP_KEYCLOAK_CLIENT_ID: "opendatahub-accommodationimage-spa"
-      VITE_APP_KEYCLOAK_REDIRECT_URI: "http://localhost:5173/silent-check-sso.html"
+      VITE_APP_KEYCLOAK_REDIRECT_URI: "https://databrowser.imagechecker.opendatahub.testingmachine.eu/silent-check-sso.html"
       VITE_APP_API_BASE_URL: "https://tourism.api.opendatahub.testingmachine.eu/v1/"
       VITE_APP_ENV_BADGE: "TESTING"
       VITE_APP_META_ROBOTS: "<meta name=\"robots\" content=\"noindex, nofollow\" />"
