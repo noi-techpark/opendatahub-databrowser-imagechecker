@@ -30,7 +30,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
  
-  import type { Accommodation } from './types'
+  import type { Accommodation } from '../types';
   import { computed, ref } from 'vue'
   import { useAccommodationStore } from '@/stores/AccomodationStore';
   

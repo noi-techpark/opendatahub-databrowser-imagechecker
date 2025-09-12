@@ -30,9 +30,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
             <div class="flex flex-row space-x-2 justify-center ">
 
-                <DetailButton class = "w-12" @click ="console.log(item.Id)" > 
-                    <PencilSquareIcon class = "size-5 text-green-400"/>
-                    <p class = "text-3xs font-semibold text-green-400">EDIT</p>
+                <DetailButton class = "w-12" @click ="openRawView(item)" > 
+                    <CodeBracketIcon class = "size-5 text-green-400"/>
+                    <p class = "text-3xs font-semibold text-green-400">RAW</p>
                 </DetailButton>
 
                 <DetailButton class = " w-12" > 
@@ -59,14 +59,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 //ICONS
 
 
-  import { CursorArrowRaysIcon, PencilSquareIcon, PhotoIcon } from '@heroicons/vue/24/outline'
+  import { CursorArrowRaysIcon, PhotoIcon, CodeBracketIcon } from '@heroicons/vue/24/outline'
   
   import TableCell from '@/components/table/TableCell.vue'
   import DetailButton from '@/components/buttons/DetailButton.vue'
 
   import { ref } from 'vue'
   import { useAccommodationStore } from '@/stores/AccomodationStore'
-  import ImagesCarousel from './ImagesCarousel.vue';
+  import ImagesCarousel from './images/ImagesCarousel.vue'
     import type { Accommodation } from './types';
     import type { ColumnItem } from './ColumnValues'
   
@@ -74,6 +74,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         data: { Items: Accommodation[]},
         columnData: ColumnItem[]
 
+    }>()
+
+    const emit = defineEmits<{
+        (e: 'showRaw', item: Accommodation): void
     }>()
 
   const selectedRow = ref<number | null>(null)
@@ -86,6 +90,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     fullViewItem.value = item
   }
 
+  const openRawView = (Item: Accommodation) => {
+    emit('showRaw', Item)
+  }
 
 </script>
 

@@ -8,8 +8,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <div ref="canvasContainer"
     class =" absolute bottom-0 left-0 flex items-center justify-center"
   >
-    <p v-if = "loading" class="text-white text-center text-xl"
-      :class = "status == 'Error' ? 'text-red-400' : ''"  
+    <p v-if = "loading" class="text-center text-xl"
+      :class = "status === 'Error' ? 'text-red-400' : 'text-white'"  
     > {{status}} </p>
   
   </div>
@@ -81,12 +81,13 @@ onMounted(() => {
             img = p.loadImage(props.ImageUrl,
                 () => console.log("Image loaded!"), (err: Event) => {console.error("Failed to load image:", err); status.value = "Error"}
              );
-            classifier = window.ml5.imageClassifier(ImageModelURL + "./model.json")
+            classifier = window.ml5.imageClassifier(ImageModelURL)
         }
 
         p.setup = () => {
             p.createCanvas(300, 100).parent(canvasContainer.value!);
             classifier.classify(img, gotResult)
+
         }
         
 
