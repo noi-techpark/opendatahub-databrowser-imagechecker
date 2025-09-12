@@ -31,13 +31,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             &times;
         </button>
 
-        <ImageClassifier  :ImageUrl="props.image.ImageUrl"></ImageClassifier>
+
     </div>
 </template>
 
 
 <script setup lang="ts">
-    import ImageClassifier from '@/ImageRecognition/ImageClassifier.vue';
 
     const props = defineProps<{
         image: {
