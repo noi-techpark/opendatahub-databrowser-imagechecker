@@ -59,11 +59,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
   import { ref, toRaw } from 'vue'
   import type { Accommodation } from './types'
+
   
   const route = useRoute()
   const accommodationStore = useAccommodationStore()
   const showRawView = ref<boolean>(false)
-  const RawJson = ref<Accommodation | null>(null)
+  const RawJson = ref<unknown | null>(null)
   //const auth = useAuth()
   
 

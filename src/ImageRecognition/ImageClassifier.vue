@@ -70,7 +70,7 @@ onMounted(() => {
     
     let label: string 
     let confidence: string
-    let ImageModelURL = "https://teachablemachine.withgoogle.com/models/yAyfNz2Dl/"
+    const ImageModelURL = "https://teachablemachine.withgoogle.com/models/yAyfNz2Dl/"
     //let localModel = "./WinterSummerModel/"
 
 

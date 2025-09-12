@@ -22,14 +22,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 
 <script setup lang = "ts">
+
 import DatasetHeaderButton from '@/components/buttons/datasetHeaderButton.vue';
 import JsonViewer from './JsonViewer.vue';
 import type { JsonValue } from './types';
 
     const props = defineProps<{
-        RawJson: JsonValue
+        RawJson: JsonValue | unknown
     }>()
 
+   
     console.log(props.RawJson)
     const emit = defineEmits(["backToTable"])
 
