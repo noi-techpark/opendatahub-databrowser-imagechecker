@@ -22,12 +22,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 
 <script setup lang = "ts">
-import type { Accommodation } from '../types';
 import DatasetHeaderButton from '@/components/buttons/datasetHeaderButton.vue';
 import JsonViewer from './JsonViewer.vue';
+import type { JsonValue } from './types';
 
     const props = defineProps<{
-        RawJson: Accommodation
+        RawJson: JsonValue
     }>()
 
     console.log(props.RawJson)

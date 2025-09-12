@@ -64,15 +64,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
     import { ref } from 'vue'
+    import type { JsonValue } from './types';
 
     const props = defineProps<{
-    data: any
+    data: JsonValue
     label?: string
     }>()
 
     const expanded = ref(true)
 
-    function isObject(val: any) {
+    function isObject(val: JsonValue) {
     return val !== null && typeof val === 'object' && !Array.isArray(val)
     }
 
