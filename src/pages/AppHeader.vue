@@ -12,14 +12,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 
           <div class = "border border-black rounded-lg  p-3 h-10  items-start justify-center flex flex-col text-sm">
-            <b>DATA</b>
-            <b>BROWSER</b>
+            <b>IMAGE</b>
+            <b>CHECKER</b>
           </div>
 
 
       </HeaderButton>
 
-      <HeaderButton>
+      <HeaderButton v-if = "isTesting">
         <div class=" bg-yellow-400 flex justify-center  items-center h-10 w-24 rounded-lg">
           <p>TESTING</p>
         </div>
@@ -35,13 +35,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <div class=" w-screen flex justify-end  items-start space-x-2 relative" ref = "target">
 
         <div v-if = "openProfile" class = "absolute top-[47px] right-14 flex flex-col w-52  border bg-white border-gray-300 rounded shadow-lg ">
-          <button v-if = "!auth.isAuthenticated" @click = "handleLogin()" class = "hover:bg-yellow-300/90 h-10 flex items-center pl-3 transition-colors duration-300">login</button>
+          <button v-if = "!auth.isAuthenticated" @click = "handleLogin()" class = "hover:bg-blue-300/10 h-10 flex items-center pl-3 transition-colors duration-300">login</button>
           <ContentDivider ></ContentDivider>
-          <button  v-if = "auth.isAuthenticated" @click = "handleLogout()" class = "hover:bg-yellow-300/90 h-10 flex items-center pl-3 transition-colors duration-300 ">logout</button>
+          <button  v-if = "auth.isAuthenticated" @click = "handleLogout()" class = "hover:bg-blue-300/10 h-10 flex items-center pl-3 transition-colors duration-300 ">logout</button>
         </div>
 
         <HeaderButton @click = "() => {openProfile = !openProfile, console.log('is authenticated:', auth.isAuthenticated)}" >
-          <UserCircleIcon class = "size-10  text-yellow-400"></UserCircleIcon>
+          <UserCircleIcon class = "size-10" :class = "auth.isAuthenticated ? 'text-green-400' : 'text-yellow-500'"></UserCircleIcon>
         </HeaderButton>
         <img src="/src/assets/logo-open-data-hub-black.svg" alt="Logo Open Data Hub" class="w-9 ml-3 mb-2" />
 
@@ -66,16 +66,16 @@ import { useRouter } from 'vue-router'
 import { useAuth } from '@/auth/authStores/auth'
 import { keycloak } from '@/auth/keycloak'
 import { useAccommodationStore } from '@/stores/AccomodationStore'
-import { useAccommodationsQuery } from '@/composable/useAccomodationsQuery'
 import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
+const isTesting = (import.meta.env.VITE_APP_ENV_BADGE == "TESTING")
 const target = ref(null)
 const openProfile = ref(false)
 const router = useRouter()
 const auth = useAuth()
 const accommodationStore = useAccommodationStore()
-const {refetch} = useAccommodationsQuery()
+
 
 defineOptions({ inheritAttrs: false })
 
@@ -104,7 +104,7 @@ keycloak.onAuthRefreshSuccess = () => {
 };
 
 keycloak.onAuthRefreshError = () => {
-  console.log("on auth refresherror:")
+  console.log("on auth refresh error:")
   auth.unauthenticate();
 };
 
@@ -124,7 +124,7 @@ keycloak.onAuthSuccess = () => {
   auth.authenticate(keycloak.token);
   accommodationStore.FirstTotalResults = 0
   accommodationStore.updateAndFetch()
-  refetch()
+
 
 };
 

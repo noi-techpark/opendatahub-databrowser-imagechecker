@@ -20,9 +20,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <PlaceHolderImage v-else></PlaceHolderImage>
 
-    <ShowImageFullView v-if = "isFullView && selectedImage" :image="selectedImage" :date-formatter="DateFormatter" @close="isFullView = false"></ShowImageFullView>
+   <ShowImageFullView v-if = "isFullView && selectedImage" :image="selectedImage" :date-formatter="DateFormatter" @close="isFullView = false"></ShowImageFullView>
 
-   
+  
   </div>
 
   
@@ -30,7 +30,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
  
-  import type { Accommodation } from './types'
+  import type { Accommodation } from '../types';
   import { computed, ref } from 'vue'
   import { useAccommodationStore } from '@/stores/AccomodationStore';
   
