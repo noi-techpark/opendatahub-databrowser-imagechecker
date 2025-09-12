@@ -7,7 +7,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     */
     
-    export type JsonPrimitive = string | number | boolean | null;
+     type JsonPrimitive = string | number | boolean | null;
+     type JsonObject = { [key: string]: JsonValue };
+     type JsonArray = JsonValue[];
+
     export type JsonValue = JsonPrimitive | JsonObject | JsonArray;
-    export type JsonObject = { [key: string]: JsonValue };
-    export type JsonArray = JsonValue[];
