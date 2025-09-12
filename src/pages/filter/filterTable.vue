@@ -116,17 +116,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
   
   accommodationStore.filtersRef = ([
-    ...accommodationStore.filtersRef,
     ... accommodationStore.filters
   ])
 
   const router = useRouter()
   const route = useRoute()
 
-//const dropdownRef1: Ref<(InstanceType<typeof DatasetHeaderDropDown> | null)[]> = ref([])
+
   const dropdownRef1 = ref<InstanceType<typeof DatasetHeaderDropDown>[]>([])
   const dropdownRef2 = ref<InstanceType<typeof DatasetHeaderDropDown>[]>([])
-//const dropdownRef2: Ref<(InstanceType<typeof DatasetHeaderDropDown> | null)[]> = ref([])
+
 
 
   const filterComparison =  <Record<string, string>>{
@@ -188,6 +187,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     accommodationStore.filters = JSON.parse(JSON.stringify(accommodationStore.filtersRef))
     accommodationStore.pagenumber = 1
     accommodationStore.updateAndFetch(router, route)
+
     }
 
   function addFilterRef(){

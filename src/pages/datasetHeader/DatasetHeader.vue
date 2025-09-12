@@ -35,7 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </div>
       
       <!--SearchBar, TODOO, it's  margin controls the h of the dsh-->
-      <DatasetHeaderSearchBar class ="w-60" @search-value="handleSearch" :queryParam="route.query.searchfilter"/>
+      <DatasetHeaderSearchBar class ="w-60" @search-value="handleSearch" :queryParam="route.query.searchfilter" id = "search-bar"/>
       
 
       <DatasetHeaderButton @click = "AccomodatioStore.showFilterSideBar = !AccomodatioStore.showFilterSideBar"
