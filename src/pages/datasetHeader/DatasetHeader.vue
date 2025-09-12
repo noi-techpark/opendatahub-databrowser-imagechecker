@@ -154,9 +154,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   const Languages = ["DE", "IT", "EN", "NL", "CS", "PL", "FR", "RU", "LD"];
   
 
-  const typeFiltersOrder = ["", "1", "2", "4", "8", "16", "32", "64"];
+  const typeFiltersOrder = ["", "1", "64", "2", "4", "8", "16", "32"];
   const typeFilters: Record<string, string> = {
-  "": "Accommodation",
+  "": "All Accommodations",
   "1": "HotelPension",
   "2": "BedBreakfast",
   "4": "Farm",

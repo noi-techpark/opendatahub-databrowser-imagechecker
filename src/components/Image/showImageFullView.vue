@@ -31,7 +31,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             &times;
         </button>
 
-        <ImageClassifier  :ImageUrl = "image.ImageUrl"></ImageClassifier>
+        <ImageClassifier  :ImageUrl="props.image.ImageUrl"></ImageClassifier>
     </div>
 </template>
 
