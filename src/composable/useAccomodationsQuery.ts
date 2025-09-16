@@ -6,7 +6,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 */
 
-// composables/useAccommodationsQuery.ts
 import { useQuery } from '@tanstack/vue-query'
 import { useAccommodationStore } from '@/stores/AccomodationStore'
 import { computed } from 'vue'
@@ -19,7 +18,6 @@ export function useAccommodationsQuery() {
   const auth = useAuth()
 
   const fetchAccommodations = async () => {
-    // costruisci params come prima
     
     const conditions = accommodationStore.filters
                 .filter(f => {

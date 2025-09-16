@@ -117,10 +117,6 @@ keycloak.onAuthError = () => {
 keycloak.onAuthSuccess = () => {
   console.log("on auth success:")
 
-  //INFO, TODOO, by saving the token in localstorage you can stay logged in after refreshes, this is only for dev purposes
-  //might be bad practice
-  //if(keycloak.token) localStorage.setItem('kc_token', keycloak.token)
-
   auth.authenticate(keycloak.token);
   accommodationStore.FirstTotalResults = 0
   accommodationStore.updateAndFetch()
