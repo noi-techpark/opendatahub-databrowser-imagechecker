@@ -74,7 +74,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     </div>
 
-    <div class = "ml-auto flex items-center mr-3 space-x-3">
+    <div class = "ml-auto flex items-center mr-3 space-x-2">
 
       <DatasetHeaderButton> 
         <PlusCircleIcon class = "size-5 text-green-400"></PlusCircleIcon>

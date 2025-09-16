@@ -13,10 +13,22 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <p>Error: {{ error }}</p>
     </div>
 
-    <div v-if = "!loading && !error" class="text-white text-lg flex flex-col m-3 bg-green-400 rounded p-3 gap-1">
+    <div v-if = "!loading && !error" class="text-white text-lg flex flex-col m-3  rounded p-3 gap-1"
+
+    >
         <div>IMAGE CLASSIFICATION</div>  
         <ContentDivider></ContentDivider>  
-        <p>Label: {{ label }}</p>
+        <p>
+          Label: 
+          <span
+          :class="{
+          'text-blue-400': label === 'Winter',
+          'text-yellow-400': label === 'Summer',
+          'text-gray-500': label !== 'Winter' && label !== 'Summer'
+          }"
+          >{{ label }}</span>
+        </p>
+
         <p>Confidence: {{ confidence }}</p>
     </div>
 
@@ -31,7 +43,9 @@ import type { LayersModel, Tensor } from "@tensorflow/tfjs";
 
 
 import { ref, onMounted, onBeforeUnmount } from "vue";
+import { useAccommodationStore } from '@/stores/AccomodationStore';
 
+const accommodationStore = useAccommodationStore()
 
 const props = defineProps<{
   ImageUrl: string;
