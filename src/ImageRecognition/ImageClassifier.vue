@@ -43,9 +43,6 @@ import type { LayersModel, Tensor } from "@tensorflow/tfjs";
 
 
 import { ref, onMounted, onBeforeUnmount } from "vue";
-import { useAccommodationStore } from '@/stores/AccomodationStore';
-
-const accommodationStore = useAccommodationStore()
 
 const props = defineProps<{
   ImageUrl: string;
