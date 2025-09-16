@@ -192,7 +192,7 @@ export const useAccommodationStore = defineStore("accommodation", {
         removeFilter(index: number, router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
             this.filters.splice(index, 1);
             this.updateAndFetch(router, route)
-        },
+        }
 
      
         }
