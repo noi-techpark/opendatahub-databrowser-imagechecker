@@ -6,8 +6,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div>
-    <img v-if = "selectedImage?.ImageUrl "
-      :src="selectedImage?.ImageUrl"
+    
+    <img v-if = "selectedImage?.image?.ImageUrl "
+      :src="selectedImage?.image.ImageUrl"
       alt="Accommodation Image"
       class="cursor-pointer"
       :style="{
@@ -17,10 +18,22 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       }"
       @click="isFullView = true"
     />
-
     <PlaceHolderImage v-else></PlaceHolderImage>
+   
+    <!--TODOO decide if showing classification also for main and all year images
+    && (selectedImage?.Period === 'winter' || selectedImage?.Period === 'summer')
+    -->
+    
+    <ImageClassifier 
+    v-if ="selectedImage?.image?.ImageUrl  && accommodationStore.toggleImageClassification" 
+    :-image-url="selectedImage.image.ImageUrl" 
+    type="icon"
+    />
 
-   <ShowImageFullView v-if = "isFullView && selectedImage" :image="selectedImage" :date-formatter="DateFormatter" @close="isFullView = false"></ShowImageFullView>
+
+ 
+   <ShowImageFullView v-if = "isFullView && selectedImage" 
+   :image="selectedImage.image" :date-formatter="DateFormatter" @close="isFullView = false"></ShowImageFullView>
 
   
   </div>
@@ -36,6 +49,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   
   import PlaceHolderImage from '@/components/Image/PlaceHolderImage.vue';
   import ShowImageFullView from '@/components/Image/showImageFullView.vue';
+  import ImageClassifier from '@/ImageRecognition/ImageClassifier.vue';
+
+
 
   const props = defineProps<{
     imageGallery: Accommodation['ImageGallery'] | null
@@ -50,11 +66,22 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     summer: '2020-07-15T00:00:00',
   }
 
-  const selectedImage = computed(() => { //selects the image representative of the period selected through the prop "period"
+  const selectedImage= computed(() => { //selects the image representative of the period selected through the prop "period"
     const images = props.imageGallery || []
   
     return findRightImage(props.period, images)
   })
+
+  interface ImageCustom{
+    image: {
+      ValidFrom: string;
+      ValidTo: string;
+      ImageUrl: string;
+      Width: number;
+      Height: number;
+    }
+    Period: string,
+  }
 
 
   // returns true if the target Date string is included in the from-to interval, ignores the year
@@ -78,10 +105,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   }
 
   //TODOO reformat, a switch case might be faster and easier to read
-  function findRightImage(period: string, images: Accommodation['ImageGallery']){
+  function findRightImage(period: string, images: Accommodation['ImageGallery']): ImageCustom | null{
     if (!images) return null
+
   
-    if(period == "mainImage") return images[0]
+
+    if(period == "mainImage")
+      return {
+        image: images[0],
+        Period: "mainImage"
+      }
     
 
     for(const image of images){
@@ -89,19 +122,28 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       if(period == "winter" && image !== images[0]){
 
           if(isMonthDayInRange(periodDates.winter, image.ValidFrom, image.ValidTo) && !isMonthDayInRange(periodDates.summer, image.ValidFrom, image.ValidTo))
-            return image
+            return {
+              image: image,
+              Period: "winter"
+            }
 
       }
       if(period == "summer"){
 
           if(isMonthDayInRange(periodDates.summer, image.ValidFrom, image.ValidTo) && !isMonthDayInRange(periodDates.winter, image.ValidFrom, image.ValidTo))
-            return image
+            return {
+              image: image,
+              Period: "summer"
+            }
 
       }
       if(period == "year"){
 
         if(isMonthDayInRange(periodDates.summer, image.ValidFrom, image.ValidTo) && isMonthDayInRange(periodDates.winter, image.ValidFrom, image.ValidTo))
-            return image
+            return {
+              image: image,
+              Period: "year"
+            }
 
       }
     }
@@ -109,9 +151,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   
     return null
   }
-
-
-
  
     function DateFormatter(date: string){
     if(date == null)
@@ -121,6 +160,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     
     return d.toLocaleDateString(accommodationStore.language.toLowerCase());
   }
+
+
+
 
 
 </script>

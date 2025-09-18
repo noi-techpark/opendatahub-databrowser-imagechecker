@@ -41,7 +41,9 @@ export const useAccommodationStore = defineStore("accommodation", {
             //for comunication between components
             filtersRef: [] as Filter[],
             showFilterSideBar: false,
-            APIurl: ""
+            APIurl: "",
+
+            toggleImageClassification: false
         };
     },
 
