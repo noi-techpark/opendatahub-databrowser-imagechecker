@@ -105,8 +105,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 
 //ICONS
-  import { InformationCircleIcon, Bars3BottomRightIcon, GlobeEuropeAfricaIcon, CircleStackIcon, 
-    Bars3Icon, CursorArrowRaysIcon, SparklesIcon } from '@heroicons/vue/24/outline';  
+  import { InformationCircleIcon, Bars3BottomRightIcon, GlobeEuropeAfricaIcon, CursorArrowRaysIcon, SparklesIcon } from '@heroicons/vue/24/outline';  
 
 
   import DatasetHeaderButton from '@/components/buttons/datasetHeaderButton.vue';
