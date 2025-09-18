@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
 
   
-  <div class=" max-h-screen h-full  w-full overflow-auto">
+  <div class="h-full  w-full overflow-auto">
    
     
 
@@ -65,15 +65,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   const accommodationStore = useAccommodationStore()
   const showRawView = ref<boolean>(false)
   const RawJson = ref<unknown | null>(null)
-  //const auth = useAuth()
-  
+
 
   //INITIAL FETCH: all other api calls happen because the queryKeys are updated
   const {isLoading, data} = useAccommodationsQuery()
 
 
   watch(data, async () => {
-
+  
     if(accommodationStore.FirstTotalResults == 0 && data.value?.TotalResults){ 
       
       const FirstTotalResults = data.value.TotalResults
@@ -87,19 +86,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     
   }) 
 
+
   
   onMounted(() => {
     accommodationStore.restoreFromUrl(route);
-
-    //INFO, TODOO, 
-    //by extracting the token from localstorage you can stay logged in after refreshes, useful when developing
-    // this might be bad practice, tokens should be stored in HttpOnly Cookie
-    /*const savedToken = localStorage.getItem('kc_token')
-    if (savedToken) {
-      auth.authenticate(savedToken)
-      keycloak.token = savedToken
-    }
-    */
 
   });
 

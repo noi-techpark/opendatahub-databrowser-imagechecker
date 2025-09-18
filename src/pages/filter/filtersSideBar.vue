@@ -40,7 +40,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 
 
-            <div class ="bg-white m-4 border rounded max-h-screen "> 
+            <div class ="bg-white m-4 border rounded "> 
                 <FilterTable ref="filterTableRef" ></FilterTable>
             </div>
     </div>

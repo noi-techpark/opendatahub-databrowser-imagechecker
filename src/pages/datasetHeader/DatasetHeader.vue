@@ -35,7 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </div>
       
       <!--SearchBar, TODOO, it's  margin controls the h of the dsh-->
-      <DatasetHeaderSearchBar class ="w-60" @search-value="handleSearch" :queryParam="route.query.searchfilter"/>
+      <DatasetHeaderSearchBar class ="w-60" @search-value="handleSearch" :queryParam="route.query.searchfilter" id = "search-bar"/>
       
 
       <DatasetHeaderButton @click = "AccomodatioStore.showFilterSideBar = !AccomodatioStore.showFilterSideBar"
@@ -74,7 +74,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     </div>
 
-    <div class = "ml-auto flex items-center mr-3 space-x-3">
+    <div class = "ml-auto flex items-center mr-3 space-x-2">
 
       <DatasetHeaderButton> 
         <PlusCircleIcon class = "size-5 text-green-400"></PlusCircleIcon>
