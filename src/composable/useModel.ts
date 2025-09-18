@@ -17,7 +17,7 @@ export async function getModel(): Promise<LayersModel> {
   
   if (modelLoadingPromise) return modelLoadingPromise;
 
-  modelLoadingPromise = loadLayersModel('/Model/model.json').then(model => {
+  modelLoadingPromise = loadLayersModel('/ModelV3/model.json').then(model => {
     cachedModel = model;
     console.log("Model loaded successfully");
     modelLoadingPromise = null; 
