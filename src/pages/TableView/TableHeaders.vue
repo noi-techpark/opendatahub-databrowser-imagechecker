@@ -12,6 +12,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :key="col.key" 
           :parameter="col.parameter" 
           :Popup="sortPopup" 
+          :show-popup="isSortable(col.key)"
           :active-sort-column="activeSortColumn"
           @emit-event="handleSortUpdate(col.parameter)"
           class = "whitespace-nowrap">
@@ -46,6 +47,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       activeSortColumn.value = column
     }
 
+    function isSortable(key: string): boolean{
+      if(key === "winterImage" || key === "summerImage" || key === "yearImage")
+        return false
+      else
+        return true
+    }
 
 
 </script>

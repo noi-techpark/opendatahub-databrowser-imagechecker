@@ -6,7 +6,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
 
-    <ExportCSVButton @click = "calculateAndExport">
+    <ExportCSVButton @click = "calculateAndExport"
+    :class="isPulsing ? 
+            'animate-pulse bg-yellow-400/10 border-yellow-400 border-2 text-yellow-400 hover:bg-yellow-400/10 hover:border-yellow-400' : ''"
+    >
         <ArrowDownOnSquareIcon class="size-5 text-green-400"></ArrowDownOnSquareIcon>  
     </ExportCSVButton>
 
@@ -22,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     import { ref } from 'vue';
 
 
-
+    const isPulsing = ref(false)
     const csvData = ref<string | null>(null);
     const accommodationStore = useAccommodationStore() 
     
@@ -72,10 +75,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     }
 
     async function calculateAndExport() {
-        const results = await fetchResults();  
-        csvData.value = results;               
-        exportCSV(results);                
         
+        const results = await fetchResults();  
+        csvData.value = results;   
+        
+      
+        exportCSV(results);     
+
+        isPulsing.value = true;
+        setTimeout(() => {
+            isPulsing.value = false;
+        }, 800);
     }
 
     async function exportCSV(results: string){

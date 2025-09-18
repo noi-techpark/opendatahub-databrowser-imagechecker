@@ -25,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     -->
     
     <ImageClassifier 
-    v-if ="selectedImage?.image?.ImageUrl  && accommodationStore.toggleImageClassification" 
+    v-if ="selectedImage?.image?.ImageUrl  && accommodationStore.toggleImageClassification && (selectedImage?.Period === 'winter' || selectedImage?.Period === 'summer')" 
     :-image-url="selectedImage.image.ImageUrl" 
     type="icon"
     />

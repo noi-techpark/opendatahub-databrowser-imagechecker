@@ -36,8 +36,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
   <div  v-if = "props.type === 'icon'" class="flex items-center justify-center">
         <XMarkIcon v-if="error" class ="size-5 text-red-600"></XMarkIcon>
+
         <FireIcon v-else class ="size-5"
         :class="{
+          'text-black' : loading,
           'text-blue-400': label === 'Winter',
           'text-yellow-400': label === 'Summer',
           'text-gray-500': label !== 'Winter' && label !== 'Summer'

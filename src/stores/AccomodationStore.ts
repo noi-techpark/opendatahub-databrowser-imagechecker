@@ -103,7 +103,7 @@ export const useAccommodationStore = defineStore("accommodation", {
             
                
                 newQuery.language = this.language.toLowerCase()
-                                //TODOO
+
                 
                 newQuery.pagesize = this.pagesize.toLocaleString()
                 newQuery.pagenumber = this.pagenumber.toLocaleString()
@@ -163,7 +163,7 @@ export const useAccommodationStore = defineStore("accommodation", {
             
             
 
-            //TODOO
+
             if(route.query.language){
                 
                 this.language = String(route.query.language).toUpperCase()

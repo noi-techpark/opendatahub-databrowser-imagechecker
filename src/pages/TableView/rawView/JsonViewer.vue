@@ -53,9 +53,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template v-else>
         <div>
                 <span v-if="label" class="font-semibold">{{ label }}: </span>
-
-                <span v-if="typeof data === 'string'" class="text-blue-600">"{{ data }}"</span>
-                <span v-else class="text-green-600">{{ data }}</span>
+                <span v-if = "isNull(data)" class =" text-red-500"> null </span>
+                <span v-else-if="typeof data === 'string'" class="text-green-600">"{{ data }}"</span>
+                <span v-else class="text-blue-600">{{ data }}</span>
         </div>
     </template>
     
@@ -74,7 +74,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     const expanded = ref(true)
 
     function isObject(val: JsonValue | unknown) {
-    return val !== null && typeof val === 'object' && !Array.isArray(val)
+        return val !== null && typeof val === 'object' && !Array.isArray(val)
+    }
+
+    function isNull(val: JsonValue | unknown){
+        return val == null
     }
 
 </script>
