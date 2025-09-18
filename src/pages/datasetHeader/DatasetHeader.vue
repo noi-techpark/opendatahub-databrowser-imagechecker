@@ -59,18 +59,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           
       </DatasetHeaderDropDown>
 
-      <DatasetHeaderDropDown title="View" :button-component="DatasetHeaderButton" arrow-size=" size-4">
-        <template #icon>
-          <CircleStackIcon class = "size-5 text-green-400"></CircleStackIcon>
-        </template>
-        <DatasetHeaderButton>options </DatasetHeaderButton>
-      </DatasetHeaderDropDown>
 
 
-      <DatasetHeaderButton> 
-        <Bars3Icon class= "size-5 text-green-400 rotate-90"></Bars3Icon>
-        <p> Attributes </p> 
-      </DatasetHeaderButton>
+
+
 
     </div>
 
