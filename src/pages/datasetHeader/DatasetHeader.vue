@@ -76,9 +76,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <div class = "ml-auto flex items-center mr-3 space-x-2">
 
-      <DatasetHeaderButton> 
-        <PlusCircleIcon class = "size-5 text-green-400"></PlusCircleIcon>
-        <p> Add record </p> 
+      <DatasetHeaderButton @click ="AccomodatioStore.toggleImageClassification = !AccomodatioStore.toggleImageClassification"
+      :class = "AccomodatioStore.toggleImageClassification ?  ' bg-green-400/10 border-green-400': ''"> 
+        <SparklesIcon class = "size-5 text-green-400"></SparklesIcon>
+        <p>  Image Classification</p> 
       </DatasetHeaderButton>
 
    
@@ -113,7 +114,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 //ICONS
   import { InformationCircleIcon, Bars3BottomRightIcon, GlobeEuropeAfricaIcon, CircleStackIcon, 
-    Bars3Icon, PlusCircleIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/outline';  
+    Bars3Icon, CursorArrowRaysIcon, SparklesIcon } from '@heroicons/vue/24/outline';  
 
 
   import DatasetHeaderButton from '@/components/buttons/datasetHeaderButton.vue';
@@ -128,6 +129,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import { useAccommodationStore } from '@/stores/AccomodationStore';
   import { useRoute, useRouter } from 'vue-router';
   import { onClickOutside } from '@vueuse/core';
+
 
 
 
