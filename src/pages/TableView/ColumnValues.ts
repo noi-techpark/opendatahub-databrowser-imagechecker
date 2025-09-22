@@ -43,7 +43,7 @@ export const headerColumns: HeaderItem[] = [
     { key: "source",        label: "Source",            parameter: "_Meta.Source" },
     { key: "active",        label: "Source state",      parameter: "Active" },
     { key: "published",     label: "Published on",      parameter: "PublishedOn" },
-    { key: "push",          label: "Push data",         parameter: "ODHTags" },  //TODOO; change parameter and add pushData filter in filterTable
+//    { key: "push",          label: "Push data",         parameter: "ODHTags" },  //TODOO; change parameter and add pushData filter in filterTable
 ]
 
 export const columnData: ColumnItem[] = [
@@ -64,7 +64,7 @@ export const columnData: ColumnItem[] = [
   { key: "source",          getValue: (item: Accommodation) => item._Meta?.Source || "not found" },
   { key: "active",          getValue: (item: Accommodation) => item.Active ? "active" : "Not active" },
   { key: "published",       getValue: (item: Accommodation) => formatArray(item.PublishedOn) },
-  { key: "push",            getValue: () => "push data" }
+//  { key: "push",            getValue: () => "push data" }
 ]
 
 function formatEditDate(EditDate: string): string {

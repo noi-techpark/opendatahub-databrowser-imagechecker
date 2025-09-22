@@ -39,7 +39,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       
 
       <DatasetHeaderButton @click = "AccomodatioStore.showFilterSideBar = !AccomodatioStore.showFilterSideBar"
-                            :class = "AccomodatioStore.showFilterSideBar ?  ' bg-yellow-400/10 border-yellow-400 hover:bg-yellow-400/10': ''"> 
+                            :class = "Object.keys(AccomodatioStore.filters).length != 0 ?  ' bg-yellow-400/10 border-yellow-400 hover:bg-yellow-400/10': ''"> 
           <Bars3BottomRightIcon class = "size-5 text-green-400 "></Bars3BottomRightIcon>
           <p>Filters</p>
       </DatasetHeaderButton>

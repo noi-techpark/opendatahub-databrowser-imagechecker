@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <HeaderButton @click = "refreshPage()">
 
 
-          <div class = "border border-black rounded  p-3 h-10  items-center justify-center flex flex-row ml-1">
+          <div class = "border border-gray-600 rounded  p-3 h-10  items-center justify-center flex flex-row ml-1">
             <PhotoIcon class =" size-6 mr-2"/>
             <b>IMAGE</b>
             <span>CHECKER</span>
