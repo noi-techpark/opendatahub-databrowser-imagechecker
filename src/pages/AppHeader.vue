@@ -11,16 +11,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <HeaderButton @click = "refreshPage()">
 
 
-          <div class = "border border-black rounded-lg  p-3 h-10  items-start justify-center flex flex-col text-sm">
+          <div class = "border border-gray-600 rounded  p-3 h-10  items-center justify-center flex flex-row ml-1">
+            <PhotoIcon class =" size-6 mr-2"/>
             <b>IMAGE</b>
-            <b>CHECKER</b>
+            <span>CHECKER</span>
+
           </div>
 
 
       </HeaderButton>
 
       <HeaderButton v-if = "isTesting">
-        <div class=" bg-yellow-400 flex justify-center  items-center h-10 w-24 rounded-lg">
+        <div class=" bg-yellow-400 flex justify-center  items-center h-10 w-24 rounded ">
           <p>TESTING</p>
         </div>
       </HeaderButton>
@@ -54,7 +56,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 
 //ICONS
-import { UserCircleIcon } from '@heroicons/vue/24/outline'
+import { UserCircleIcon, PhotoIcon } from '@heroicons/vue/24/outline'
 
 
 import HeaderButton from '@/components/header/headerButton.vue'

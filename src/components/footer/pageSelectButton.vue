@@ -42,8 +42,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     const pagenumberRef = ref(1)
 
 
+
     function updatePageNumber(pagenumber: number){
-        console.log("emit")
         emit("UpdatePageNumber", pagenumber)
     }
 

@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div  class="absolute bottom-0 left-0 flex items-center justify-center">
+  <div v-if="props.type === 'card' "  class="absolute bottom-0 left-0 flex items-center justify-center bg-black/50 rounded">
     <div v-if="loading" class="text-white text-center text-xl" :class="status === 'Error' ? 'text-red-400' : ''">
       {{ status }}
     </div>
@@ -33,19 +33,36 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </div>
 
   </div>
+
+  <div  v-if = "props.type === 'icon'" class="flex items-center justify-center">
+        <XMarkIcon v-if="error" class ="size-5 text-red-600"></XMarkIcon>
+
+        <FireIcon v-else class ="size-5"
+        :class="{
+          'text-black' : loading,
+          'text-blue-400': label === 'Winter',
+          'text-yellow-400': label === 'Summer',
+          'text-gray-500': label !== 'Winter' && label !== 'Summer'
+          }"
+        />
+  </div>
+  
 </template>
 
 <script setup lang="ts">
 import ContentDivider from '@/components/contentAlignment/ContentDivider.vue';
 
-import { loadLayersModel, scalar, ready, browser } from "@tensorflow/tfjs";
+import { scalar, ready, browser } from "@tensorflow/tfjs";
 import type { LayersModel, Tensor } from "@tensorflow/tfjs";
+import { getModel } from '@/composable/useModel';
 
+import { ref, onMounted } from "vue";
 
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { FireIcon, XMarkIcon } from '@heroicons/vue/24/solid';
 
 const props = defineProps<{
   ImageUrl: string;
+  type: "icon" | "card";
 }>();
 
 const label = ref("")
@@ -64,23 +81,9 @@ onMounted(async () => {
         initializeClassifier();
 });
 
-const loadModel = async (): Promise<LayersModel> => {
-    try {
-        status.value = "Loading model...";
-
-        //path of the model exported from teachablemachine
-        const modelUrl = '/Model/model.json';
-        const loadedModel = await loadLayersModel(modelUrl);
-        console.log("Model loaded successfully");
-        return loadedModel;
-    } catch (err) {
-        console.error("Failed to load model:", err);
-        throw new Error(`Failed to load model: ${err}`);
-    }
-};
 
 const preprocessImage = (img: HTMLImageElement): Tensor => {
-    // Converts p5.Image to tensor
+
     const targetSize = 224;
     
     // Create a canvas to resize the image
@@ -100,7 +103,7 @@ const preprocessImage = (img: HTMLImageElement): Tensor => {
     const tensor = browser.fromPixels(canvas)
         .toFloat()
         .div(scalar(255.0)) // Normalize to [0, 1]
-        .expandDims(0); // Add batch dimension
+        .expandDims(0); // Add batch dimension, in this case (colored Images) we add color dimensio RGB
     
     return tensor;
 };
@@ -109,9 +112,10 @@ const classifyImage = async (img: HTMLImageElement): Promise<{ label: string; co
     if (!model) {
         throw new Error("Model not loaded");
     }
-    
+
+
     const preprocessedImage = preprocessImage(img);
-    
+
     try {
         const predictions = model.predict(preprocessedImage) as Tensor;
         const probabilities = await predictions.data();
@@ -142,7 +146,7 @@ const initializeClassifier = async () => {
   try {
     status.value = "Loading...";
     await ready();
-    model = await loadModel();
+    model = await getModel(); //singleton, loads model once
 
     const img = new Image();
     img.crossOrigin = "anonymous";
@@ -150,7 +154,7 @@ const initializeClassifier = async () => {
 
     img.onload = async () => {
       const results = await classifyImage(img);
-      console.log("Results: ", results)
+      
       const best = results[0];
       label.value = best.label;
       confidence.value = (best.confidence * 100).toFixed(2) + "%";
@@ -164,15 +168,10 @@ const initializeClassifier = async () => {
   } catch (err) {
     error.value = String(err);
     loading.value = false;
+  
   }
 };
 
-onBeforeUnmount(() => {
 
-    // Clean up TensorFlow.js resources
-    if (model) 
-        model.dispose();
-    
-});
 
 </script>

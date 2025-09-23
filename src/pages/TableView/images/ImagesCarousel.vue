@@ -20,8 +20,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                         type="range"
                         min="10"
                         max="30"
-                        v-model="sizeRef"
+                        v-model="sliderValue"
                         class="w-64 accent-green-400"
+                        @change="updateSize(sliderValue)"
                     />
                 <span class="text-white">{{ sizeRef }}rem</span>
                 
@@ -40,10 +41,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     @click = "openImage(image)"
                 >
                     <img
-                    :src="image?.ImageUrl || ''"
+                    :src = "image.ImageUrl"
+                    loading = "lazy"
                     alt="Full view"
                     class="w-full object-cover rounded-lg"
                     :style="{ width: sizeRef + 'rem', height: sizeRef + 'rem', objectFit: 'cover' }"
+                   
                     />
                     
                     <div class="text-sm  mt-2 text-white">
@@ -75,10 +78,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     import { useAccommodationStore } from '@/stores/AccomodationStore';
     import { ref } from 'vue';
     import type { Accommodation } from '../types';
+    
 
 
     const accommodationStore = useAccommodationStore()
     const sizeRef = ref(10)
+    const sliderValue = ref(10)
+
     const isFullView = ref(false)
     const selectedImage = ref<{
         ValidFrom: string;
@@ -111,9 +117,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     } ){
     selectedImage.value = image
     isFullView.value = true
-}
+    }
 
-
+    function updateSize(sliderValue: number){
+        sizeRef.value = sliderValue
+    }
 
 
 

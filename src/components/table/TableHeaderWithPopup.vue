@@ -9,20 +9,22 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <div class = "flex flex-row relative font-bold text-sm items-center " >
 
-      <div class = "flex justify-between  w-full items-center text-sm font-bold gap-2 "  @click = "isOpen = !isOpen">
+      <div class = "flex justify-between  w-full items-center text-sm font-bold gap-2" 
+          :class ="showPopup? 'cursor-pointer' : ''"  
+          @click = "isOpen = !isOpen">
 
         <slot />
           
         <ChevronDoubleDownIcon v-if = "isActive && descendingCheck" class = "size-4 text-green-400"/>
         <ChevronDoubleUpIcon v-if = "isActive && ascendingCheck" class = "size-4 text-green-400"/>
             
-        <chevron-down-icon v-if = "showPopup" class = "h-full size-4 cursor-pointer "  :class = "isOpen? ' rotate-180' : ''"/>
+        <chevron-down-icon v-if = "showPopup" class = "h-full size-4 text-green-400 "  :class = "isOpen? ' rotate-180' : ''"/>
 
       
       </div>
 
       <component
-        v-if="isOpen "
+        v-if="isOpen && showPopup "
         :is = "props.Popup"
         :parameter="props.parameter"
         @popup-event="handleSortUpdate"

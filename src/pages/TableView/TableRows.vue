@@ -26,7 +26,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 
         <!--Detail Column-->
-        <TableCell class = "sticky right-0 z-10 bg-white border w-52  whitespace-nowrap shadow-[0px_5px_10px_-5px_gray] "> 
+        <TableCell class = "sticky right-0 z-10 bg-white border min-w-44  whitespace-nowrap shadow-[0px_5px_10px_-5px_gray] "> 
 
             <div class="flex flex-row space-x-2 justify-center ">
 
@@ -34,12 +34,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     <CodeBracketIcon class = "size-5 text-green-400"/>
                     <p class = "text-3xs font-semibold text-green-400">RAW</p>
                 </DetailButton>
-
+            
+                <!--
                 <DetailButton class = " w-12" > 
                     <CursorArrowRaysIcon class = "size-5 text-green-400"/>
                     <p class = "text-3xs font-semibold   text-green-400">ACTIONS</p>
                 </DetailButton>
-
+                -->
+                
                 <DetailButton @click = "openFullView(item)">
                     <PhotoIcon class =" size-5 text-green-400"/>
                     <p class = "text-3xs font-semibold   text-green-400"> IMAGES</p>
@@ -59,7 +61,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 //ICONS
 
 
-  import { CursorArrowRaysIcon, PhotoIcon, CodeBracketIcon } from '@heroicons/vue/24/outline'
+  import { PhotoIcon, CodeBracketIcon } from '@heroicons/vue/24/outline'
   
   import TableCell from '@/components/table/TableCell.vue'
   import DetailButton from '@/components/buttons/DetailButton.vue'
@@ -67,8 +69,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import { ref } from 'vue'
   import { useAccommodationStore } from '@/stores/AccomodationStore'
   import ImagesCarousel from './images/ImagesCarousel.vue'
-    import type { Accommodation } from './types';
-    import type { ColumnItem } from './ColumnValues'
+  import type { Accommodation } from './types';
+  import type { ColumnItem } from './ColumnValues'
   
     const props = defineProps<{
         data: { Items: Accommodation[]},

@@ -160,7 +160,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     Active: "Source State",
     PublishedOn: "Published On"
 
-    //TODOO, missing Push Data Filter
   }));
 
 

@@ -10,7 +10,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
         @click.self="emit('close')"
         >
-        <div class="flex flex-col h-full text-white text-xl absolute left-5 top-5 ">
+        <div class="flex flex-col  text-white text-xl absolute left-0 top-0 bg-black/50 rounded p-6">
             <p class = ""> validity:</p>
             <p v-if="props.image">from: {{ props.dateFormatter(props.image.ValidFrom) }}</p>
             <p v-if="image">to: {{ props.dateFormatter(props.image.ValidTo) }}</p>
@@ -32,7 +32,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </button>
 
  
-        <ImageClassifier :ImageUrl="props.image.ImageUrl"></ImageClassifier>
+        <ImageClassifier :ImageUrl="props.image.ImageUrl" type="card"></ImageClassifier>
     </div>
 </template>
 

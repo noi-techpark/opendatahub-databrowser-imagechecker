@@ -34,12 +34,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </div>
       </div>
       
-      <!--SearchBar, TODOO, it's  margin controls the h of the dsh-->
+
       <DatasetHeaderSearchBar class ="w-60" @search-value="handleSearch" :queryParam="route.query.searchfilter" id = "search-bar"/>
       
 
       <DatasetHeaderButton @click = "AccomodatioStore.showFilterSideBar = !AccomodatioStore.showFilterSideBar"
-                            :class = "AccomodatioStore.showFilterSideBar ?  ' bg-green-400/10 border-green-400': ''"> 
+                            :class = "Object.keys(AccomodatioStore.filters).length != 0 ?  ' bg-yellow-400/10 border-yellow-400 hover:bg-yellow-400/10': ''"> 
           <Bars3BottomRightIcon class = "size-5 text-green-400 "></Bars3BottomRightIcon>
           <p>Filters</p>
       </DatasetHeaderButton>
@@ -59,26 +59,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           
       </DatasetHeaderDropDown>
 
-      <DatasetHeaderDropDown title="View" :button-component="DatasetHeaderButton" arrow-size=" size-4">
-        <template #icon>
-          <CircleStackIcon class = "size-5 text-green-400"></CircleStackIcon>
-        </template>
-        <DatasetHeaderButton>options </DatasetHeaderButton>
-      </DatasetHeaderDropDown>
 
 
-      <DatasetHeaderButton> 
-        <Bars3Icon class= "size-5 text-green-400 rotate-90"></Bars3Icon>
-        <p> Attributes </p> 
-      </DatasetHeaderButton>
+
+
 
     </div>
 
     <div class = "ml-auto flex items-center mr-3 space-x-2">
 
-      <DatasetHeaderButton> 
-        <PlusCircleIcon class = "size-5 text-green-400"></PlusCircleIcon>
-        <p> Add record </p> 
+      <DatasetHeaderButton @click ="AccomodatioStore.toggleImageClassification = !AccomodatioStore.toggleImageClassification"
+      :class = "AccomodatioStore.toggleImageClassification ?  ' bg-yellow-400/10 border-yellow-400 hover:bg-yellow-400/10': ''"> 
+        <SparklesIcon class = "size-5 text-green-400"></SparklesIcon>
+        <p>  Image Classification</p> 
       </DatasetHeaderButton>
 
    
@@ -112,8 +105,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 
 //ICONS
-  import { InformationCircleIcon, Bars3BottomRightIcon, GlobeEuropeAfricaIcon, CircleStackIcon, 
-    Bars3Icon, PlusCircleIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/outline';  
+  import { InformationCircleIcon, Bars3BottomRightIcon, GlobeEuropeAfricaIcon, CursorArrowRaysIcon, SparklesIcon } from '@heroicons/vue/24/outline';  
 
 
   import DatasetHeaderButton from '@/components/buttons/datasetHeaderButton.vue';
@@ -128,6 +120,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import { useAccommodationStore } from '@/stores/AccomodationStore';
   import { useRoute, useRouter } from 'vue-router';
   import { onClickOutside } from '@vueuse/core';
+
 
 
 
