@@ -22,7 +22,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     import { ArrowDownOnSquareIcon } from '@heroicons/vue/24/outline';
   
     import { useAccommodationStore } from '@/stores/AccomodationStore';
-    import { ref } from 'vue';
+    import { ref, computed } from 'vue';
 
 
     const isPulsing = ref(false)
@@ -30,9 +30,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     const accommodationStore = useAccommodationStore() 
     
 
-    const fields = [
+    const fields = computed( () =>
+     [
             "Id",
-            "AccoDetail.de.Name",
+            `AccoDetail.${accommodationStore.language.toLowerCase()}.Name`,
             "AccoType.Id",
             "AccoCategory.Id",
             `AccoDetail.${accommodationStore.language.toLowerCase()}.Street`,
@@ -44,8 +45,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             "ImageGallery[0].ImageUrl",
             "Check",
             "Comment",
-        ];
-
+        ]   
+    )
 
 
 
@@ -58,7 +59,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         const typefilter = accommodationStore.typefilter
         const rawsort = accommodationStore.rawsort
         
-        const response = await api.get(`Accommodation?fields=${fields.join(",")}&format=csv`, {
+        const response = await api.get(`Accommodation?fields=${fields.value.join(",")}&format=csv`, {
             params: {
                 pagenumber,
                 pagesize,
