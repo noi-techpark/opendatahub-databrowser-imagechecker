@@ -44,12 +44,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
   //ICONS
 
-  import DatasetHeaderButton from '@/components/buttons/datasetHeaderButton.vue';
+  import DatasetHeaderButton from '@/components/buttons/Button.vue';
   import DatasetHeaderDropDown from '@/components/datasetHeader/DropDownMenu.vue';
   import PageSelectButton from '@/components/footer/pageSelectButton.vue';
 
   import { computed, watch } from 'vue';
-  import { useAccommodationStore } from '@/stores/AccomodationStore';
+  import { useAccommodationStore } from '@/stores/AccommodationStore';
   import { useRoute, useRouter } from 'vue-router';
 
   

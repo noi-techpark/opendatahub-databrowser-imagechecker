@@ -21,7 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     import { ArrowDownOnSquareIcon } from '@heroicons/vue/24/outline';
   
-    import { useAccommodationStore } from '@/stores/AccomodationStore';
+    import { useAccommodationStore } from '@/stores/AccommodationStore';
     import { ref, computed } from 'vue';
 
 

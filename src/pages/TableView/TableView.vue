@@ -41,7 +41,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { ArrowPathIcon, EyeSlashIcon } from '@heroicons/vue/24/outline'
 
 import { onMounted, computed, watch } from 'vue'
-import { useAccommodationStore } from '@/stores/AccomodationStore'
+import { useAccommodationStore } from '@/stores/AccommodationStore'
 import { useRoute } from 'vue-router'
 
 import TableRows from './TableRows.vue'
@@ -66,7 +66,9 @@ const { isLoading, data } = useAccommodationsQuery()
 
 watch(data, async () => {
 
-  if (accommodationStore.FirstTotalResults === 0 && Object.keys(route.query).length === 0) {
+  if (!data.value) return; 
+
+  if (Object.keys(route.query).length === 0) {
     const FirstTotalResults = data.value.TotalResults
 
     if (auth.isAuthenticated){

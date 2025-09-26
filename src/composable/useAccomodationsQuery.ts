@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 */
 
 import { useQuery } from '@tanstack/vue-query'
-import { useAccommodationStore } from '@/stores/AccomodationStore'
+import { useAccommodationStore } from '@/stores/AccommodationStore'
 import { computed } from 'vue'
 import api from '@/components/utils/api'
 import { useAuth } from '@/auth/authStores/auth'
