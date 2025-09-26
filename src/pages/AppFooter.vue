@@ -44,7 +44,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
   //ICONS
 
-  import DatasetHeaderButton from '@/components/buttons/Button.vue';
+  import DatasetHeaderButton from '@/components/buttons/GeneralButton.vue';
   import DatasetHeaderDropDown from '@/components/datasetHeader/DropDownMenu.vue';
   import PageSelectButton from '@/components/footer/pageSelectButton.vue';
 

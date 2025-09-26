@@ -108,7 +108,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import { InformationCircleIcon, Bars3BottomRightIcon, GlobeEuropeAfricaIcon, CursorArrowRaysIcon, SparklesIcon } from '@heroicons/vue/24/outline';  
 
 
-  import DatasetHeaderButton from '@/components/buttons/Button.vue';
+  import DatasetHeaderButton from '@/components/buttons/GeneralButton.vue';
   import DatasetHeaderDropDown from '@/components/datasetHeader/DropDownMenu.vue';
   import DatasetHeaderSearchBar from '@/components/datasetHeader/SearchBar.vue';
   import InfoCard from './InfoCard.vue';

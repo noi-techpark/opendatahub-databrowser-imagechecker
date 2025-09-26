@@ -41,7 +41,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
     import { ChevronDoubleUpIcon, ChevronDoubleDownIcon } from '@heroicons/vue/24/outline';
 
-    import DatasetHeaderButton from '@/components/buttons/Button.vue';
+    import DatasetHeaderButton from '@/components/buttons/GeneralButton.vue';
     import { useAccommodationStore } from '@/stores/AccommodationStore';
     import { useRoute, useRouter } from 'vue-router';
     import { onMounted, ref } from 'vue';
