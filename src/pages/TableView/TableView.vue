@@ -40,7 +40,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 //ICONS
 import { ArrowPathIcon, EyeSlashIcon } from '@heroicons/vue/24/outline'
 
-import { onMounted, computed, watch } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useAccommodationStore } from '@/stores/AccommodationStore'
 import { useRoute } from 'vue-router'
 
