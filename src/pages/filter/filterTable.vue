@@ -109,10 +109,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
   const accommodationStore = useAccommodationStore()
 
-  
-  accommodationStore.filtersRef = ([
-    ... accommodationStore.filters
-  ])
+  accommodationStore.filtersRef = JSON.parse(JSON.stringify(accommodationStore.filters))
 
   const router = useRouter()
   const route = useRoute()
