@@ -181,14 +181,6 @@ export const useAccommodationStore = defineStore("accommodation", {
         },
 
        
-        addFilter() {
-           
-            this.filters.push({
-                type: `AccoDetail.${this.language.toLowerCase()}.Name`,
-                comparison: "like",
-                value: "",
-            });
-        },
 
         removeFilter(index: number, router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
             this.filters.splice(index, 1);

@@ -53,53 +53,40 @@ import { headerColumns, columnData } from './ColumnValues'
 
 import { ref, toRaw } from 'vue'
 import type { Accommodation } from './types'
-import { useAuth } from '@/auth/authStores/auth'
+import api from '@/components/utils/api'
 
 const route = useRoute()
-const auth = useAuth()
+
 const accommodationStore = useAccommodationStore()
 const showRawView = ref<boolean>(false)
 const RawJson = ref<unknown | null>(null)
 
+const isReadyToFetch = ref(false)
 //INITIAL FETCH: all other api calls happen because the queryKeys are updated
-const { isLoading, data } = useAccommodationsQuery()
+onMounted(() => {
+
+  accommodationStore.restoreFromUrl(route)
+
+  isReadyToFetch.value = true
+})
+
+const { isLoading, data } = useAccommodationsQuery({enabled: isReadyToFetch})
+
 
 watch(data, async () => {
 
-  if (!data.value) return; 
-
-  if (Object.keys(route.query).length === 0) {
-    const FirstTotalResults = data.value.TotalResults
-
-    if (auth.isAuthenticated){
-      localStorage.setItem('FirstTotalResultsWithAuth', FirstTotalResults)
-      accommodationStore.FirstTotalResults = Number(localStorage.getItem('FirstTotalResultsWithAuth'))
-    }
-    else
-      localStorage.setItem('FirstTotalResultsNoAuth', FirstTotalResults)
-    
-
+     if(accommodationStore.FirstTotalResults === 0 && data.value?.TotalResults){ 
+      const results = await api.get("Accommodation?fields=TotalResults");
+      
+      const FirstTotalResults = results.data.TotalResults
+      accommodationStore.FirstTotalResults = FirstTotalResults
+ 
   }
 
-  const totalResults = computed(() => data.value?.TotalResults ?? 0)
-  accommodationStore.TotalResults = totalResults.value
+  accommodationStore.TotalResults = data.value?.TotalResults ?? 0
 
 })
 
-
-watch(auth, () => {
-
-  if (auth.isAuthenticated)
-    accommodationStore.FirstTotalResults = Number(localStorage.getItem('FirstTotalResultsWithAuth'))
-  else
-    accommodationStore.FirstTotalResults = Number(localStorage.getItem('FirstTotalResultsNoAuth'))
-
-})
-
-
-onMounted(() => {
-  accommodationStore.restoreFromUrl(route)
-})
 
 
 function handleShowRaw(Item: Accommodation) {

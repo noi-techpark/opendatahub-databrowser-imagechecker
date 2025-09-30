@@ -32,7 +32,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </div>
             
             <p class = " text-gray-600 font-bold text-base">filter</p>
-            <DatasetHeaderButton @click ="addFilter()" class = "w-full"> Add filter </DatasetHeaderButton>
+            <DatasetHeaderButton @click ="addFilterRef()" class = "w-full"> Add filter </DatasetHeaderButton>
 
       </div>
 </template>
@@ -112,7 +112,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         accommodationStore.updateAndFetch(router, route)
     }
 
-    function addFilter(){
+    function addFilterRef(){
 
         accommodationStore.filtersRef = [
             ...accommodationStore.filtersRef,

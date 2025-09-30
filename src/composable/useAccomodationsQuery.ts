@@ -8,17 +8,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { useQuery } from '@tanstack/vue-query'
 import { useAccommodationStore } from '@/stores/AccommodationStore'
-import { computed } from 'vue'
+import { computed, type Ref } from 'vue'
 import api from '@/components/utils/api'
 import { useAuth } from '@/auth/authStores/auth'
 
 
-export function useAccommodationsQuery() {
+export function useAccommodationsQuery(options?: { enabled?: Ref<boolean> }) {
   const accommodationStore = useAccommodationStore()
   const auth = useAuth()
 
+
   const fetchAccommodations = async () => {
     
+
     const conditions = accommodationStore.filters
                 .filter(f => {
                     if (f.comparison.toLowerCase() === "isnull" || f.comparison.toLowerCase() === "isnotnull") {
@@ -38,7 +40,7 @@ export function useAccommodationsQuery() {
                     : undefined;
     
 
- 
+    
 
     return api.get('Accommodation', {
       params: {
@@ -66,6 +68,7 @@ export function useAccommodationsQuery() {
     auth.accessToken
   ]),
     queryFn: fetchAccommodations,
+    enabled: options?.enabled ?? true,
     staleTime: 5 * 60 * 1000,
   })
   
