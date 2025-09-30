@@ -53,9 +53,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     import { XCircleIcon, Bars3BottomRightIcon, XMarkIcon } from '@heroicons/vue/16/solid';
 
     
-    import DatasetHeaderButton from '@/components/buttons/datasetHeaderButton.vue';
+    import DatasetHeaderButton from '@/components/buttons/GeneralButton.vue';
     import FilterTable from './filterTable.vue';
-    import { useAccommodationStore } from '@/stores/AccomodationStore';
+    import { useAccommodationStore } from '@/stores/AccommodationStore';
     import { useRoute, useRouter } from 'vue-router';
     import { ref } from 'vue';
 

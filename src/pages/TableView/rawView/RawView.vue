@@ -37,7 +37,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang = "ts">
 import { ClipboardDocumentCheckIcon } from '@heroicons/vue/24/outline';
 import { ArrowLeftIcon } from '@heroicons/vue/16/solid';
-import DatasetHeaderButton from '@/components/buttons/datasetHeaderButton.vue'
+import DatasetHeaderButton from '@/components/buttons/GeneralButton.vue'
 import JsonViewer from './JsonViewer.vue';
 import type { JsonValue } from './types';
 import { ref } from 'vue';

@@ -98,17 +98,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import { FunnelIcon, XCircleIcon } from '@heroicons/vue/24/outline'; 
   import { PlusIcon } from '@heroicons/vue/16/solid';
 
-
   import DatasetHeaderDropDown from '@/components/datasetHeader/DropDownMenu.vue';
   import FilterButton from '@/components/buttons/filterButton.vue';
   import ContentDivider from '@/components/contentAlignment/ContentDivider.vue'; 
  
-
   import { ref, computed, watch } from 'vue';
-
-
-  import { useAccommodationStore } from '@/stores/AccomodationStore';
-
+  import { useAccommodationStore } from '@/stores/AccommodationStore';
   import { useRoute, useRouter } from 'vue-router';
 
 

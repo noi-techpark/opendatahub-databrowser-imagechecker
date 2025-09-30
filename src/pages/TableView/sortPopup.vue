@@ -32,7 +32,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </div>
             
             <p class = " text-gray-600 font-bold text-base">filter</p>
-            <DatasetHeaderButton @click ="addFilter()" class = "w-full"> Add filter </DatasetHeaderButton>
+            <DatasetHeaderButton @click ="addFilterRef()" class = "w-full"> Add filter </DatasetHeaderButton>
 
       </div>
 </template>
@@ -41,8 +41,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
     import { ChevronDoubleUpIcon, ChevronDoubleDownIcon } from '@heroicons/vue/24/outline';
 
-    import DatasetHeaderButton from '@/components/buttons/datasetHeaderButton.vue';
-    import { useAccommodationStore } from '@/stores/AccomodationStore';
+    import DatasetHeaderButton from '@/components/buttons/GeneralButton.vue';
+    import { useAccommodationStore } from '@/stores/AccommodationStore';
     import { useRoute, useRouter } from 'vue-router';
     import { onMounted, ref } from 'vue';
 
@@ -112,7 +112,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         accommodationStore.updateAndFetch(router, route)
     }
 
-    function addFilter(){
+    function addFilterRef(){
 
         accommodationStore.filtersRef = [
             ...accommodationStore.filtersRef,

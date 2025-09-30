@@ -67,7 +67,7 @@ import ContentDivider from '@/components/contentAlignment/ContentDivider.vue'
 import { useRouter } from 'vue-router'
 import { useAuth } from '@/auth/authStores/auth'
 import { keycloak } from '@/auth/keycloak'
-import { useAccommodationStore } from '@/stores/AccomodationStore'
+import { useAccommodationStore } from '@/stores/AccommodationStore'
 import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
@@ -121,7 +121,7 @@ keycloak.onAuthSuccess = () => {
 
   auth.authenticate(keycloak.token);
   accommodationStore.FirstTotalResults = 0
-  accommodationStore.updateAndFetch()
+  
 
 
 };

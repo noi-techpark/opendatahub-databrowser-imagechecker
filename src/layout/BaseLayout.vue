@@ -34,7 +34,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   import AppLayout from './AppLayout.vue'
   import DatasetHeader from '../pages/datasetHeader/DatasetHeader.vue'
   import FiltersSideBar from '@/pages/filter/filtersSideBar.vue'
-  import { useAccommodationStore } from '@/stores/AccomodationStore'
+  import { useAccommodationStore } from '@/stores/AccommodationStore'
 
   const accommodationStore = useAccommodationStore()
 

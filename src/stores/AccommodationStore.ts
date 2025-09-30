@@ -25,7 +25,7 @@ export const useAccommodationStore = defineStore("accommodation", {
             typefilter: "",
             rawsort: "",
             rawfilter: "",
-            filters: [] as Filter[],
+            filters: [] as Filter[],  //applied filters
             loading: false,
             
             //pagination parameters
@@ -39,10 +39,9 @@ export const useAccommodationStore = defineStore("accommodation", {
             FirstTotalResults: 0,
 
             //for comunication between components
-            filtersRef: [] as Filter[],
+            filtersRef: [] as Filter[],  //not applied filters
             showFilterSideBar: false,
             APIurl: "",
-
             toggleImageClassification: false
         };
     },
@@ -182,14 +181,6 @@ export const useAccommodationStore = defineStore("accommodation", {
         },
 
        
-        addFilter() {
-           
-            this.filters.push({
-                type: `AccoDetail.${this.language.toLowerCase()}.Name`,
-                comparison: "like",
-                value: "",
-            });
-        },
 
         removeFilter(index: number, router?: ReturnType<typeof useRouter>, route?: ReturnType<typeof useRoute>) {
             this.filters.splice(index, 1);

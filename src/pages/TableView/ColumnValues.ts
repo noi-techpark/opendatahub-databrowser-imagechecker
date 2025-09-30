@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 */
 
 import type { Accommodation } from "./types"
-import { useAccommodationStore } from "@/stores/AccomodationStore"
+import { useAccommodationStore } from "@/stores/AccommodationStore"
 const accommodationStore = useAccommodationStore()
 import showImages from "./images/showImages.vue"
 import type { Component } from "vue"

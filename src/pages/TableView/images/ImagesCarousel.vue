@@ -75,7 +75,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     
    
     import ShowImageFullView from '@/components/Image/showImageFullView.vue';
-    import { useAccommodationStore } from '@/stores/AccomodationStore';
+    import { useAccommodationStore } from '@/stores/AccommodationStore';
     import { ref } from 'vue';
     import type { Accommodation } from '../types';
     

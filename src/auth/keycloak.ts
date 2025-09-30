@@ -18,14 +18,15 @@ keycloak
   })
   .then(() => {
       setInterval(() => {
-        keycloak.updateToken(70).catch(() => {
+        keycloak.updateToken(70).catch((err) => {
             
-            //console.error("failed to refresh token:", err)
+            console.error("failed to refresh token:", err)
+            
             if (keycloak.token) keycloak.clearToken(); // Application has still an invalid token. Let's clear it.
 
           });
           
-      }, 6000);
+      }, 60000);
     }
     
   );
