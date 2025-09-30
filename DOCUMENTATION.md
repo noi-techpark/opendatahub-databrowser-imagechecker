@@ -107,8 +107,8 @@ The store can be divided in a few categories of state:
   - `pagenumber`, `pagesize`: current page and page size  
   - `TotalResults`, `TotalPages`, `CurrentPage`, `PreviousPage`, `NextPage`, `FirstTotalResults`: keep track of pagination state  
 
-- **API and communication**  
-  - `APIurl`: stores the current API endpoint, never utilized for now  
+- **API and communication, (not utilized)**  
+  - `APIurl`: stores the current API endpoint
   - `loading`: indicates whether an API request is in progress  
 
 ---
@@ -119,7 +119,8 @@ The store defines several **actions** to manage the state and interact with the 
 
 - `updateAndFetch(router, route)`  
   Updates the URL query parameters based on the current filters, search, language, pagination, and sort options.  
-  This ensures that the SPA state is reflected in the URL and allows users to share results.
+  This ensures that the SPA state is reflected in the URL and allows users to share results.  
+  !note that the name of the function is outdated and misleading and should be changed, it does not fetch data, it only updates the url
 
 - `restoreFromUrl(route)`  
   Restores the store state from the URL query parameters when the page is loaded or refreshed.  

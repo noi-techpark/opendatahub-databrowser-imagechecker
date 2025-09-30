@@ -121,7 +121,7 @@ keycloak.onAuthSuccess = () => {
 
   auth.authenticate(keycloak.token);
   accommodationStore.FirstTotalResults = 0
-  accommodationStore.updateAndFetch()
+  
 
 
 };
