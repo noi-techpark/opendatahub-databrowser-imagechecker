@@ -41,8 +41,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     @click = "openImage(image)"
                 >
                     <img
-                    :src = "image.ImageUrl"
-                    loading = "lazy"
+                    :src = "resizedImageURL(image.ImageUrl, 300)"
                     alt="Full view"
                     class="w-full object-cover rounded-lg"
                     :style="{ width: sizeRef + 'rem', height: sizeRef + 'rem', objectFit: 'cover' }"
@@ -53,9 +52,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                         <p v-if="image.ValidFrom" >from: {{ DateFormatter(image.ValidFrom) }}</p>
                         <p v-if="image.ValidTo" >to: {{ DateFormatter(image.ValidTo) }}</p>
                         <p v-else class = "text-gray-500">Missing Validity Dates</p>
-                    </div>
-
-                    
+                    </div>                    
 
 
                 </div>
@@ -121,6 +118,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     function updateSize(sliderValue: number){
         sizeRef.value = sliderValue
+    }
+
+
+    function resizedImageURL(ImageURL: string, width: number): string{
+
+        const resizedURL = new URL(ImageURL);
+
+        if(resizedURL.host === "doc.lts.it")
+            return resizedURL.toString() + `&W=${width}`
+
+        return ImageURL
     }
 
 
